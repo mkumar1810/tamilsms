@@ -2,7 +2,7 @@
 //  smsIndividualImageMessage.m
 //  tamilsms
 //
-//  Created by arun benjamin on 24/09/15.
+//  Created by Mohan Kumar on 24/09/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 

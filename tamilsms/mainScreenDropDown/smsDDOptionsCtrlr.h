@@ -2,7 +2,7 @@
 //  smsDDOptionsCtrlr.h
 //  tamilsms
 //
-//  Created by arun benjamin on 07/10/15.
+//  Created by Mohan Kumar on 07/10/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 

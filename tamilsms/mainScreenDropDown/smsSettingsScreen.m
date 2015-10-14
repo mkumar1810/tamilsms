@@ -2,7 +2,7 @@
 //  smsSettingsScreen.m
 //  tamilsms
 //
-//  Created by arun benjamin on 30/09/15.
+//  Created by Mohan Kumar on 30/09/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 
@@ -25,6 +25,15 @@
 @end
 
 @implementation smsSettingsScreen
+
+-(instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setScrollEnabled:YES];
+    }
+    return self;
+}
 
 -(void)drawRect:(CGRect)rect
 {
@@ -145,14 +154,17 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0]];
+    
+    [self setContentSize:CGSizeMake(rect.size.width, 240)];
+
     if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
     {
-        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[LB]-20-[FP]-20-[NA]-40-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
+        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-50-[LB]-20-[FP]-20-[NA]-40-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
         
     }
     else
     {
-        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[LB]-10-[FP]-10-[NA]-30-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
+        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[LB]-0-[FP]-0-[NA]-10-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
     }
     _notifybtnyconst = [NSLayoutConstraint constraintWithItem:alertSwitch attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:lbl_notify attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
 
@@ -204,12 +216,12 @@
     }
     if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
     {
-        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[LB]-20-[FP]-20-[NA]-40-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
+        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-50-[LB]-20-[FP]-20-[NA]-40-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
 
     }
     else
     {
-        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[LB]-10-[FP]-10-[NA]-30-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
+        _topdownconstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[LB]-0-[FP]-0-[NA]-10-[BS]" options:0 metrics:nil views:@{@"LB":lbl_font,@"FP":fontSizePicker,@"NA":lbl_notify,@"BS":but_save}];
     }
     [self addConstraints:_topdownconstraints];
     [self addConstraint:_notifybtnyconst];

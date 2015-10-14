@@ -2,26 +2,28 @@
 //  smsIndividualImageMessageControler.m
 //  tamilsms
 //
-//  Created by arun benjamin on 24/09/15.
+//  Created by Mohan Kumar on 24/09/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 
 #import "smsIndividualImageMessageControler.h"
 
-@interface smsIndividualImageMessageControler ()<individualMessageDelegate>
+@interface smsIndividualImageMessageControler ()//<individualMessageDelegate>
 {
     UIBarButtonItem * _baradd_btn, *_barPlay_btn, *_barflex, *_barsetng_btn;
-    smsIndividualImageMessage * _individualImagemessage;
+    //smsIndividualMessageCol * _individualImagemessage
     //NSDictionary * _popupdict;
     NSArray * _allitems;
     NSInteger _startPosn;
-    bottomViewForNextMessage * _bottomViewForNextMessage;
+  //  bottomViewForNextMessage * _bottomViewForNextMessage;
 }
 
 -(void)setUpReferenceForTable;
 -(void)createPlusMinusButtonsForNavigatoncontroler;
 -(void)positiveZooming;
 -(void)slideShowForImages;
+
+@property(nonatomic,retain) smsIndividualMessageCol * smsIndividualMessageColCV;
 @end
 
 @implementation smsIndividualImageMessageControler
@@ -54,10 +56,10 @@
     //_popupdict = p_initParams;
     _allitems = [p_initParams valueForKey:@"allmessages"];
     _startPosn = [[p_initParams valueForKey:@"initialposn"] integerValue];
-    if (_individualImagemessage) {
+   /* if (_individualImagemessage) {
         [_individualImagemessage reloadData];
         [_individualImagemessage scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_startPosn inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    }
+    }*/
     //NSLog(@"the received message is %@", _allitems);
 }
 
@@ -103,25 +105,28 @@
 -(void)setUpReferenceForTable
 {
     
-    _individualImagemessage = [[smsIndividualImageMessage alloc]initWithStartPosn:_startPosn];
-    _individualImagemessage.translatesAutoresizingMaskIntoConstraints = NO;
+    //self.smsIndividualMessageColCV = [[smsIndividualMessageCol alloc]initWithStartPosn:_startPosn];
+    self.smsIndividualMessageColCV = [smsIndividualMessageCol new];
+    self.smsIndividualMessageColCV.translatesAutoresizingMaskIntoConstraints = NO;
     
     // _individualmessage = [[individualMesssage alloc]initWithStartPosn:_startPosn];
     //WithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-100)];
     //[_individualmessage setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-100)];
-    _individualImagemessage.popUpMessageDelegate=self;
+    //self.smsIndividualMessageColCV.popUpMessageDelegate=self;
     //[_screentable setBackgroundColor:[UIColor blueColor]];
-    [self.view addSubview:_individualImagemessage];
+    [self.view addSubview:self.smsIndividualMessageColCV];
     //[_screentable setHidden:YES];
     
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualImagemessage
+    
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsIndividualMessageColCV
                                                           attribute:NSLayoutAttributeWidth
                                                           relatedBy:NSLayoutRelationEqual toItem:self.view
                                                           attribute:NSLayoutAttributeWidth
                                                          multiplier:1.0 constant:0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualImagemessage
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsIndividualMessageColCV
                                                           attribute:NSLayoutAttributeCenterX
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -131,7 +136,7 @@
     
     
     //[_individualmessage addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[iM(200)]" options:0 metrics:nil views:@{@"iM":_individualmessage}]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualImagemessage
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsIndividualMessageColCV
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
@@ -143,7 +148,7 @@
     
     //_bottomViewForNextMessage = [[bottomViewForNextMessage alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-100, self.view.bounds.size.width, 100)];
     
-    _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:NO];
+  /*  _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:NO];
     [_bottomViewForNextMessage setBackgroundColor:[UIColor colorWithRed:0.09 green:0.21 blue:0.40 alpha:1.0]];
     _bottomViewForNextMessage.bottomViewDelegate = _individualImagemessage;
     _bottomViewForNextMessage.translatesAutoresizingMaskIntoConstraints = NO;
@@ -163,7 +168,7 @@
     [_bottomViewForNextMessage addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bm(100)]" options:0 metrics:nil views:@{@"bm":_bottomViewForNextMessage}]];
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[iM][bm]|" options:0 metrics:nil views:@{@"iM":_individualImagemessage,@"bm":_bottomViewForNextMessage}]];
-    [self.view layoutIfNeeded];
+    [self.view layoutIfNeeded];*/
 }
 
 -(NSDictionary*) getIndividualMessageOfDict:(NSInteger) p_posnNo

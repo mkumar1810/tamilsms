@@ -2,7 +2,7 @@
 //  smsDBAsyncQueueProcess.h
 //  tamilsms
 //
-//  Created by arun benjamin on 10/09/15.
+//  Created by Mohan Kumar on 10/09/15.
 //  Copyright (c) 2015 arun benjamin. All rights reserved.
 //
 
@@ -17,6 +17,8 @@
 + (void) getImagMsgForCategory:(NSInteger) p_categoryId andReturnCB:(ARRAYCALLBACK) p_returnCB;
 + (void) getTextSubCategoryTitles:(NSInteger) p_catgId andrReturnCb:(ARRAYCALLBACK) p_returnCB;
 + (void) getImageSubCategoryTitles:(NSInteger) p_catgId andrReturnCb:(ARRAYCALLBACK) p_returnCB;
++ (void) getSyncRelatedParamsWithReturnCB:(DICTIONARYCALLBACK) p_returnCB;
++ (void) updateNewRecordIntoDB:(NSDictionary*) p_updateInfo withReturnCB:(NOPARAMCALLBACK) p_returnCB;
 
 @end
 

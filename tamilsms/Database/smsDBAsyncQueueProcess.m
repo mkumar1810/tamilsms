@@ -2,8 +2,8 @@
 //  smsDBAsyncQueueProcess.m
 //  tamilsms
 //
-//  Created by arun benjamin on 10/09/15.
-//  Copyright (c) 2015 arun benjamin. All rights reserved.
+//  Created by Mohan Kumar on 10/09/15.
+//  Copyright (c) 2015 Mohan Kumar. All rights reserved.
 //
 
 #import "smsDBAsyncQueueProcess.h"
@@ -109,6 +109,31 @@ static smsLocalStore * s_storeDBOps;
     [self addToQueueBlock:l_exeBlock];
 }
 
++ (void) getSyncRelatedParamsWithReturnCB:(DICTIONARYCALLBACK) p_returnCB
+{
+    NOPARAMCALLBACK l_exeBlock = ^()
+    {
+        NSDictionary * l_resultdict = [[self getLocalStoreInstance] getSyncParamsFromDB];
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           p_returnCB(l_resultdict);
+                       });
+    };
+    [self addToQueueBlock:l_exeBlock];
+}
+
++ (void) updateNewRecordIntoDB:(NSDictionary*) p_updateInfo withReturnCB:(NOPARAMCALLBACK) p_returnCB
+{
+    NOPARAMCALLBACK l_exeBlock = ^()
+    {
+        [[self getLocalStoreInstance] updateParsedDatasIntoDatabase:p_updateInfo];
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           p_returnCB();
+                       });
+    };
+    [self addToQueueBlock:l_exeBlock];
+}
 
 + (void) addToQueueBlock:(NOPARAMCALLBACK) p_block
 {

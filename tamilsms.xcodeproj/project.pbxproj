@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		C05B86BB1BBBE8F000DEAC29 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C05B86BA1BBBE8F000DEAC29 /* libsqlite3.tbd */; };
-		C05B86BE1BBBE94F00DEAC29 /* smsOptionsDropDownTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C05B86BD1BBBE94F00DEAC29 /* smsOptionsDropDownTV.m */; settings = {ASSET_TAGS = (); }; };
-		C05B86C11BBBEB8200DEAC29 /* smsSettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C05B86C01BBBEB8200DEAC29 /* smsSettingsScreen.m */; settings = {ASSET_TAGS = (); }; };
 		C06099CD1BB2625C0012CA9E /* smsImageMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = C06099CC1BB2625C0012CA9E /* smsImageMessages.m */; };
 		C062989A1BA96E6300557B3D /* SmsIndividualMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06298991BA96E6300557B3D /* SmsIndividualMessageController.m */; };
+		C0657BCD1BBFF2FB00757CB7 /* smsRESTProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = C0657BCC1BBFF2FB00757CB7 /* smsRESTProxy.m */; settings = {ASSET_TAGS = (); }; };
+		C0657BD01BC0019C00757CB7 /* smsSyncDBFromCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = C0657BCF1BC0019C00757CB7 /* smsSyncDBFromCloud.m */; settings = {ASSET_TAGS = (); }; };
 		C066E6E11BB3C50D007B600C /* smsIndividualImageMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = C066E6E01BB3C50D007B600C /* smsIndividualImageMessage.m */; settings = {ASSET_TAGS = (); }; };
 		C066E6E41BB3C53B007B600C /* smsIndividualImageMessageControler.m in Sources */ = {isa = PBXBuildFile; fileRef = C066E6E31BB3C53B007B600C /* smsIndividualImageMessageControler.m */; settings = {ASSET_TAGS = (); }; };
 		C06BA4BF1BA1B0F000D66720 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BA4BE1BA1B0F000D66720 /* main.m */; };
 		C06BA4C21BA1B0F000D66720 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BA4C11BA1B0F000D66720 /* AppDelegate.m */; };
 		C06BA4C81BA1B0F000D66720 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C06BA4C61BA1B0F000D66720 /* Main.storyboard */; };
-		C06BA4CA1BA1B0F000D66720 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C06BA4C91BA1B0F000D66720 /* Images.xcassets */; };
 		C06BA4CD1BA1B0F000D66720 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C06BA4CB1BA1B0F000D66720 /* LaunchScreen.xib */; };
 		C06BA4E51BA1B23400D66720 /* tamilsms.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C06BA4E41BA1B23400D66720 /* tamilsms.sqlite */; };
 		C06BA4E81BA1B2A200D66720 /* smsDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = C06BA4E71BA1B2A200D66720 /* smsDefaults.m */; };
@@ -136,29 +135,37 @@
 		C06BA5D71BA1BF7800D66720 /* write_image.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA56A1BA1BF7800D66720 /* write_image.png */; };
 		C06BA5D81BA1BF7800D66720 /* write_sms.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA56B1BA1BF7800D66720 /* write_sms.png */; };
 		C06BA5D91BA1BF7800D66720 /* zoom.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA56C1BA1BF7800D66720 /* zoom.png */; };
+		C074CE9A1BC62A7D001066B6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C074CE991BC62A7D001066B6 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		C07596781BC535BA007AEB7B /* smsDDOptionsCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = C07596771BC535BA007AEB7B /* smsDDOptionsCtrlr.m */; settings = {ASSET_TAGS = (); }; };
 		C075C7731BB2CBA800308952 /* smsAsyncImageFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = C075C7721BB2CBA800308952 /* smsAsyncImageFetch.m */; settings = {ASSET_TAGS = (); }; };
 		C07792981BB016350025B207 /* smsMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C07792971BB016350025B207 /* smsMainScrollView.m */; };
 		C080D6C61BA9016D00C58DB7 /* individualMesssage.m in Sources */ = {isa = PBXBuildFile; fileRef = C080D6C51BA9016D00C58DB7 /* individualMesssage.m */; };
 		C0871D431BAFCB2B0075D5C9 /* smsCategoryListTv.m in Sources */ = {isa = PBXBuildFile; fileRef = C0871D421BAFCB2B0075D5C9 /* smsCategoryListTv.m */; };
 		C089236A1BA45093003E51B6 /* smsTxtMsgsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08923691BA45093003E51B6 /* smsTxtMsgsController.m */; };
+		C08D36991BC6950E003E9F0C /* smsIndividualMessageCol.m in Sources */ = {isa = PBXBuildFile; fileRef = C08D36981BC6950E003E9F0C /* smsIndividualMessageCol.m */; settings = {ASSET_TAGS = (); }; };
 		C08DEE241BA548470072129E /* smsSubCategoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = C08DEE231BA548470072129E /* smsSubCategoryController.m */; };
 		C08DEE271BA548D60072129E /* SubCategoryList.m in Sources */ = {isa = PBXBuildFile; fileRef = C08DEE261BA548D60072129E /* SubCategoryList.m */; };
-		C09BBAF21BBB77CC00DBAF08 /* smsInfoSettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BBAF11BBB77CC00DBAF08 /* smsInfoSettingsScreen.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA21A1BC23F6C00C2C386 /* smsSynchronizationDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA2191BC23F6C00C2C386 /* smsSynchronizationDatas.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA2201BC2419200C2C386 /* smsAccountSignupLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA21F1BC2419200C2C386 /* smsAccountSignupLogin.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA2291BC242BB00C2C386 /* smsFeedbackScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA2221BC242BB00C2C386 /* smsFeedbackScreen.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA22A1BC242BB00C2C386 /* smsInfoSettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA2241BC242BB00C2C386 /* smsInfoSettingsScreen.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA22B1BC242BB00C2C386 /* smsOptionsDropDownTV.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA2261BC242BB00C2C386 /* smsOptionsDropDownTV.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA22C1BC242BB00C2C386 /* smsSettingsScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA2281BC242BB00C2C386 /* smsSettingsScreen.m */; settings = {ASSET_TAGS = (); }; };
+		C09BA22F1BC2453F00C2C386 /* registrationNewUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C09BA22E1BC2453F00C2C386 /* registrationNewUser.m */; settings = {ASSET_TAGS = (); }; };
 		C0AAE7291BB18E3C00C3148C /* smsImgMsgsController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AAE7281BB18E3C00C3148C /* smsImgMsgsController.m */; };
 		C0C14B191BA3FA2B00DF585F /* textMessageForCategoryListTv.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C14B181BA3FA2B00DF585F /* textMessageForCategoryListTv.m */; };
-		C0EC148B1BBA79E400954F5C /* smsFeedbackScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = C0EC148A1BBA79E400954F5C /* smsFeedbackScreen.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C05B86BA1BBBE8F000DEAC29 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		C05B86BC1BBBE94F00DEAC29 /* smsOptionsDropDownTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsOptionsDropDownTV.h; sourceTree = "<group>"; };
-		C05B86BD1BBBE94F00DEAC29 /* smsOptionsDropDownTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsOptionsDropDownTV.m; sourceTree = "<group>"; };
-		C05B86BF1BBBEB8200DEAC29 /* smsSettingsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsSettingsScreen.h; sourceTree = "<group>"; };
-		C05B86C01BBBEB8200DEAC29 /* smsSettingsScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsSettingsScreen.m; sourceTree = "<group>"; };
 		C06099CB1BB2625C0012CA9E /* smsImageMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImageMessages.h; sourceTree = "<group>"; };
 		C06099CC1BB2625C0012CA9E /* smsImageMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImageMessages.m; sourceTree = "<group>"; };
 		C06298981BA96E6300557B3D /* SmsIndividualMessageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmsIndividualMessageController.h; sourceTree = "<group>"; };
 		C06298991BA96E6300557B3D /* SmsIndividualMessageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmsIndividualMessageController.m; sourceTree = "<group>"; };
+		C0657BCB1BBFF2FB00757CB7 /* smsRESTProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsRESTProxy.h; sourceTree = "<group>"; };
+		C0657BCC1BBFF2FB00757CB7 /* smsRESTProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsRESTProxy.m; sourceTree = "<group>"; };
+		C0657BCE1BC0019C00757CB7 /* smsSyncDBFromCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsSyncDBFromCloud.h; sourceTree = "<group>"; };
+		C0657BCF1BC0019C00757CB7 /* smsSyncDBFromCloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsSyncDBFromCloud.m; sourceTree = "<group>"; };
 		C066E6DF1BB3C50D007B600C /* smsIndividualImageMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsIndividualImageMessage.h; sourceTree = "<group>"; };
 		C066E6E01BB3C50D007B600C /* smsIndividualImageMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsIndividualImageMessage.m; sourceTree = "<group>"; };
 		C066E6E21BB3C53B007B600C /* smsIndividualImageMessageControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsIndividualImageMessageControler.h; sourceTree = "<group>"; };
@@ -169,7 +176,6 @@
 		C06BA4C01BA1B0F000D66720 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C06BA4C11BA1B0F000D66720 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C06BA4C71BA1B0F000D66720 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C06BA4C91BA1B0F000D66720 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C06BA4CC1BA1B0F000D66720 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C06BA4D71BA1B0F000D66720 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C06BA4D81BA1B0F000D66720 /* tamilsmsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tamilsmsTests.m; sourceTree = "<group>"; };
@@ -297,6 +303,9 @@
 		C06BA56A1BA1BF7800D66720 /* write_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = write_image.png; sourceTree = "<group>"; };
 		C06BA56B1BA1BF7800D66720 /* write_sms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = write_sms.png; sourceTree = "<group>"; };
 		C06BA56C1BA1BF7800D66720 /* zoom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zoom.png; sourceTree = "<group>"; };
+		C074CE991BC62A7D001066B6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C07596761BC535BA007AEB7B /* smsDDOptionsCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsDDOptionsCtrlr.h; sourceTree = "<group>"; };
+		C07596771BC535BA007AEB7B /* smsDDOptionsCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsDDOptionsCtrlr.m; sourceTree = "<group>"; };
 		C075C7711BB2CBA800308952 /* smsAsyncImageFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsAsyncImageFetch.h; sourceTree = "<group>"; };
 		C075C7721BB2CBA800308952 /* smsAsyncImageFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsAsyncImageFetch.m; sourceTree = "<group>"; };
 		C07792961BB016350025B207 /* smsMainScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsMainScrollView.h; sourceTree = "<group>"; };
@@ -307,18 +316,30 @@
 		C0871D421BAFCB2B0075D5C9 /* smsCategoryListTv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsCategoryListTv.m; sourceTree = "<group>"; };
 		C08923681BA45093003E51B6 /* smsTxtMsgsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTxtMsgsController.h; sourceTree = "<group>"; };
 		C08923691BA45093003E51B6 /* smsTxtMsgsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTxtMsgsController.m; sourceTree = "<group>"; };
+		C08D36971BC6950E003E9F0C /* smsIndividualMessageCol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsIndividualMessageCol.h; sourceTree = "<group>"; };
+		C08D36981BC6950E003E9F0C /* smsIndividualMessageCol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsIndividualMessageCol.m; sourceTree = "<group>"; };
 		C08DEE221BA548470072129E /* smsSubCategoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsSubCategoryController.h; sourceTree = "<group>"; };
 		C08DEE231BA548470072129E /* smsSubCategoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsSubCategoryController.m; sourceTree = "<group>"; };
 		C08DEE251BA548D60072129E /* SubCategoryList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubCategoryList.h; sourceTree = "<group>"; };
 		C08DEE261BA548D60072129E /* SubCategoryList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubCategoryList.m; sourceTree = "<group>"; };
-		C09BBAF01BBB77CC00DBAF08 /* smsInfoSettingsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsInfoSettingsScreen.h; sourceTree = "<group>"; };
-		C09BBAF11BBB77CC00DBAF08 /* smsInfoSettingsScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsInfoSettingsScreen.m; sourceTree = "<group>"; };
+		C09BA2181BC23F6C00C2C386 /* smsSynchronizationDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsSynchronizationDatas.h; sourceTree = "<group>"; };
+		C09BA2191BC23F6C00C2C386 /* smsSynchronizationDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsSynchronizationDatas.m; sourceTree = "<group>"; };
+		C09BA21E1BC2419200C2C386 /* smsAccountSignupLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsAccountSignupLogin.h; sourceTree = "<group>"; };
+		C09BA21F1BC2419200C2C386 /* smsAccountSignupLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsAccountSignupLogin.m; sourceTree = "<group>"; };
+		C09BA2211BC242BB00C2C386 /* smsFeedbackScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsFeedbackScreen.h; sourceTree = "<group>"; };
+		C09BA2221BC242BB00C2C386 /* smsFeedbackScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsFeedbackScreen.m; sourceTree = "<group>"; };
+		C09BA2231BC242BB00C2C386 /* smsInfoSettingsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsInfoSettingsScreen.h; sourceTree = "<group>"; };
+		C09BA2241BC242BB00C2C386 /* smsInfoSettingsScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsInfoSettingsScreen.m; sourceTree = "<group>"; };
+		C09BA2251BC242BB00C2C386 /* smsOptionsDropDownTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsOptionsDropDownTV.h; sourceTree = "<group>"; };
+		C09BA2261BC242BB00C2C386 /* smsOptionsDropDownTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsOptionsDropDownTV.m; sourceTree = "<group>"; };
+		C09BA2271BC242BB00C2C386 /* smsSettingsScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsSettingsScreen.h; sourceTree = "<group>"; };
+		C09BA2281BC242BB00C2C386 /* smsSettingsScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsSettingsScreen.m; sourceTree = "<group>"; };
+		C09BA22D1BC2453F00C2C386 /* registrationNewUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = registrationNewUser.h; sourceTree = "<group>"; };
+		C09BA22E1BC2453F00C2C386 /* registrationNewUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = registrationNewUser.m; sourceTree = "<group>"; };
 		C0AAE7271BB18E3C00C3148C /* smsImgMsgsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImgMsgsController.h; sourceTree = "<group>"; };
 		C0AAE7281BB18E3C00C3148C /* smsImgMsgsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImgMsgsController.m; sourceTree = "<group>"; };
 		C0C14B171BA3FA2B00DF585F /* textMessageForCategoryListTv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textMessageForCategoryListTv.h; sourceTree = "<group>"; };
 		C0C14B181BA3FA2B00DF585F /* textMessageForCategoryListTv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textMessageForCategoryListTv.m; sourceTree = "<group>"; };
-		C0EC14891BBA79E400954F5C /* smsFeedbackScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsFeedbackScreen.h; sourceTree = "<group>"; };
-		C0EC148A1BBA79E400954F5C /* smsFeedbackScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsFeedbackScreen.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,14 +375,17 @@
 		C06BA4BB1BA1B0F000D66720 /* tamilsms */ = {
 			isa = PBXGroup;
 			children = (
+				C074CE991BC62A7D001066B6 /* Images.xcassets */,
 				C06BA4FF1BA1BF7800D66720 /* images */,
 				C06BA4F81BA1B9D200D66720 /* MainScreen */,
+				C09BA2151BC236E600C2C386 /* loginAndSignIn */,
+				C09BA2171BC237B900C2C386 /* mainScreenDropDown */,
+				C09BA2161BC2377400C2C386 /* synchoronization */,
 				C06BA4E31BA1B1DE00D66720 /* Database */,
 				C06BA4E21BA1B1D200D66720 /* Utilities */,
 				C06BA4C01BA1B0F000D66720 /* AppDelegate.h */,
 				C06BA4C11BA1B0F000D66720 /* AppDelegate.m */,
 				C06BA4C61BA1B0F000D66720 /* Main.storyboard */,
-				C06BA4C91BA1B0F000D66720 /* Images.xcassets */,
 				C06BA4CB1BA1B0F000D66720 /* LaunchScreen.xib */,
 				C06BA4BC1BA1B0F000D66720 /* Supporting Files */,
 			);
@@ -407,6 +431,10 @@
 				C06BA4F31BA1B5BD00D66720 /* smsBaseNavigationSegue.m */,
 				C075C7711BB2CBA800308952 /* smsAsyncImageFetch.h */,
 				C075C7721BB2CBA800308952 /* smsAsyncImageFetch.m */,
+				C0657BCB1BBFF2FB00757CB7 /* smsRESTProxy.h */,
+				C0657BCC1BBFF2FB00757CB7 /* smsRESTProxy.m */,
+				C0657BCE1BC0019C00757CB7 /* smsSyncDBFromCloud.h */,
+				C0657BCF1BC0019C00757CB7 /* smsSyncDBFromCloud.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -450,16 +478,10 @@
 				C0AAE7281BB18E3C00C3148C /* smsImgMsgsController.m */,
 				C066E6DF1BB3C50D007B600C /* smsIndividualImageMessage.h */,
 				C066E6E01BB3C50D007B600C /* smsIndividualImageMessage.m */,
+				C08D36971BC6950E003E9F0C /* smsIndividualMessageCol.h */,
+				C08D36981BC6950E003E9F0C /* smsIndividualMessageCol.m */,
 				C066E6E21BB3C53B007B600C /* smsIndividualImageMessageControler.h */,
 				C066E6E31BB3C53B007B600C /* smsIndividualImageMessageControler.m */,
-				C0EC14891BBA79E400954F5C /* smsFeedbackScreen.h */,
-				C0EC148A1BBA79E400954F5C /* smsFeedbackScreen.m */,
-				C09BBAF01BBB77CC00DBAF08 /* smsInfoSettingsScreen.h */,
-				C09BBAF11BBB77CC00DBAF08 /* smsInfoSettingsScreen.m */,
-				C05B86BC1BBBE94F00DEAC29 /* smsOptionsDropDownTV.h */,
-				C05B86BD1BBBE94F00DEAC29 /* smsOptionsDropDownTV.m */,
-				C05B86BF1BBBEB8200DEAC29 /* smsSettingsScreen.h */,
-				C05B86C01BBBEB8200DEAC29 /* smsSettingsScreen.m */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -580,6 +602,45 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		C09BA2151BC236E600C2C386 /* loginAndSignIn */ = {
+			isa = PBXGroup;
+			children = (
+				C09BA21E1BC2419200C2C386 /* smsAccountSignupLogin.h */,
+				C09BA21F1BC2419200C2C386 /* smsAccountSignupLogin.m */,
+				C09BA22D1BC2453F00C2C386 /* registrationNewUser.h */,
+				C09BA22E1BC2453F00C2C386 /* registrationNewUser.m */,
+			);
+			path = loginAndSignIn;
+			sourceTree = "<group>";
+		};
+		C09BA2161BC2377400C2C386 /* synchoronization */ = {
+			isa = PBXGroup;
+			children = (
+				C09BA2181BC23F6C00C2C386 /* smsSynchronizationDatas.h */,
+				C09BA2191BC23F6C00C2C386 /* smsSynchronizationDatas.m */,
+			);
+			name = synchoronization;
+			path = tamilsms/synchoronization;
+			sourceTree = SOURCE_ROOT;
+		};
+		C09BA2171BC237B900C2C386 /* mainScreenDropDown */ = {
+			isa = PBXGroup;
+			children = (
+				C09BA2211BC242BB00C2C386 /* smsFeedbackScreen.h */,
+				C09BA2221BC242BB00C2C386 /* smsFeedbackScreen.m */,
+				C09BA2231BC242BB00C2C386 /* smsInfoSettingsScreen.h */,
+				C09BA2241BC242BB00C2C386 /* smsInfoSettingsScreen.m */,
+				C09BA2251BC242BB00C2C386 /* smsOptionsDropDownTV.h */,
+				C09BA2261BC242BB00C2C386 /* smsOptionsDropDownTV.m */,
+				C09BA2271BC242BB00C2C386 /* smsSettingsScreen.h */,
+				C09BA2281BC242BB00C2C386 /* smsSettingsScreen.m */,
+				C07596761BC535BA007AEB7B /* smsDDOptionsCtrlr.h */,
+				C07596771BC535BA007AEB7B /* smsDDOptionsCtrlr.m */,
+			);
+			name = mainScreenDropDown;
+			path = tamilsms/mainScreenDropDown;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,12 +667,15 @@
 		C06BA4B11BA1B0F000D66720 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "arun benjamin";
 				TargetAttributes = {
 					C06BA4B81BA1B0F000D66720 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 67UF74SL8M;
+						DevelopmentTeam = XRFSBJJGBT;
 					};
 				};
 			};
@@ -653,6 +717,7 @@
 				C06BA5D31BA1BF7800D66720 /* top_liked2.png in Resources */,
 				C06BA5B31BA1BF7800D66720 /* image_for_rotation.png in Resources */,
 				C06BA5A01BA1BF7800D66720 /* cat7.jpg in Resources */,
+				C074CE9A1BC62A7D001066B6 /* Images.xcassets in Resources */,
 				C06BA5C21BA1BF7800D66720 /* rate.png in Resources */,
 				C06BA5A11BA1BF7800D66720 /* cat8.jpg in Resources */,
 				C06BA57C1BA1BF7800D66720 /* cat101.jpg in Resources */,
@@ -748,7 +813,6 @@
 				C06BA5831BA1BF7800D66720 /* cat15.jpg in Resources */,
 				C06BA5B01BA1BF7800D66720 /* icon_info.png in Resources */,
 				C06BA5D91BA1BF7800D66720 /* zoom.png in Resources */,
-				C06BA4CA1BA1B0F000D66720 /* Images.xcassets in Resources */,
 				C06BA58D1BA1BF7800D66720 /* cat26.jpg in Resources */,
 				C06BA5841BA1BF7800D66720 /* cat16.jpg in Resources */,
 			);
@@ -761,29 +825,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C05B86BE1BBBE94F00DEAC29 /* smsOptionsDropDownTV.m in Sources */,
+				C09BA22F1BC2453F00C2C386 /* registrationNewUser.m in Sources */,
 				C062989A1BA96E6300557B3D /* SmsIndividualMessageController.m in Sources */,
 				C075C7731BB2CBA800308952 /* smsAsyncImageFetch.m in Sources */,
 				C080D6C61BA9016D00C58DB7 /* individualMesssage.m in Sources */,
+				C0657BCD1BBFF2FB00757CB7 /* smsRESTProxy.m in Sources */,
+				C08D36991BC6950E003E9F0C /* smsIndividualMessageCol.m in Sources */,
+				C09BA21A1BC23F6C00C2C386 /* smsSynchronizationDatas.m in Sources */,
 				C0C14B191BA3FA2B00DF585F /* textMessageForCategoryListTv.m in Sources */,
 				C06BA4EE1BA1B45A00D66720 /* smsLocalStore.m in Sources */,
 				C06BA4F41BA1B5BD00D66720 /* smsBaseNavigationSegue.m in Sources */,
+				C09BA22C1BC242BB00C2C386 /* smsSettingsScreen.m in Sources */,
 				C066E6E11BB3C50D007B600C /* smsIndividualImageMessage.m in Sources */,
 				C06099CD1BB2625C0012CA9E /* smsImageMessages.m in Sources */,
+				C09BA2291BC242BB00C2C386 /* smsFeedbackScreen.m in Sources */,
 				C06BA4C21BA1B0F000D66720 /* AppDelegate.m in Sources */,
+				C0657BD01BC0019C00757CB7 /* smsSyncDBFromCloud.m in Sources */,
 				C06BA4FB1BA1B9ED00D66720 /* smsMainScreenController.m in Sources */,
 				C06BA4EB1BA1B3C600D66720 /* smsBaseNavController.m in Sources */,
+				C09BA2201BC2419200C2C386 /* smsAccountSignupLogin.m in Sources */,
 				C06BA4F11BA1B50C00D66720 /* smsBaseController.m in Sources */,
 				C0AAE7291BB18E3C00C3148C /* smsImgMsgsController.m in Sources */,
+				C09BA22B1BC242BB00C2C386 /* smsOptionsDropDownTV.m in Sources */,
 				C06BA4F71BA1B73900D66720 /* smsDBAsyncQueueProcess.m in Sources */,
 				C06BA4BF1BA1B0F000D66720 /* main.m in Sources */,
+				C07596781BC535BA007AEB7B /* smsDDOptionsCtrlr.m in Sources */,
 				C06BA4E81BA1B2A200D66720 /* smsDefaults.m in Sources */,
-				C09BBAF21BBB77CC00DBAF08 /* smsInfoSettingsScreen.m in Sources */,
 				C0871D431BAFCB2B0075D5C9 /* smsCategoryListTv.m in Sources */,
-				C0EC148B1BBA79E400954F5C /* smsFeedbackScreen.m in Sources */,
+				C09BA22A1BC242BB00C2C386 /* smsInfoSettingsScreen.m in Sources */,
 				C089236A1BA45093003E51B6 /* smsTxtMsgsController.m in Sources */,
 				C08DEE271BA548D60072129E /* SubCategoryList.m in Sources */,
-				C05B86C11BBBEB8200DEAC29 /* smsSettingsScreen.m in Sources */,
 				C066E6E41BB3C53B007B600C /* smsIndividualImageMessageControler.m in Sources */,
 				C07792981BB016350025B207 /* smsMainScrollView.m in Sources */,
 				C08DEE241BA548470072129E /* smsSubCategoryController.m in Sources */,
@@ -849,7 +920,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -886,7 +957,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -902,8 +973,9 @@
 				INFOPLIST_FILE = tamilsms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.binu.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -916,10 +988,64 @@
 				INFOPLIST_FILE = tamilsms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.binu.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		C06EE5911BC281C60093CAC4 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
+		C06EE5921BC281C60093CAC4 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = tamilsms/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2e80ada0-335b-4aaf-b066-a3f780fb426c";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Distribution;
 		};
 /* End XCBuildConfiguration section */
 
@@ -929,6 +1055,7 @@
 			buildConfigurations = (
 				C06BA4DA1BA1B0F000D66720 /* Debug */,
 				C06BA4DB1BA1B0F000D66720 /* Release */,
+				C06EE5911BC281C60093CAC4 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -938,6 +1065,7 @@
 			buildConfigurations = (
 				C06BA4DD1BA1B0F000D66720 /* Debug */,
 				C06BA4DE1BA1B0F000D66720 /* Release */,
+				C06EE5921BC281C60093CAC4 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -2,8 +2,8 @@
 //  smsMainScreenController.m
 //  tamilsms
 //
-//  Created by arun benjamin on 10/09/15.
-//  Copyright (c) 2015 arun benjamin. All rights reserved.
+//  Created by Mohan Kumar on 10/09/15.
+//  Copyright (c) 2015 Mohan Kumar. All rights reserved.
 //
 
 #import "smsMainScreenController.h"
@@ -12,11 +12,14 @@
 #import "textMessageForCategoryListTv.h"
 #import "smsMainScrollView.h"
 #import "smsOptionsDropDownTV.h"
-#import "smsFontSizeChange.h"
+#import "smsSettingsScreen.h"
 #import "smsFeedbackScreen.h"
 #import "smsInfoSettingsScreen.h"
+#import "smsAccountSignupLogin.h"
+#import "smsSynchronizationDatas.h"
+#import "registrationNewUser.h"
 
-@interface smsMainScreenController () <smsCategoriesListDelegate, smsOptionsDropDownTVDelegate>
+@interface smsMainScreenController () <smsCategoriesListDelegate, smsOptionsDropDownTVDelegate, smsAccountSignUpDelegates, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 {
     //NSArray * categorylist, *categorymessage;
     UISegmentedControl * _topsegmentctrl;
@@ -24,15 +27,13 @@
     NSArray * _sgCtrlTitles;
     NSArray * _txtCategoryTitles;
     NSArray * _imgCategoryTitles;
-    //textMessageForCategoryListTv * _textMessageForCategoryListTv;
-    
+    UIGestureRecognizer * _justgesture;
 }
 
 @property (nonatomic,strong) smsMainScrollView * mainScrollVw;
 @property (nonatomic,strong) smsOptionsDropDownTV * dropDwnOptions;
-@property (nonatomic,strong) smsFontSizeChange * smsFontSizeChangeV;
-@property (nonatomic,strong) smsFeedbackScreen * smsFeedbackScreenV;
-@property (nonatomic,strong) smsInfoSettingsScreen * smsInfoSettingsScreenV;
+//@property (nonatomic,strong) smsAccountSignupLogin * smsAccountSignupLoginSV;
+@property (nonatomic,strong) smsSynchronizationDatas * smsSynchronizationDatasV;
 
 //-(void)navigationTabForTamilSms;
 
@@ -48,8 +49,9 @@
     self.navItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_logo_btn, self.bar_prev_title_btn,nil];
     self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
     [self setUpMainNavigationSegmentCtrl];
-    //[self scrollViewForSwipingTable];
-    //database connection
+    _justgesture = [[UIGestureRecognizer alloc] init];
+    _justgesture.delegate = self;
+    [self.view addGestureRecognizer:_justgesture];
     
     
     [smsDBAsyncQueueProcess getTextCategoryTitles:^(NSArray * p_categoreisList){
@@ -79,6 +81,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) setScreenInteractionStatus:(BOOL) p_interactstatus
+{
+    [self.mainScrollVw setUserInteractionEnabled:p_interactstatus];
+    [_topsegmentctrl setUserInteractionEnabled:p_interactstatus];
+    [self.navBar setUserInteractionEnabled:p_interactstatus];
+}
+
 -(void)setUpMainNavigationSegmentCtrl
 {
     
@@ -95,12 +104,6 @@
     [[UISegmentedControl appearance] setTitleTextAttributes:l_normalattributes forState:UIControlStateNormal];
     [[UISegmentedControl appearance] setTitleTextAttributes:l_selectattributes forState:UIControlStateSelected];
     
-    
-    /*if (_bottomlinelabel) {
-        [_topsegmentctrl setFrame:CGRectMake(0, 2, self.view.bounds.size.width, 40)];
-        [_bottomlinelabel setFrame:CGRectMake(0, 50, 192,10)];
-        return;
-    }*/
     _topsegmentctrl = [[UISegmentedControl alloc] initWithItems:_sgCtrlTitles];
     _topsegmentctrl.layer.cornerRadius = 0.0;
     _topsegmentctrl.translatesAutoresizingMaskIntoConstraints = NO;
@@ -123,15 +126,17 @@
     [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:_bottomlinelabel attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:0.25 constant:0.0],[NSLayoutConstraint constraintWithItem:_bottomlinelabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:0.25 constant:0.0]]];
     
     
-       self.mainScrollVw = [smsMainScrollView new];
+   self.mainScrollVw = [smsMainScrollView new];
     //myScroll.frame = self.view.bounds;
     //myScroll.contentSize = CGSizeMake(400, 800);
     self.mainScrollVw.backgroundColor = [UIColor grayColor];
     self.mainScrollVw.showsVerticalScrollIndicator = YES;
     self.mainScrollVw.translatesAutoresizingMaskIntoConstraints = NO;
     //myScroll.showsHorizontalScrollIndicator = YES;
+    self.mainScrollVw.delegate = self;
     self.mainScrollVw.scrollEnabled = YES;
     self.mainScrollVw.txtMsgCategoriesDelegate = self;
+    self.mainScrollVw.signUpLoginDelegate = self;
     [self.view addSubview:self.mainScrollVw];
     
     [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.mainScrollVw attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.mainScrollVw attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.mainScrollVw attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64.0-40)]]];
@@ -140,18 +145,6 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[sc][ms]" options:0 metrics:nil views:@{@"sc":_topsegmentctrl, @"ms":self.mainScrollVw}]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomlinelabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_topsegmentctrl attribute:NSLayoutAttributeTop multiplier:1.0 constant:35.0]];
     [self.view layoutIfNeeded];
-    
-    //NSLog(@"the segment control frame %@", NSStringFromCGRect(_topsegmentctrl.frame));
-    //NSLog(@"the table view control frame %@", NSStringFromCGRect(self.categoriesListVw.frame));
-    
-    
-    
-    /*_textMessageForCategoryListTv = [[textMessageForCategoryListTv alloc]initWithFrame:CGRectMake(0, 105, self.view.bounds.size.width, self.view.bounds.size.height-105) style:UITableViewStylePlain];
-    _textMessageForCategoryListTv.categoryMessageDelegate = self;
-    _textMessageForCategoryListTv.dataSource = _textMessageForCategoryListTv;
-    _textMessageForCategoryListTv.delegate = _textMessageForCategoryListTv;
-    _textMessageForCategoryListTv.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:_textMessageForCategoryListTv];*/
 
 }
 //three bar button when pressed executes the smsMainScreenSeting class
@@ -159,6 +152,7 @@
 {
     //self.mainscrSetngsTV = [[smsMainScreenSettingsTV alloc] initWithFrame:CGRectMake(265, 65, 150, 90) style:UITableViewStylePlain];
     self.dropDwnOptions = [smsOptionsDropDownTV new];
+    self.dropDwnOptions.optionsDelegate = self;
     [self.view addSubview:self.dropDwnOptions];
     self.dropDwnOptions.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view bringSubviewToFront:self.dropDwnOptions];
@@ -170,29 +164,9 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.dropDwnOptions attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1.0 constant:0]];
     
     [self.view layoutIfNeeded];
-    
-    //self.smsFontSizeChangeV = [[smsFontSizeChange alloc] initWithFrame:CGRectMake(265, 65, 150, 90) style:UITableViewStylePlain];
-    //self.smsFontSizeChangeV = [[smsFontSizeChange alloc]initWithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height)];
-    
-
+    [self setScreenInteractionStatus:NO];
 }
 
-
-- (void)showSettingsScreen
-{
-    self.smsFontSizeChangeV = [smsFontSizeChange new];
-    [self.smsFontSizeChangeV setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.smsFontSizeChangeV];
-    self.smsFontSizeChangeV.translatesAutoresizingMaskIntoConstraints=NO;
-    [self.view bringSubviewToFront:self.smsFontSizeChangeV];
-    
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.smsFontSizeChangeV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFontSizeChangeV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFontSizeChangeV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:10],[NSLayoutConstraint constraintWithItem:self.smsFontSizeChangeV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-20)]]];
-    
-    // NSLog(@"the font seting frame is %@",NSStringFromCGRect(self.smsFontSizeChangeV.frame));
-    
-    
-    [self.view layoutIfNeeded];
-}
 
 -(void)valueChanged:(id) segmentctrl
 {
@@ -212,6 +186,7 @@
     CGRect l_newrect = CGRectMake(l_bottomlinerect.origin.x, l_sgctrl.frame.origin.y, l_bottomlinerect.size.width, l_sgctrl.frame.size.height);
     [l_bglabel setFrame:l_newrect];*/
     [self.view addSubview:l_bglabel];
+    //Here THE main scrollview is added and the bootom blue line get animated
     [UIView animateWithDuration:0.3
                      animations:^(){
                          //[_bottomlinelabel setFrame:l_bottomlinerect];
@@ -226,11 +201,14 @@
 - (void)updateViewConstraints
 {
     [super updateViewConstraints];
+    
     if (self.mainScrollVw) {
+        [self.mainScrollVw updateConstraints];
         [self.mainScrollVw reloadTextCategoriesList];
         [self.mainScrollVw reloadImageCategoriesList];
-
+        [self valueChanged:_topsegmentctrl];
     }
+    
 }
 
 
@@ -244,20 +222,37 @@
 }
 */
 
-#pragma option drop down delegates
+#pragma gesture recognizer related delegates
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (self.dropDwnOptions)
+    {
+        CGPoint l_touchpoint = [touch locationInView:self.view];
+        if (CGRectContainsPoint(self.dropDwnOptions.frame, l_touchpoint)==NO)
+        {
+            [self cancelDropDownScreen];
+        }
+    }
+    return NO;
+}
+
+#pragma option drop down delegates
+// this is the delegate from smsOptionalDropDown when the particular row is clicked follwing get executed
 - (void)optionSelectedInDropDown:(NSString *)p_optionText
 {
-    if ([p_optionText isEqualToString:@"Settings"])
-    {
-        [self showSettingsScreen];
-    }
+    self.navigateParams = @{@"opselected":p_optionText};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showdropdownoptionscreen" sender:self];
+    });
+    [self cancelDropDownScreen];
 }
 
 - (void) cancelDropDownScreen
 {
     [self.dropDwnOptions removeFromSuperview];
     self.dropDwnOptions = nil;
+    [self setScreenInteractionStatus:YES];
 }
 
 
@@ -328,6 +323,43 @@
             });
         }
     }
+}
+
+#pragma  signup and login screen related delegates
+
+-(void)invokeSignUpScreen
+{
+    self.navigateParams = @{@"opselected":@"signup"};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showdropdownoptionscreen" sender:self];
+    });
+    
+}
+
+#pragma main scrollview related delegates
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    CGFloat l_topointxval = targetContentOffset->x;
+    NSInteger l_selecteditemno = l_topointxval/self.mainScrollVw.bounds.size.width;
+    _topsegmentctrl.selectedSegmentIndex = l_selecteditemno;
+    CGFloat l_segmentwidth = self.mainScrollVw.bounds.size.width/4.0;
+    UILabel * l_bglabel = [[UILabel alloc] init];
+    [l_bglabel setBackgroundColor:[UIColor colorWithRed:0.77 green:0.95 blue:0.95 alpha:1.0]];
+    [l_bglabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0]];
+    [l_bglabel setText:[_sgCtrlTitles objectAtIndex:l_selecteditemno]];
+    [l_bglabel setTextColor:[UIColor whiteColor]];
+    [l_bglabel setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:l_bglabel];
+    //Here THE main scrollview is added and the bootom blue line get animated
+    [UIView animateWithDuration:0.3
+                     animations:^(){
+                         //[_bottomlinelabel setFrame:l_bottomlinerect];
+                         _bottomlinelabel.transform = CGAffineTransformMakeTranslation(l_segmentwidth*l_selecteditemno, 0);
+                     } completion:^(BOOL p_finished){
+                         _topsegmentctrl.tintColor = [UIColor blackColor];
+                         [l_bglabel removeFromSuperview];
+                     }];
 }
 
 @end

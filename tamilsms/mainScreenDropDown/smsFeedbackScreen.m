@@ -2,7 +2,7 @@
 //  smsFeedbackScreen.m
 //  tamilsms
 //
-//  Created by arun benjamin on 29/09/15.
+//  Created by Mohan Kumar on 29/09/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 
@@ -206,6 +206,7 @@
                                                     multiplier:1.0
                                                       constant:0.0]];
     [self layoutIfNeeded];
+     [self setContentSize:CGSizeMake(rect.size.width, 400)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardBecomesVisible:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardBecomesHidden:) name:UIKeyboardDidHideNotification object:nil];

@@ -23,11 +23,12 @@
                         <segue destination="Q27-Ib-ZkG" kind="custom" identifier="showtextmessagesforcategory" customClass="smsBaseNavigationSegue" id="5MH-bK-Ojc"/>
                         <segue destination="7nu-j0-y54" kind="custom" identifier="showSubCategoryList" customClass="smsBaseNavigationSegue" id="yEk-PG-6hY"/>
                         <segue destination="mS8-AS-t1D" kind="custom" identifier="showimagemessagesforcategory" customClass="smsBaseNavigationSegue" id="9Au-gV-0sN"/>
+                        <segue destination="ptu-KX-x3V" kind="custom" identifier="showdropdownoptionscreen" customClass="smsBaseNavigationSegue" id="aE4-7z-XPQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="135"/>
+            <point key="canvasLocation" x="528" y="135"/>
         </scene>
         <!--Text Messages for Category-->
         <scene sceneID="2mQ-ah-r4T">
@@ -67,6 +68,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dhv-7E-OyS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1520" y="133"/>
+        </scene>
+        <!--Drop down Options-->
+        <scene sceneID="gv0-BC-seW">
+            <objects>
+                <viewController title="Drop down Options" id="ptu-KX-x3V" customClass="smsDDOptionsCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dPp-vL-XTn"/>
+                        <viewControllerLayoutGuide type="bottom" id="m79-B6-rcb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="amq-FZ-X16">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MKc-uW-dXr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="122" y="843"/>
         </scene>
         <!--subCategories-->
         <scene sceneID="jz3-5r-FJQ">
@@ -149,7 +168,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="5MH-bK-Ojc"/>
         <segue reference="9Au-gV-0sN"/>
-        <segue reference="qe1-Fj-KXz"/>
     </inferredMetricsTieBreakers>
 </document>

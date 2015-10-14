@@ -2,8 +2,8 @@
 //  smsMainScreenController.h
 //  tamilsms
 //
-//  Created by arun benjamin on 10/09/15.
-//  Copyright (c) 2015 arun benjamin. All rights reserved.
+//  Created by Mohan Kumar on 10/09/15.
+//  Copyright (c) 2015 Mohan Kumar. All rights reserved.
 //
 
 #import "smsBaseController.h"

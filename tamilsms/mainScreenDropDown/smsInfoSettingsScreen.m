@@ -2,7 +2,7 @@
 //  smsInfoSettingsScreen.m
 //  tamilsms
 //
-//  Created by arun benjamin on 30/09/15.
+//  Created by Mohan Kumar on 30/09/15.
 //  Copyright © 2015 arun benjamin. All rights reserved.
 //
 
@@ -220,6 +220,10 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0.0]];
+    
+     [self setContentSize:CGSizeMake(rect.size.width, 350)];
+    
+     [self layoutIfNeeded];
 
 }
 @end

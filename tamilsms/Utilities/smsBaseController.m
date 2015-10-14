@@ -2,8 +2,8 @@
 //  smsBaseController.m
 //  tamilsms
 //
-//  Created by arun benjamin on 10/09/15.
-//  Copyright (c) 2015 arun benjamin. All rights reserved.
+//  Created by Mohan Kumar on 10/09/15.
+//  Copyright (c) 2015 Mohan Kumar. All rights reserved.
 //
 
 #import "smsBaseController.h"
@@ -67,17 +67,18 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[navbar]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
     [self.navBar setHidden:YES];
     
-    UIButton * l_backbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20.0, 20.0)];
-    //[l_backbtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [l_backbtn setTitle:@"BK" forState:UIControlStateNormal];
-    l_backbtn.titleLabel.font =[UIFont systemFontOfSize:10.0f];
+    UIButton * l_backbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30.0, 20.0)];
+    [l_backbtn setImage:[UIImage imageNamed:@"bckbtn-1"] forState:UIControlStateNormal];
+    //[l_backbtn setBackgroundColor:[UIColor whiteColor]];
+    //[l_backbtn setTitle:@"BK" forState:UIControlStateNormal];
+    //l_backbtn.titleLabel.font =[UIFont systemFontOfSize:10.0f];
     [l_backbtn addTarget:self action:@selector(popBackScreen) forControlEvents:UIControlEventTouchUpInside];
     self.bar_back_btn = [[UIBarButtonItem alloc] initWithCustomView:l_backbtn];
     
     self.lbl_prevtitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 150, 45.0)];
     [self.lbl_prevtitle setText:@"Tamil SMS"];
     [self.lbl_prevtitle setTextColor:[UIColor whiteColor]];
-    self.lbl_prevtitle.font = [UIFont systemFontOfSize:11.0f];
+    self.lbl_prevtitle.font = [UIFont boldSystemFontOfSize:15];
     self.bar_prev_title_btn = [[UIBarButtonItem alloc] initWithCustomView:self.lbl_prevtitle];
     
     UIButton * l_searchbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20.0, 20.0)];
