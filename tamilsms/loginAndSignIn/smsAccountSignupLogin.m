@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 01/10/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import "smsAccountSignupLogin.h"
@@ -18,9 +18,8 @@
     UIButton *but_login, *but_changPass, *but_newAcc;
     UIView * _activeTxtFldOrVw;
     CGSize _keyBoardSize;
-
-    
 }
+
 @property (nonatomic,strong) registrationNewUser * registrationNewUserV;
 @end
 
@@ -41,6 +40,10 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    if (lbl_login)
+    {
+        return;
+    }
     lbl_login = [UILabel new];
     [lbl_login setText:@"Login / Signup to upload your own Message and Images"];
     [lbl_login setFont:[UIFont boldSystemFontOfSize:18]];

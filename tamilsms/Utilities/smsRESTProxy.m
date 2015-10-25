@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 03/10/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import "smsRESTProxy.h"
@@ -14,6 +14,7 @@
     //NSMutableData *_webData;
     NSMutableDictionary *_inputParms;
     GENERICCALLBACK _proxyReturnMethod;
+    NSURLSession * _theSession;
 }
 
 //method to generate the data
@@ -27,9 +28,15 @@
 
 @implementation smsRESTProxy
 
+static NSURLSessionConfiguration * _defSessConfig;
 
 - (void) initDatawithAPIType:(NSString*) p_apiType andInputParams:(NSDictionary*) p_prmDict andReturnMethod:(GENERICCALLBACK) p_returnMethod
 {
+    if (!_defSessConfig)
+    {
+        _defSessConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    }
+    _theSession = [NSURLSession sessionWithConfiguration:_defSessConfig delegate:self delegateQueue:nil];
     _responseType = p_apiType;
     _proxyReturnMethod = p_returnMethod;
     _inputParms = [[NSMutableDictionary alloc] init];
@@ -42,8 +49,6 @@
 
 - (void) generateData
 {
-    NSURLSessionConfiguration * l_defSessConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession * l_theSession = [NSURLSession sessionWithConfiguration:l_defSessConfig delegate:self delegateQueue:nil];
     NSURL *l_url;
     NSMutableURLRequest *l_theRequest;
     NSString * l_requesttype;
@@ -66,12 +71,12 @@
                                  [[_inputParms valueForKey:@"userversion"] integerValue],
                                  [[_inputParms valueForKey:@"ismsversion"] integerValue],
                                  [[_inputParms valueForKey:@"iuserversion"] integerValue]];
-        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@",MAIN_URL,@"ios-sms-api",l_urlquery]];
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?user_details=0&%@",MAIN_URL,@"ios-api",l_urlquery]];
     }
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
     [l_theRequest addValue: @"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [l_theRequest setHTTPMethod:l_requesttype];
-    NSURLSessionDataTask * l_dataTask = [l_theSession dataTaskWithRequest:l_theRequest completionHandler:^(NSData * p_respData, NSURLResponse * p_response, NSError * p_error){
+    NSURLSessionDataTask * l_dataTask = [_theSession dataTaskWithRequest:l_theRequest completionHandler:^(NSData * p_respData, NSURLResponse * p_response, NSError * p_error){
         [self urlSessionCompletedWith:p_respData andResponse:p_response andError:p_error];
     }];
     if(l_dataTask)
@@ -101,40 +106,28 @@
         });
 }
 
-/*
- - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler
- {
- //[_webData setLength:0];
- completionHandler(NSURLSessionResponseAllow);
- }
- 
- - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
- {
- [_webData appendData:data];
- NSLog(@"%@", [[NSString alloc] initWithData:_webData encoding:NSUTF8StringEncoding]);
- }
- */
-
 
 //json parsing
 - (void) urlSessionCompletedWith:(NSData*) p_respData andResponse:(NSURLResponse*) p_response andError:(NSError*) p_error
 {
     dispatch_async(dispatch_get_main_queue(), ^(){
         NSError * l_restError = nil;
+        /*NSLog(@"the received is %@",[[NSString alloc] initWithData:p_respData encoding:NSUTF8StringEncoding]);
         id l_returndict = [NSJSONSerialization
                            JSONObjectWithData:p_respData
                            options:NSJSONReadingMutableLeaves
-                           error:&l_restError];
-        if (l_restError!=nil) {
+                           error:&l_restError];*/
+        [_theSession invalidateAndCancel];
+        if (l_restError!=nil)
+        {
             [self returnErrorMessage:[l_restError description]];
             return;
         }
-
-        
         if (_proxyReturnMethod!=NULL)
         {
             //NSLog(@"responsetype %@ and inputparams %@", _responseType, _inputParms);
-            _proxyReturnMethod(l_returndict);
+            //_proxyReturnMethod(l_returndict);
+            _proxyReturnMethod(p_respData);
         }
     });
 }

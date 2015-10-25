@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 03/10/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,6 +14,7 @@
 //- (void) syncTablesListFetched:(NSArray*) p_tablesList;
 - (void) syncStartedForPosn:(NSInteger) p_posnNo;
 - (void) syncCompletedForPosn:(NSInteger) p_posnNo noOfPulls:(NSInteger) p_pulls noOfPushes:(NSInteger) p_pushes withPullPerc:(NSInteger) p_pullPerc;
+- (void) syncTotallyCompleted;
 
 @end
 

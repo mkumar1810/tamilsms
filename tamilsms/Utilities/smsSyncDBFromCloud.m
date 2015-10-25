@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 03/10/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import "smsSyncDBFromCloud.h"
@@ -58,12 +58,12 @@
     {
         _syncError++;
         l_recdrecs = 0;
-        if (_syncDelegate) [_syncDelegate syncCompletedForPosn:0
+        /*if (_syncDelegate) [_syncDelegate syncCompletedForPosn:0
                                                      noOfPulls:_runCounter
                                                     noOfPushes:_pushCount
                                                   withPullPerc:100];
-        [self processSyncingofTables];
-        return;
+        [self processSyncingofTables];*/
+        //return;
     }
     @try {
         l_recdRawData = (NSArray*) [p_returnData valueForKey:@"Quotes"];
@@ -79,7 +79,7 @@
         l_recdRawData = @[];
         _syncError++;
     }
-    if (l_returnError==0)
+    if (_syncError==0)
     {
         NSInteger l_currstartno = l_recdrecs;
         NSInteger l_currnoofrecs = [l_recdRawData count];
@@ -92,6 +92,23 @@
                 [self postOneByOneToSQLiteDB:l_tmpdict lastNo:l_finalno];
             }
         }
+        if ([l_recdRawData count]==0)
+        {
+            NSInteger l_currperc = 100;
+            if (_totalRecs!=0)
+            {
+                l_currperc = 100* _runCounter / _totalRecs;
+            }
+             if (_syncDelegate) [_syncDelegate syncCompletedForPosn:0
+                                                          noOfPulls:_runCounter
+                                                         noOfPushes:_pushCount
+                                                       withPullPerc:l_currperc];
+        }
+    }
+    else
+    {
+        if (_syncDelegate)
+            [_syncDelegate syncTotallyCompleted];
     }
 }
 
@@ -109,6 +126,8 @@
                                                               noOfPulls:_runCounter
                                                              noOfPushes:_pushCount
                                                            withPullPerc:100];
+                if (_syncDelegate)
+                    [_syncDelegate syncTotallyCompleted];
             }
         };
         if (_syncDelegate)

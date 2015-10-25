@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 29/09/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import "smsFeedbackScreen.h"

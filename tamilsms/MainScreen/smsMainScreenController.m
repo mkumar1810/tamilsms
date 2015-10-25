@@ -16,10 +16,12 @@
 #import "smsFeedbackScreen.h"
 #import "smsInfoSettingsScreen.h"
 #import "smsAccountSignupLogin.h"
-#import "smsSynchronizationDatas.h"
+//#import "smsSynchronizationDatas.h"
 #import "registrationNewUser.h"
+#import "smsSyncDBFromCloud.h"
+#import "smsRESTProxy.h"
 
-@interface smsMainScreenController () <smsCategoriesListDelegate, smsOptionsDropDownTVDelegate, smsAccountSignUpDelegates, UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface smsMainScreenController () <smsCategoriesListDelegate, smsOptionsDropDownTVDelegate, smsAccountSignUpDelegates, UIScrollViewDelegate, UIGestureRecognizerDelegate, smsSyncDBFromCloudDelegates>
 {
     //NSArray * categorylist, *categorymessage;
     UISegmentedControl * _topsegmentctrl;
@@ -28,12 +30,13 @@
     NSArray * _txtCategoryTitles;
     NSArray * _imgCategoryTitles;
     UIGestureRecognizer * _justgesture;
+    NSMutableDictionary * _syncData;
 }
 
 @property (nonatomic,strong) smsMainScrollView * mainScrollVw;
 @property (nonatomic,strong) smsOptionsDropDownTV * dropDwnOptions;
 //@property (nonatomic,strong) smsAccountSignupLogin * smsAccountSignupLoginSV;
-@property (nonatomic,strong) smsSynchronizationDatas * smsSynchronizationDatasV;
+@property (nonatomic,strong) smsSyncDBFromCloud * smsSyncDBFromCloud;
 
 //-(void)navigationTabForTamilSms;
 
@@ -53,7 +56,17 @@
     _justgesture.delegate = self;
     [self.view addGestureRecognizer:_justgesture];
     
+    [self initializeData];
     
+    _syncData = [[NSMutableDictionary alloc] init];
+    self.smsSyncDBFromCloud = [[smsSyncDBFromCloud alloc] init];
+    self.smsSyncDBFromCloud.syncDelegate = self;
+    [self checkForNewMessages];
+}
+
+
+- (void) initializeData
+{
     [smsDBAsyncQueueProcess getTextCategoryTitles:^(NSArray * p_categoreisList){
         _txtCategoryTitles = p_categoreisList;
         //NSLog(@"the cataegory titles%@",_categoryTitles);
@@ -62,9 +75,9 @@
             [self.mainScrollVw reloadTextCategoriesList];
             //[self.mainScrollVw reloadImageCategoriesList];
         }
-
+        
     }];
-
+    
     [smsDBAsyncQueueProcess getImageCategoryTitles:^(NSArray * p_categoreisList){
         _imgCategoryTitles = p_categoreisList;
         //NSLog(@"the cataegory titles%@",_categoryTitles);
@@ -73,7 +86,6 @@
             [self.mainScrollVw reloadImageCategoriesList];
         }
     }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +102,6 @@
 
 -(void)setUpMainNavigationSegmentCtrl
 {
-    
     _sgCtrlTitles = @[@"TEXT MSG", @"IMAGES", @"ACCOUNT",@"MORE"];
     NSDictionary * l_normalattributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                          [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0], NSFontAttributeName,
@@ -167,6 +178,26 @@
     [self setScreenInteractionStatus:NO];
 }
 
+- (void) checkForNewMessages
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT , 0), ^(){
+        [smsDBAsyncQueueProcess
+         getSyncRelatedParamsWithReturnCB:^(NSDictionary * p_returnDict){
+             [[smsRESTProxy alloc] initDatawithAPIType:@"DATACHECK"
+                                        andInputParams:p_returnDict
+                                       andReturnMethod:^(id p_pulledData)
+             {
+                 NSString * l_recdstring = [[NSString alloc]
+                                            initWithData:p_pulledData
+                                            encoding:NSUTF8StringEncoding];
+                                           //[self handleReturnedData:p_pulledData];
+                 l_recdstring = [l_recdstring stringByReplacingOccurrencesOfString:@"[]" withString:@""];
+                 //NSLog(@"THE recd data is %@",p_pulledData);
+           }];
+         }];
+        //[self.smsSyncDBFromCloud startSyncingTamilSMSTable];
+    });
+}
 
 -(void)valueChanged:(id) segmentctrl
 {
@@ -208,7 +239,6 @@
         [self.mainScrollVw reloadImageCategoriesList];
         [self valueChanged:_topsegmentctrl];
     }
-    
 }
 
 
@@ -360,6 +390,26 @@
                          _topsegmentctrl.tintColor = [UIColor blackColor];
                          [l_bglabel removeFromSuperview];
                      }];
+}
+
+#pragma syncing table class during operation to update data delegates
+
+- (void) syncStartedForPosn:(NSInteger) p_posnNo
+{
+    [_syncData setValue:@(0) forKey:@"pull"];
+    [_syncData setValue:@(0) forKey:@"pullperc"];
+}
+
+- (void) syncCompletedForPosn:(NSInteger) p_posnNo noOfPulls:(NSInteger) p_pulls noOfPushes:(NSInteger) p_pushes withPullPerc:(NSInteger)p_pullPerc
+{
+    [_syncData setValue:@(p_pulls) forKey:@"pull"];
+    [_syncData setValue:@(p_pullPerc) forKey:@"pullperc"];
+}
+
+- (void) syncTotallyCompleted
+{
+    [self initializeData];
+    (void) [NSTimer scheduledTimerWithTimeInterval:600.0 target:self selector:@selector(checkForNewMessages) userInfo:nil repeats:NO];
 }
 
 @end

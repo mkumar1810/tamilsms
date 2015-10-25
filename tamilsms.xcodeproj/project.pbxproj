@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01CD810E1BDD25A8005FF701 /* smsAPIXMLDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD810D1BDD25A8005FF701 /* smsAPIXMLDataParser.m */; settings = {ASSET_TAGS = (); }; };
 		C05B86BB1BBBE8F000DEAC29 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C05B86BA1BBBE8F000DEAC29 /* libsqlite3.tbd */; };
 		C06099CD1BB2625C0012CA9E /* smsImageMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = C06099CC1BB2625C0012CA9E /* smsImageMessages.m */; };
 		C062989A1BA96E6300557B3D /* SmsIndividualMessageController.m in Sources */ = {isa = PBXBuildFile; fileRef = C06298991BA96E6300557B3D /* SmsIndividualMessageController.m */; };
@@ -124,7 +125,6 @@
 		C06BA5CC1BA1BF7800D66720 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA55F1BA1BF7800D66720 /* success.png */; };
 		C06BA5CD1BA1BF7800D66720 /* textlines.xml in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5601BA1BF7800D66720 /* textlines.xml */; };
 		C06BA5CE1BA1BF7800D66720 /* threepoint.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5611BA1BF7800D66720 /* threepoint.png */; };
-		C06BA5CF1BA1BF7800D66720 /* Thumbs.db in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5621BA1BF7800D66720 /* Thumbs.db */; };
 		C06BA5D01BA1BF7800D66720 /* title_qoute_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5631BA1BF7800D66720 /* title_qoute_icon.png */; };
 		C06BA5D11BA1BF7800D66720 /* top_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5641BA1BF7800D66720 /* top_icon.png */; };
 		C06BA5D21BA1BF7800D66720 /* top_liked.png in Resources */ = {isa = PBXBuildFile; fileRef = C06BA5651BA1BF7800D66720 /* top_liked.png */; };
@@ -157,6 +157,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01CD810C1BDD25A7005FF701 /* smsAPIXMLDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsAPIXMLDataParser.h; sourceTree = "<group>"; };
+		01CD810D1BDD25A8005FF701 /* smsAPIXMLDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsAPIXMLDataParser.m; sourceTree = "<group>"; };
 		C05B86BA1BBBE8F000DEAC29 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C06099CB1BB2625C0012CA9E /* smsImageMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImageMessages.h; sourceTree = "<group>"; };
 		C06099CC1BB2625C0012CA9E /* smsImageMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImageMessages.m; sourceTree = "<group>"; };
@@ -292,7 +294,6 @@
 		C06BA55F1BA1BF7800D66720 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = "<group>"; };
 		C06BA5601BA1BF7800D66720 /* textlines.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = textlines.xml; sourceTree = "<group>"; };
 		C06BA5611BA1BF7800D66720 /* threepoint.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = threepoint.png; sourceTree = "<group>"; };
-		C06BA5621BA1BF7800D66720 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
 		C06BA5631BA1BF7800D66720 /* title_qoute_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title_qoute_icon.png; sourceTree = "<group>"; };
 		C06BA5641BA1BF7800D66720 /* top_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_icon.png; sourceTree = "<group>"; };
 		C06BA5651BA1BF7800D66720 /* top_liked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_liked.png; sourceTree = "<group>"; };
@@ -435,6 +436,8 @@
 				C0657BCC1BBFF2FB00757CB7 /* smsRESTProxy.m */,
 				C0657BCE1BC0019C00757CB7 /* smsSyncDBFromCloud.h */,
 				C0657BCF1BC0019C00757CB7 /* smsSyncDBFromCloud.m */,
+				01CD810C1BDD25A7005FF701 /* smsAPIXMLDataParser.h */,
+				01CD810D1BDD25A8005FF701 /* smsAPIXMLDataParser.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -587,7 +590,6 @@
 				C06BA55F1BA1BF7800D66720 /* success.png */,
 				C06BA5601BA1BF7800D66720 /* textlines.xml */,
 				C06BA5611BA1BF7800D66720 /* threepoint.png */,
-				C06BA5621BA1BF7800D66720 /* Thumbs.db */,
 				C06BA5631BA1BF7800D66720 /* title_qoute_icon.png */,
 				C06BA5641BA1BF7800D66720 /* top_icon.png */,
 				C06BA5651BA1BF7800D66720 /* top_liked.png */,
@@ -671,7 +673,7 @@
 					New,
 				);
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = "arun benjamin";
+				ORGANIZATIONNAME = "Kuttyveni Computing Center";
 				TargetAttributes = {
 					C06BA4B81BA1B0F000D66720 = {
 						CreatedOnToolsVersion = 6.4;
@@ -707,7 +709,6 @@
 				C06BA5CB1BA1BF7800D66720 /* stop.png in Resources */,
 				C06BA5C61BA1BF7800D66720 /* set.png in Resources */,
 				C06BA5701BA1BF7800D66720 /* app_icon.png in Resources */,
-				C06BA5CF1BA1BF7800D66720 /* Thumbs.db in Resources */,
 				C06BA5891BA1BF7800D66720 /* cat22.jpg in Resources */,
 				C06BA5731BA1BF7800D66720 /* author_list.png in Resources */,
 				C06BA5781BA1BF7800D66720 /* cat0000.jpg in Resources */,
@@ -826,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C09BA22F1BC2453F00C2C386 /* registrationNewUser.m in Sources */,
+				01CD810E1BDD25A8005FF701 /* smsAPIXMLDataParser.m in Sources */,
 				C062989A1BA96E6300557B3D /* SmsIndividualMessageController.m in Sources */,
 				C075C7731BB2CBA800308952 /* smsAsyncImageFetch.m in Sources */,
 				C080D6C61BA9016D00C58DB7 /* individualMesssage.m in Sources */,

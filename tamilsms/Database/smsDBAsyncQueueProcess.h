@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 10/09/15.
-//  Copyright (c) 2015 arun benjamin. All rights reserved.
+//  Copyright (c) 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

@@ -19,6 +19,7 @@
     }
     return self;
 }
+
 -(void)reloadCategoriesList
 {
     [self reloadData];
@@ -192,8 +193,6 @@
 //displaying (text mesage) category name and image
 - (void) displayValues
 {
-    
-
     lbl_name.text = [[NSString alloc]initWithFormat:@"%@ (%@)",[_categorydata valueForKey:@"category_name"],[_categorydata valueForKey:@"category_count"]];
 
     [myimage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"cat%ld.jpg",(long)[[_categorydata valueForKey:@"cid"] integerValue]]]];
@@ -204,7 +203,6 @@
 {
     [self.layer setBorderColor:[UIColor colorWithRed:0.71 green:0.65 blue:0.84 alpha:1.0].CGColor];
     [self.layer setBorderWidth:5.0f];
-    
 }
 
 - (void) removeAnimationFromCell

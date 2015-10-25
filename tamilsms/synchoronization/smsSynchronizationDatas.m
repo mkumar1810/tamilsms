@@ -3,7 +3,7 @@
 //  tamilsms
 //
 //  Created by Mohan Kumar on 03/10/15.
-//  Copyright © 2015 arun benjamin. All rights reserved.
+//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import "smsSynchronizationDatas.h"
@@ -14,7 +14,6 @@
     UILabel * lbl_update, *lbl_totalMsg, *lbl_msgcount, *lbl_updmsg, *lbl_prec;
     UIProgressView * indicator;
     NSMutableDictionary * _syncData;
-    
 }
 
 @property (nonatomic,strong) smsSyncDBFromCloud * syncfromCloud;
@@ -178,6 +177,11 @@
     [self setDisplayInformation];
 }
 
+- (void)syncTotallyCompleted
+{
+    
+    
+}
 
 - (void) setDisplayInformation
 {
