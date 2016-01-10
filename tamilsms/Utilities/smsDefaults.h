@@ -6,11 +6,15 @@
 //  Copyright (c) 2015 Mohan Kumar. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#define MAIN_URL @"http://tamilsms.info/"
-#define MAIN_IMAGES_URL @"http://tamilsms.info/upload/"
+//#define MAIN_URL @"http://tamilsms.info/"
+#define MAIN_URL @"http://binu.co.in/tsms/"
+#define MAIN_IMAGES_URL @"http://binu.co.in/tsms/upload/"
+#define SIGNUP_USER @"add-user-wp"
+#define DATA_SYNC_URL @"ios-sms-apis"
+#define DATA_CHECK_URL @"ios-api"
+#define APP_TITLE @"Tamil SMS"
 
 typedef enum {
     noanimation,
@@ -20,8 +24,10 @@ typedef enum {
     horizontalWithBounce,
     pageCurlRightToTop,
     rotatedFreeFallFromTop,
-    horizontalFlipFromRight
+    horizontalFlipFromRight,
+    rotatedStartFromCenter,
 } TransitionType;
+
 
 typedef void (^NOPARAMCALLBACK) ();
 typedef void (^DICTIONARYCALLBACK) (NSDictionary*);
@@ -47,7 +53,7 @@ typedef void (^STRINGCALLBACK) (NSString *);
 - (UIImage*) getPopOutBottomImage;
 - (UIImage*) getPopOutImage;
 - (void) initializeDataWithParams:(NSDictionary*) p_initParams;
-- (void) navigationAnimationCompleted;
+- (void) navigationAnimationCompleted:(UINavigationControllerOperation) p_navOperation;
 
 @end
 

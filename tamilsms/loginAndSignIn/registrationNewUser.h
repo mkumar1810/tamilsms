@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol registerNewUserDelegates <NSObject>
+
+- (void) newUserSignedUp;
+- (void) newUserSignUpCancelled;
+
+@end
+
 @interface registrationNewUser : UIScrollView
+
+@property (nonatomic,weak) id<registerNewUserDelegates> userDelegate;
 
 @end

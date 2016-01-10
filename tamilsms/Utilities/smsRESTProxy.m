@@ -57,21 +57,29 @@ static NSURLSessionConfiguration * _defSessConfig;
     {
         NSString * l_urlquery = [NSString
                                  stringWithFormat:@"update=%ld&user=%ld&iupdate=%ld&iuser=%ld",
-                                 [[_inputParms valueForKey:@"smsversion"] integerValue],
-                                 [[_inputParms valueForKey:@"userversion"] integerValue],
-                                 [[_inputParms valueForKey:@"ismsversion"] integerValue],
-                                 [[_inputParms valueForKey:@"iuserversion"] integerValue]];
-        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@",MAIN_URL,@"ios-sms-apis",l_urlquery]];
+                                 [[_inputParms valueForKey:@"smsversion"] longValue],
+                                 [[_inputParms valueForKey:@"userversion"] longValue],
+                                 [[_inputParms valueForKey:@"ismsversion"] longValue],
+                                 [[_inputParms valueForKey:@"iuserversion"] longValue]];
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@",MAIN_URL,DATA_SYNC_URL,l_urlquery]];
     }
     else if ([_responseType isEqualToString:@"DATACHECK"]==YES)
     {
         NSString * l_urlquery = [NSString
                                  stringWithFormat:@"update=%ld&user=%ld&iupdate=%ld&iuser=%ld",
-                                 [[_inputParms valueForKey:@"smsversion"] integerValue],
-                                 [[_inputParms valueForKey:@"userversion"] integerValue],
-                                 [[_inputParms valueForKey:@"ismsversion"] integerValue],
-                                 [[_inputParms valueForKey:@"iuserversion"] integerValue]];
-        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?user_details=0&%@",MAIN_URL,@"ios-api",l_urlquery]];
+                                 [[_inputParms valueForKey:@"smsversion"] longValue],
+                                 [[_inputParms valueForKey:@"userversion"] longValue],
+                                 [[_inputParms valueForKey:@"ismsversion"] longValue],
+                                 [[_inputParms valueForKey:@"iuserversion"] longValue]];
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?user_details=0&%@",MAIN_URL,DATA_CHECK_URL,l_urlquery]];
+    }
+    else if ([_responseType isEqualToString:@"SIGNUPUSER"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=add&username=%@&password=%@&email=%@&mobileno=%@&location=%@toasturl=pushid",MAIN_URL,SIGNUP_USER,[_inputParms valueForKey:@"username"],[_inputParms valueForKey:@"password"],[_inputParms valueForKey:@"email"],[_inputParms valueForKey:@"mobileno"],[_inputParms valueForKey:@"location"]]];
+    }
+    else if ([_responseType isEqualToString:@"LOGINUSER"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=getid&username=%@&password=%@",MAIN_URL,SIGNUP_USER,[_inputParms valueForKey:@"username"],[_inputParms valueForKey:@"password"]]];
     }
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
     [l_theRequest addValue: @"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];

@@ -21,7 +21,6 @@ static NSString * s_dbFileName;
     if (s_dbOpen==YES) return;
     NSString * l_dbName = @"tamilsms";
 #ifdef DEBUG
-    //l_dbName = @"almsales_h_coln";
 #endif
     NSArray * l_paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSLog(@"l_paths value: %@",l_paths);
@@ -43,7 +42,7 @@ static NSString * s_dbFileName;
         }
     }
 #ifdef DEBUG
-    else
+    /*else
     {
         [l_fileMgr removeItemAtPath:s_dbFileName error:&l_error];
         if (![l_fileMgr copyItemAtPath:l_resFilePath toPath:s_dbFileName error:&l_error])
@@ -57,7 +56,7 @@ static NSString * s_dbFileName;
             //NSString * l_errmsg = [NSString stringWithFormat:@"debug mode file copied successfully %@",s_dbFileName];
             NSLog(@"%@", s_dbFileName);
         }
-    }
+    }*/
 #endif
     
     if (sqlite3_open([s_dbFileName UTF8String], &s_tamilsms_db)==SQLITE_OK)

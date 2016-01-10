@@ -20,6 +20,7 @@
 #import "registrationNewUser.h"
 #import "smsSyncDBFromCloud.h"
 #import "smsRESTProxy.h"
+#import "smsAPIXMLDataParser.h"
 
 @interface smsMainScreenController () <smsCategoriesListDelegate, smsOptionsDropDownTVDelegate, smsAccountSignUpDelegates, UIScrollViewDelegate, UIGestureRecognizerDelegate, smsSyncDBFromCloudDelegates>
 {
@@ -31,6 +32,7 @@
     NSArray * _imgCategoryTitles;
     UIGestureRecognizer * _justgesture;
     NSMutableDictionary * _syncData;
+    UIBarButtonItem * _bar_sync_btn;
 }
 
 @property (nonatomic,strong) smsMainScrollView * mainScrollVw;
@@ -48,19 +50,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navBar setHidden:NO];
-    self.navItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_logo_btn, self.bar_prev_title_btn,nil];
-    self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
+//    [self.navBar setHidden:NO];
+//    self.navItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_logo_btn, self.bar_prev_title_btn,nil];
+//    self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
     [self setUpMainNavigationSegmentCtrl];
     _justgesture = [[UIGestureRecognizer alloc] init];
     _justgesture.delegate = self;
     [self.view addGestureRecognizer:_justgesture];
     
+
     [self initializeData];
     
     _syncData = [[NSMutableDictionary alloc] init];
     self.smsSyncDBFromCloud = [[smsSyncDBFromCloud alloc] init];
     self.smsSyncDBFromCloud.syncDelegate = self;
+    UIButton * l_syncbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20.0, 20.0)];
+    [l_syncbtn setImage:[UIImage imageNamed:@"refresh"] forState:UIControlStateNormal];
+    [l_syncbtn addTarget:self.smsSyncDBFromCloud action:@selector(startSyncingTamilSMSTable) forControlEvents:UIControlEventTouchUpInside];
+    _bar_sync_btn = [[UIBarButtonItem alloc] initWithCustomView:l_syncbtn];
     [self checkForNewMessages];
 }
 
@@ -97,7 +104,7 @@
 {
     [self.mainScrollVw setUserInteractionEnabled:p_interactstatus];
     [_topsegmentctrl setUserInteractionEnabled:p_interactstatus];
-    [self.navBar setUserInteractionEnabled:p_interactstatus];
+//    [self.navBar setUserInteractionEnabled:p_interactstatus];
 }
 
 -(void)setUpMainNavigationSegmentCtrl
@@ -190,12 +197,21 @@
                  NSString * l_recdstring = [[NSString alloc]
                                             initWithData:p_pulledData
                                             encoding:NSUTF8StringEncoding];
-                                           //[self handleReturnedData:p_pulledData];
-                 l_recdstring = [l_recdstring stringByReplacingOccurrencesOfString:@"[]" withString:@""];
-                 //NSLog(@"THE recd data is %@",p_pulledData);
+                 l_recdstring = [NSString stringWithFormat:@"<data>%@</data>", [l_recdstring stringByReplacingOccurrencesOfString:@"[]" withString:@""]];
+                 smsAPIXMLDataParser * l_xmlparser = [[smsAPIXMLDataParser alloc] initWithData:[l_recdstring dataUsingEncoding:NSUTF8StringEncoding]];
+                 [l_xmlparser setShouldResolveExternalEntities:YES];
+                 [l_xmlparser parse];
+                 NSDictionary * l_resultDict = [l_xmlparser processedXMLResultDict];
+//                 if ([[l_resultDict valueForKey:@"smscount"] intValue]>0)
+//                 {
+//                     //[self.smsSyncDBFromCloud startSyncingTamilSMSTable];
+//                     self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:  self.bar_list_btn,_bar_sync_btn,nil];
+//                 }
+//                 else
+//                     self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
+                 
            }];
          }];
-        //[self.smsSyncDBFromCloud startSyncingTamilSMSTable];
     });
 }
 
@@ -398,6 +414,7 @@
 {
     [_syncData setValue:@(0) forKey:@"pull"];
     [_syncData setValue:@(0) forKey:@"pullperc"];
+//    self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
 }
 
 - (void) syncCompletedForPosn:(NSInteger) p_posnNo noOfPulls:(NSInteger) p_pulls noOfPushes:(NSInteger) p_pushes withPullPerc:(NSInteger)p_pullPerc

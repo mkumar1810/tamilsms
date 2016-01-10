@@ -25,6 +25,7 @@
         //
         self.delegate = self;
         _resultDict = [[NSMutableDictionary alloc] init];
+        _parseElement = [[NSMutableString alloc] init];
     }
     return self;
 }

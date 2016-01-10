@@ -27,16 +27,20 @@
     self.transitionType = horizontalFlipFromRight;
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self.navBar setHidden:NO];
-    self.navItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn, self.bar_prev_title_btn,nil];
+//    [self.navBar setHidden:NO];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn, self.bar_prev_title_btn,nil];
     [self setUpMainNavigationSegmentCtrl];
     [self createButtonsForNavigatoncontroler];
-    self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
     //database connection
     // Do any additional setup after loading the view.
+    [self.view bringSubviewToFront:self.actView];
+    [self.actView startAnimating];
 }
+
 -(void)createButtonsForNavigatoncontroler
 {
     UIButton * l_addbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25.0f, 25.0f)];
@@ -55,7 +59,7 @@
     _categoryid = [[p_initParams valueForKey:@"categoryid"] integerValue];
     /*if ([[p_initParams valueForKey:@"type"] isEqualToString:@"subcategory"])
     {*/
-        self.transitionType = horizontalWithBounce;
+    self.transitionType = horizontalWithBounce;
     //}
     [smsDBAsyncQueueProcess getImagMsgForCategory:_categoryid
                                       andReturnCB:^(NSArray * p_imgMsgs){
@@ -65,13 +69,12 @@
         {
             [self.imgMessagesTV reloadCategoriesListMessages];
         }
+        [self.actView stopAnimating];
     }];
-    
 }
 
 -(void)setUpMainNavigationSegmentCtrl
 {
-    
     self.imgMessagesTV = [smsImageMessages new];
     self.imgMessagesTV.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.imgMessagesTV];
@@ -81,15 +84,6 @@
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[cl]" options:0 metrics:nil views:@{ @"cl":self.imgMessagesTV}]];
     [self.view layoutIfNeeded];
-    
-    
-    /*_textMessageForCategoryListTv = [[textMessageForCategoryListTv alloc]initWithFrame:CGRectMake(0, 105, self.view.bounds.size.width, self.view.bounds.size.height-105) style:UITableViewStylePlain];
-     _textMessageForCategoryListTv.categoryMessageDelegate = self;
-     _textMessageForCategoryListTv.dataSource = _textMessageForCategoryListTv;
-     _textMessageForCategoryListTv.delegate = _textMessageForCategoryListTv;
-     _textMessageForCategoryListTv.translatesAutoresizingMaskIntoConstraints = NO;
-     [self.view addSubview:_textMessageForCategoryListTv];*/
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -107,7 +101,7 @@
  }
  */
 
-#pragma sms categoreis list delegates handler
+#pragma mark - sms categoreis list delegates handler
 
 
 -(NSInteger)getMessageCount
@@ -130,7 +124,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self performSegueWithIdentifier:@"ShowIndividualImagemessage" sender:self];
     });
-    
 }
 
 

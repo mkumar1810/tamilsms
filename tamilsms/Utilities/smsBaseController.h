@@ -12,8 +12,8 @@
 
 @interface smsBaseController : UIViewController <smsCustNaviDelegates>
 
-@property (nonatomic,strong) UINavigationBar * navBar;
-@property (nonatomic,strong) UINavigationItem * navItem;
+//@property (nonatomic,strong) UINavigationBar * navBar;
+//@property (nonatomic,strong) UINavigationItem * navItem;
 @property (nonatomic) CGRect lastCellFrameForPopOut;
 @property (nonatomic,strong) UILabel * lbl_prevtitle;
 @property (nonatomic,strong) UIBarButtonItem * bar_back_btn;

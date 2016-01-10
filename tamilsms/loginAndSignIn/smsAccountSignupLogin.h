@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "loginWelcomeScreeen.h"
 
-@protocol smsAccountSignUpDelegates <NSObject>
+@protocol smsAccountSignUpDelegates <NSObject,loginWelComeScreenDelegates>
 
 - (void) invokeSignUpScreen;
 
@@ -16,6 +17,6 @@
 
 @interface smsAccountSignupLogin : UIScrollView
 
-@property (nonatomic, weak) id<smsAccountSignUpDelegates> signUpLoginDelegate;
+@property (nonatomic, strong) IBOutlet id<smsAccountSignUpDelegates> signUpLoginDelegate;
 
 @end

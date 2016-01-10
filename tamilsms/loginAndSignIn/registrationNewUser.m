@@ -7,8 +7,11 @@
 //
 
 #import "registrationNewUser.h"
+#import "smsStandardValidations.h"
+#import "smsDefaults.h"
+#import "smsRESTProxy.h"
 
-@interface registrationNewUser()<UITextFieldDelegate>
+@interface registrationNewUser()<UITextFieldDelegate, NSXMLParserDelegate>
 {
     UILabel *lbl_name,*lbl_email,*lbl_password,*lbl_cnfPassword,*lbl_place,*lbl_mobno,*lbl_agre, *lbl_cntpolicy, *lbl_coma, *lbl_termCondi, *lbl_and, *lbl_privacy;
     UITextField *txt_name,*txt_email,*txt_password,*txt_cnfPassword,*txt_place,*txt_mobno;
@@ -16,6 +19,9 @@
     UIView * _activeTxtFldOrVw;
     CGSize _keyBoardSize;
     CAShapeLayer * _Underline;
+    UIActionSheet * _dispAlertMsg;
+    NSString * _parseElementId;
+    int _userId;
 }
 
 @end
@@ -26,9 +32,9 @@
 -(instancetype)init
 {
     self = [super init];
-    if (self) {
+    if (self)
+    {
         [self setBackgroundColor:[UIColor whiteColor]];
-        
         self.scrollEnabled = YES;
     }
     return self;
@@ -234,7 +240,7 @@
                                                       constant:0.0]];
     
     lbl_mobno = [UILabel new];
-    [lbl_mobno setText:@"Mobile Number(*)"];
+    [lbl_mobno setText:@"Mobile Number"];
     [lbl_mobno setFont:[UIFont systemFontOfSize:15]];
     [lbl_mobno setTextColor:[UIColor blackColor]];
     [lbl_mobno setTextAlignment:NSTextAlignmentLeft];
@@ -395,6 +401,10 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0.0]];
+    [btn_sumit
+     addTarget:self
+     action:@selector(registerTheUserWithDataEntered)
+     forControlEvents:UIControlEventTouchUpInside];
 
     [self layoutIfNeeded];
     
@@ -405,10 +415,15 @@
     _Underline = [[CAShapeLayer alloc] init];
     [_Underline setLineWidth:1.0f];
     [_Underline setFillColor:[UIColor colorWithRed:0.00 green:1.00 blue:1.00 alpha:1.0].CGColor];
-
-
-   
     
+    for (UITextField * l_tmpfld in @[txt_name,txt_email,txt_password,txt_cnfPassword,txt_place,txt_mobno])
+    {
+        [l_tmpfld setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+        [l_tmpfld setAutocorrectionType:UITextAutocorrectionTypeNo];
+    }
+    [txt_email setKeyboardType:UIKeyboardTypeEmailAddress];
+    [txt_password setSecureTextEntry:YES];
+    [txt_cnfPassword setSecureTextEntry:YES];
 }
 - (void)dealloc
 {
@@ -418,14 +433,14 @@
 - (void) setTVScrolledForDataEntry
 {
     //NSLog(@"starting tv scroll for data entry");
-    CGRect l_inputfieldbounds = [_activeTxtFldOrVw convertRect:_activeTxtFldOrVw.bounds toView:self];
+    CGRect l_inputfieldbounds = [_activeTxtFldOrVw convertRect:_activeTxtFldOrVw.bounds toView:self.superview];
     //NSLog(@"the input file bound is %@",NSStringFromCGRect(l_inputfieldbounds));
     CGRect l_superbounds = self.superview.bounds;
     if ((l_inputfieldbounds.origin.y+l_inputfieldbounds.size.height+10.0)>(l_superbounds.size.height- _keyBoardSize.height))
     {
         CGFloat l_offsetheight = (l_inputfieldbounds.origin.y+l_inputfieldbounds.size.height) - (l_superbounds.size.height-_keyBoardSize.height)+10.0;
         [UIView
-         animateWithDuration:0.2
+         animateWithDuration:0.3
          animations:^{
              [self setContentOffset:CGPointMake(0, self.contentOffset.y+ l_offsetheight)];
              // NSLog(@"setting tv scroll for data entry %f", l_offsetheight);
@@ -459,8 +474,86 @@
     [_Underline setBackgroundColor:[UIColor clearColor].CGColor];
     [_activeTxtFldOrVw.layer addSublayer:_Underline];
     //NSLog(@"addunderline to text end");
-    
-    
+}
+
+- (void) registerTheUserWithDataEntered
+{
+    if ([self bValidateFormData])
+    {
+        NSString * l_mobileNo = txt_mobno.text?txt_mobno.text:@"";
+        //job=add&username=%@&password=%@&email=%@&mobileno=%@&location=%@toasturl=pushid
+        NSDictionary * l_inputParams = @{@"username":[txt_name.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
+                                         @"password":txt_password.text,
+                                         @"email":txt_email.text,
+                                         @"mobileno":l_mobileNo,
+                                         @"location":[txt_place.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]};
+        [[smsRESTProxy alloc]
+         initDatawithAPIType:@"SIGNUPUSER"
+         andInputParams:l_inputParams
+         andReturnMethod:^(NSData * p_returnData){
+             NSLog(@"the received is %@", [[NSString alloc] initWithData:p_returnData encoding:NSUTF8StringEncoding]);
+             NSXMLParser *myParser = [[NSXMLParser alloc] initWithData:p_returnData];
+             [myParser setDelegate:self];
+             [myParser setShouldResolveExternalEntities: YES];
+             [myParser parse];
+             if (_userId==0)
+             {
+                 [self showAlertMessage:@"User not available!!!"];
+             }
+             else
+             {
+                 [self.userDelegate newUserSignedUp];
+             }
+         }];
+    }
+}
+
+- (BOOL) bValidateFormData
+{
+    if ([smsStandardValidations isTextFieldIsempty:txt_name])
+    {
+        [self showAlertMessage:@"Name is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextValueIsValidEMail:txt_email.text]==NO)
+    {
+        [self showAlertMessage:@"E-Mail is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextFieldIsempty:txt_password])
+    {
+        [self showAlertMessage:@"Password is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextFieldIsempty:txt_place])
+    {
+        [self showAlertMessage:@"Place is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextFieldIsempty:txt_cnfPassword])
+    {
+        [self showAlertMessage:@"Confirm Password is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextFieldIsempty:txt_place])
+    {
+        [self showAlertMessage:@"Place is invalid!!"];
+        return NO;
+    }
+    if ([txt_password.text isEqualToString:txt_cnfPassword.text]==NO)
+    {
+        [self showAlertMessage:@"Confirm password again!!"];
+        txt_password.text = @"";
+        txt_cnfPassword.text = @"";
+        return NO;
+    }
+    return YES;
+}
+
+- (void) showAlertMessage:(NSString*) p_alertMessage
+{
+    UIAlertView * l_showalert = [[UIAlertView alloc] initWithTitle:APP_TITLE message:p_alertMessage delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+     [l_showalert show];
 }
 
 #pragma notifications for keyboard will show and hide related
@@ -531,6 +624,35 @@
     else
         [textField resignFirstResponder];
     return YES;
+}
+
+#pragma mark - xml parser related delegates
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary<NSString *, NSString *> *)attributeDict
+{
+    _parseElementId = elementName;
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName
+{
+    _parseElementId = nil;
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if ([_parseElementId isEqualToString:@"userid"] | [_parseElementId isEqualToString:@"password"])
+    {
+        [[NSUserDefaults standardUserDefaults]
+         setValue:string
+         forKey:_parseElementId];
+    }
+    if ([_parseElementId isEqualToString:@"userid"])
+    {
+        _userId = [string intValue];
+        [[NSUserDefaults standardUserDefaults]
+         setValue:txt_name.text
+         forKey:@"username"];
+    }
 }
 
 @end

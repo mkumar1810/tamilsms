@@ -31,18 +31,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navBar setHidden:NO];
-    self.navItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn, self.bar_prev_title_btn,nil];
-    [self setUpMainNavigationSegmentCtrl];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn,nil];
+    [self setupMainCategoriesListTV];
     [self createButtonsForNavigatoncontroler];
-    self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
+    [self.view bringSubviewToFront:self.actView];
+    [self.actView startAnimating];
     //database connection
     // Do any additional setup after loading the view.
 }
+
+
+
 -(void)createButtonsForNavigatoncontroler
 {
     UIButton * l_addbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25.0f, 25.0f)];
     [l_addbtn setImage:[UIImage imageNamed:@"plus"] forState:UIControlStateNormal];
+//    [l_addbtn setBackgroundColor:[UIColor blueColor]];
+//    [l_addbtn.layer setCornerRadius:12.5f];
     [l_addbtn addTarget:self action:@selector(addNewUserForPosting) forControlEvents:UIControlEventTouchUpInside];
     _baradd_btn = [[UIBarButtonItem alloc] initWithCustomView:l_addbtn];
 }
@@ -55,6 +61,7 @@
 - (void)initializeDataWithParams:(NSDictionary *)p_initParams
 {
     _categoryid = [[p_initParams valueForKey:@"categoryid"] integerValue];
+    [self.navigationItem setTitle:[p_initParams valueForKey:@"category_name"]];
     if ([[p_initParams valueForKey:@"type"] isEqualToString:@"subcategory"])
     {
         self.transitionType = horizontalWithBounce;
@@ -66,30 +73,21 @@
         {
             [self.txtMessagesTV reloadCategoriesListMessages];
         }
+        [self.actView stopAnimating];
     }];
-    
 }
 
--(void)setUpMainNavigationSegmentCtrl
+-(void)setupMainCategoriesListTV
 {
-    
     self.txtMessagesTV = [textMessageForCategoryListTv new];
     self.txtMessagesTV.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:self.txtMessagesTV];
     self.txtMessagesTV.categoryMessageDelegate = self;
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64.0)]]];
+    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:self.txtMessagesTV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64.0-49.0)]]];
     
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[cl]" options:0 metrics:nil views:@{ @"cl":self.txtMessagesTV}]];
     [self.view layoutIfNeeded];
-    
-    
-    /*_textMessageForCategoryListTv = [[textMessageForCategoryListTv alloc]initWithFrame:CGRectMake(0, 105, self.view.bounds.size.width, self.view.bounds.size.height-105) style:UITableViewStylePlain];
-     _textMessageForCategoryListTv.categoryMessageDelegate = self;
-     _textMessageForCategoryListTv.dataSource = _textMessageForCategoryListTv;
-     _textMessageForCategoryListTv.delegate = _textMessageForCategoryListTv;
-     _textMessageForCategoryListTv.translatesAutoresizingMaskIntoConstraints = NO;
-     [self.view addSubview:_textMessageForCategoryListTv];*/
     
 }
 
@@ -129,7 +127,7 @@
     self.navigateParams = @{@"initialposn":@(p_positno),
                             @"allmessages":_categorymessages};
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:@"showIndividualMessage" sender:self];
+        [self performSegueWithIdentifier:@"showIndividualTextMessage" sender:self];
     });
 
 }

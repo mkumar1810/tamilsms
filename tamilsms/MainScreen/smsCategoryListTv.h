@@ -10,38 +10,17 @@
 
 @protocol smsCategoriesListDelegate <NSObject>
 
--(NSInteger)getNumberOfCategoriesOfMsgType:(NSString*) p_msgType;
--(NSDictionary*) getCategoryDataFromArray:(NSInteger) p_posnNo ofMsgType:(NSString*) p_msgType;
--(void)categoryIdClickedForTheCell:(NSInteger)p_positno ofMsgType:(NSString*) p_msgType;
+-(NSInteger)getNumberOfCategories;
+-(NSDictionary*) getCategoryDataFromArray:(NSInteger) p_posnNo;
+-(void)categoryIdClickedForTheCell:(NSInteger)p_positno;
 
 @end
 
 @interface smsCategoryListTv : UITableView
-{
-    
-}
-@property (nonatomic,weak) id<smsCategoriesListDelegate> dataDelegate;
 
-- (id) initWithMessageType:(NSString*) p_msgType;
+@property (nonatomic,retain) id<smsCategoriesListDelegate> dataDelegate;
 
 - (void) reloadCategoriesList;
 
 @end
 
-@interface smsCategoryTVCell : UITableViewCell
-{
-@private
-    UILabel * lbl_name;
-    UIImageView * myimage;
-    NSInteger l_width, _margin;
-    NSArray * _arrayvalue;
-    NSDictionary * _categorydata;
-}
-
-- (void)drawRectfirst:(CGRect)rect;
-- (void) setDisplayData:(NSDictionary*) p_displayDict;
-- (void) displayValues;
-- (void) animateSelectedCell;
-- (void) removeAnimationFromCell;
-
-@end

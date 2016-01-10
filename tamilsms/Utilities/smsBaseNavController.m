@@ -10,9 +10,6 @@
 #import "smsLocalStore.h"
 
 @interface smsBaseNavController ()
-{
-    id<smsCustNaviDelegates>  _showingctrlr;
-}
 
 @end
 
@@ -21,32 +18,35 @@
 - (void)awakeFromNib
 {
     self.delegate = self;
+    [UINavigationBar appearance].translucent = YES;
+    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+    //[self.navBar setBarTintColor:[UIColor colorWithWhite:0.84 alpha:0.90]];
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.42 green:0.56 blue:0.78 alpha:0.90]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [UINavigationBar appearance].layer.masksToBounds = NO;
+    [UINavigationBar appearance].layer.shadowOffset = CGSizeMake(0, -5);
+    [UINavigationBar appearance].layer.shadowRadius = 6;
+    [UINavigationBar appearance].layer.shadowOpacity = 0.4;
+    
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    self.navigationBarHidden = YES;
-    [smsLocalStore getDBOpened];
+    //[self setNavigationBarHidden:YES];
+    // [self setNeedsStatusBarAppearanceUpdate];
+    [self.view setBackgroundColor:[UIColor clearColor]];
     // Do any additional setup after loading the view.
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return self.topViewController.preferredStatusBarStyle;
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    return self.topViewController.prefersStatusBarHidden;
-}
 
 #pragma navigation controller delegates
-
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController
 {
@@ -60,7 +60,9 @@
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    _showingctrlr = (id<smsCustNaviDelegates>) viewController;
+    //_showingctrlr = (id<trcCustNaviDelegates>) viewController;
+    //self.showingBaseController = (ibdcBaseController*) viewController;
+//    _showingCtrlDelegates = (id<fmaCustNaviDelegates>) viewController;
 }
 
 @end
@@ -118,21 +120,27 @@
         
         [transitionContext completeTransition:YES];
         
-        if (_navOperation==UINavigationControllerOperationPush)
+        if ([l_toViewController respondsToSelector:@selector(navigationAnimationCompleted:)])
         {
-            if ([l_toViewController respondsToSelector:@selector(navigationAnimationCompleted)])
-            {
-                [l_toViewController navigationAnimationCompleted];
-            }
+            [l_toViewController navigationAnimationCompleted:_navOperation];
+        }
+        if ([l_fromViewController respondsToSelector:@selector(navigationAnimationCompleted:)])
+        {
+            [l_fromViewController navigationAnimationCompleted:_navOperation];
         }
     };
     
     if (l_currTransitionType==noanimation)
     {
         if (_navOperation==UINavigationControllerOperationPush)
+        {
             l_pushCB();
+        }
         else
+        {
             l_popCB();
+        }
+        [[transitionContext containerView] addSubview:[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view];
         l_completionCB();
         return;
     }
@@ -271,6 +279,19 @@
              duration:[self transitionDuration:transitionContext]
              withCB:l_completionCB
              andPushCB:l_pushCB];
+        else
+            [self
+             makeHorizontalRightFlipPopFrom:[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view
+             to:[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view
+             onContainer:[transitionContext containerView]
+             duration:[self transitionDuration:transitionContext]
+             withCB:l_completionCB
+             andPopCB:l_popCB];
+    }
+    else if (l_currTransitionType==rotatedStartFromCenter)
+    {
+        if ( _navOperation == UINavigationControllerOperationPush)
+            [self makePushRotatedStartFromCenter:[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view to:[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey].view onContainer:[transitionContext containerView] duration:[self transitionDuration:transitionContext] withCompletionCB:l_completionCB andPushCB:l_pushCB];
         else
             [self
              makeHorizontalRightFlipPopFrom:[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey].view
@@ -515,7 +536,7 @@
 - (void) makeHorizontalBouncePopFrom:(UIView*) p_fromView to:(UIView*) p_toView onContainer:(UIView*) p_containerView duration:(NSTimeInterval) p_duration finalFrame:(CGRect) p_finalFrame withCompletionCB:(NOPARAMCALLBACK) p_completionCB andPopCB:(NOPARAMCALLBACK) p_popCB
 {
     CGRect l_finalFromFrame = CGRectMake(p_finalFrame.size.width, 0, p_finalFrame.size.width, p_finalFrame.size.height);
-    p_toView.frame = CGRectOffset(l_finalFromFrame, -p_finalFrame.size.width, 0);
+    p_toView.frame = CGRectOffset(p_finalFrame, -p_finalFrame.size.width, 0);
     [p_containerView addSubview:p_toView];
     [p_containerView sendSubviewToBack:p_toView];
     [UIView animateWithDuration:p_duration
@@ -616,6 +637,59 @@
      }];
 }
 
+- (void)makePushRotatedStartFromCenter:(UIView *)p_fromView to:(UIView *)p_toView onContainer:(UIView *)p_containerView duration:(NSTimeInterval)p_duration withCompletionCB:(NOPARAMCALLBACK) p_completionCB andPushCB:(NOPARAMCALLBACK) p_pushCB
+{
+    CGFloat l_shrink_x = 0.25;
+    CGFloat l_shrink_y = 0.25;
+    CGAffineTransform transform = CGAffineTransformConcat(CGAffineTransformMakeScale(l_shrink_x, l_shrink_y), CGAffineTransformMakeRotation(M_PI-0.1));
+    p_toView.transform = transform;
+    p_toView.alpha = 0.5;
+    [p_containerView addSubview:p_toView];
+    
+    [UIView animateWithDuration:p_duration
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:0.5
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         p_toView.alpha = 1;
+                         p_toView.transform = CGAffineTransformIdentity;
+                         p_pushCB();
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             [p_fromView removeFromSuperview];
+                             p_completionCB(finished);
+                         }
+                     }];
+}
+
+- (void) makePopRotatedStartFromCenter:(UIView*) p_fromView to:(UIView*) p_toView onContainer:(UIView*) p_containerView duration:(NSTimeInterval) p_duration withCompletionCB:(NOPARAMCALLBACK) p_completionCB andPopCB:(NOPARAMCALLBACK) p_popCB
+{
+    
+    CGFloat l_shrink_x = 0.25;
+    CGFloat l_shrink_y = 0.25;
+    CGAffineTransform transform = CGAffineTransformConcat(CGAffineTransformMakeScale(l_shrink_x, l_shrink_y), CGAffineTransformMakeRotation(M_PI-0.1));
+    //p_toView.transform = transform;
+    [p_containerView insertSubview:p_toView aboveSubview:p_fromView];
+    
+    [UIView animateWithDuration:p_duration
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:0.5
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         p_fromView.transform = transform;
+                         p_popCB();
+                     }
+                     completion:^(BOOL finished) {
+                         if (finished) {
+                             [p_fromView removeFromSuperview];
+                             p_completionCB(finished);
+                         }
+                     }];
+    
+}
+
 
 @end
-

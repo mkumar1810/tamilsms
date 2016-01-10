@@ -7,23 +7,34 @@
 //
 
 #import "smsAccountSignupLogin.h"
-#import "registrationNewUser.h"
+//#import "registrationNewUser.h"
 #import "smsBaseNavigationSegue.h"
+#import "smsStandardValidations.h"
+#import "smsRESTProxy.h"
 
-
-@interface smsAccountSignupLogin()<UITextFieldDelegate>
+@interface smsAccountSignupLogin()<UITextFieldDelegate, NSXMLParserDelegate>
 {
     UILabel * lbl_login, *lbl_username, *lbl_password, *lbl_wrongIndi, *lbl_agre, *lbl_cntpolicy, *lbl_coma, *lbl_termCondi, *lbl_and, *lbl_privacy;
     UITextField * txt_username, *txt_pasword;
     UIButton *but_login, *but_changPass, *but_newAcc;
     UIView * _activeTxtFldOrVw;
     CGSize _keyBoardSize;
+    NSString * _parseElementId;
+    int _userId;
 }
 
-@property (nonatomic,strong) registrationNewUser * registrationNewUserV;
+//@property (nonatomic,strong) registrationNewUser * registrationNewUserV;
+@property (nonatomic,strong) loginWelcomeScreeen * loginWelcomeScreeenSV;
+
 @end
 
 @implementation smsAccountSignupLogin
+
+- (void)awakeFromNib
+{
+    [self setBackgroundColor:[UIColor colorWithRed:0.19 green:0.47 blue:0.72 alpha:1.0]];
+    self.scrollEnabled = YES;
+}
 
 -(instancetype)init
 {
@@ -40,6 +51,13 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    NSInteger l_loggeduserid = [[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"] integerValue];
+    if (l_loggeduserid!=0)
+    {
+        [self showLoginWelcomeScreen];
+        return;
+    }
+    
     if (lbl_login)
     {
         return;
@@ -149,6 +167,10 @@
     [but_login setTitleColor:[UIColor colorWithRed:0.29 green:0.53 blue:0.91 alpha:1.0] forState:UIControlStateNormal];
     but_login.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:but_login];
+    [but_login
+     addTarget:self
+     action:@selector(loginWithUserInfo)
+     forControlEvents:UIControlEventTouchUpInside];
     
     [but_login addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[BL(30)]" options:0 metrics:nil views:@{@"BL":but_login}]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-210-[BL]" options:0 metrics:nil views:@{@"BL":but_login}]];
@@ -308,6 +330,57 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardBecomesVisible:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardBecomesHidden:) name:UIKeyboardDidHideNotification object:nil];
     [self setContentSize:CGSizeMake(rect.size.width, 445)];
+    
+    
+}
+
+- (void) showLoginWelcomeScreen
+{
+    
+    if (self.loginWelcomeScreeenSV)
+    {
+        [self bringSubviewToFront:self.loginWelcomeScreeenSV];
+        return;
+    }
+    self.loginWelcomeScreeenSV = [loginWelcomeScreeen new];
+    self.loginWelcomeScreeenSV.translatesAutoresizingMaskIntoConstraints = NO;
+    self.loginWelcomeScreeenSV.screenDelegate = self.signUpLoginDelegate;
+    //self.smsAccountSignupLoginSV.signUpLoginDelegate = self.signUpLoginDelegate;
+    //self.smsAccountSignupLoginSV.dataDelegate = self.txtMsgCategoriesDelegate;
+    [self addSubview:self.loginWelcomeScreeenSV];
+    //[self.categoriesListVw setHidden:YES];
+    [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.loginWelcomeScreeenSV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.loginWelcomeScreeenSV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.loginWelcomeScreeenSV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.loginWelcomeScreeenSV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]]];
+    
+    [self layoutIfNeeded];
+    
+}
+
+- (void) loginWithUserInfo
+{
+    if ([self bValidateFormData])
+    {
+        
+        NSDictionary * l_inputParams = @{@"username":txt_username.text,
+                                         @"password":txt_pasword.text};
+        [[smsRESTProxy alloc]
+         initDatawithAPIType:@"LOGINUSER"
+         andInputParams:l_inputParams
+         andReturnMethod:^(NSData * p_returnData){
+             NSLog(@"the received is %@", [[NSString alloc] initWithData:p_returnData encoding:NSUTF8StringEncoding]);
+             NSXMLParser *myParser = [[NSXMLParser alloc] initWithData:p_returnData];
+             [myParser setDelegate:self];
+             [myParser setShouldResolveExternalEntities: YES];
+             [myParser parse];
+             if (_userId==0)
+             {
+                 [self showAlertMessage:@"User not available!!!"];
+             }
+             else
+             {
+                 [self showLoginWelcomeScreen];
+             }
+         }];
+    }
 }
 
 - (void)dealloc
@@ -332,6 +405,27 @@
          }];
     }
     //NSLog(@"ending tv scroll for data entry");
+}
+
+- (BOOL) bValidateFormData
+{
+    if ([smsStandardValidations isTextFieldIsempty:txt_username])
+    {
+        [self showAlertMessage:@"Name is invalid!!"];
+        return NO;
+    }
+    if ([smsStandardValidations isTextFieldIsempty:txt_pasword])
+    {
+        [self showAlertMessage:@"Password is invalid!!"];
+        return NO;
+    }
+    return YES;
+}
+
+- (void) showAlertMessage:(NSString*) p_alertMessage
+{
+    UIAlertView * l_showalert = [[UIAlertView alloc] initWithTitle:APP_TITLE message:p_alertMessage delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    [l_showalert show];
 }
 
 #pragma notifications for keyboard will show and hide related
@@ -394,4 +488,35 @@
     [self.signUpLoginDelegate invokeSignUpScreen];
    
 }
+
+
+#pragma mark - xml parser related delegates
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary<NSString *, NSString *> *)attributeDict
+{
+    _parseElementId = elementName;
+}
+
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName
+{
+    _parseElementId = nil;
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if ([_parseElementId isEqualToString:@"userid"] | [_parseElementId isEqualToString:@"password"] | [_parseElementId isEqualToString:@"total"] | [_parseElementId isEqualToString:@"mod"])
+    {
+        [[NSUserDefaults standardUserDefaults]
+         setValue:string
+         forKey:_parseElementId];
+    }
+    if ([_parseElementId isEqualToString:@"userid"])
+    {
+        _userId = [string intValue];
+        [[NSUserDefaults standardUserDefaults]
+         setValue:txt_username.text
+         forKey:@"username"];
+    }
+}
+
 @end

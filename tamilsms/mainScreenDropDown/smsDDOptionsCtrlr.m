@@ -12,7 +12,7 @@
 #import "smsInfoSettingsScreen.h"
 #import "registrationNewUser.h"
 
-@interface smsDDOptionsCtrlr ()
+@interface smsDDOptionsCtrlr ()<registerNewUserDelegates>
 {
     NSString * _opselected;
 }
@@ -33,8 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navBar setHidden:NO];
-    self.navItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_back_btn, self.bar_logo_btn, self.bar_prev_title_btn,nil];
+//    [self.navBar setHidden:NO];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_back_btn, self.bar_logo_btn, nil];
     //self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
     // Do any additional setup after loading the view.
 }
@@ -65,6 +65,7 @@
 
     if ([_opselected isEqualToString:@"signup"])
     {
+        [self.navigationItem setTitle:@"Sign Up"];
         [self showSignUpScreen];
     }
 
@@ -84,10 +85,11 @@
     self.registrationNewUserV = [registrationNewUser new];
      //[self.smsAccountSignupLoginSV setBackgroundColor:[UIColor whiteColor]];
      [self.view addSubview:self.registrationNewUserV];
+    self.registrationNewUserV.userDelegate = self;
      self.registrationNewUserV.translatesAutoresizingMaskIntoConstraints = NO;
      [self.view bringSubviewToFront:self.registrationNewUserV];
      
-     [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:32],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64)]]];
+     [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:(32-49.0/2.0)],[NSLayoutConstraint constraintWithItem:self.registrationNewUserV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64-49)]]];
     
 }
 
@@ -100,7 +102,7 @@
     self.fontSizeChangeVw.translatesAutoresizingMaskIntoConstraints=NO;
     [self.view bringSubviewToFront:self.fontSizeChangeVw];
     
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:32],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64)]]];
+    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:(32-49.0/2.0)],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64-49)]]];
     [self.view layoutIfNeeded];
     
 }
@@ -114,7 +116,7 @@
     self.smsFeedbackScreenV.translatesAutoresizingMaskIntoConstraints=NO;
     [self.view bringSubviewToFront:self.smsFeedbackScreenV];
     
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:32],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64)]]];
+    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:(32-49.0/2.0)],[NSLayoutConstraint constraintWithItem:self.smsFeedbackScreenV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64-49)]]];
     
     // NSLog(@"the font seting frame is %@",NSStringFromCGRect(self.smsFontSizeChangeV.frame));
     self.smsFeedbackScreenV.transform = CGAffineTransformMakeScale(0.5, 0.5);
@@ -138,7 +140,7 @@
     self.smsInfoSettingsScreenV.translatesAutoresizingMaskIntoConstraints=NO;
     [self.view bringSubviewToFront:self.smsInfoSettingsScreenV];
     
-    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:32],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64)]]];
+    [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:(32-49.0/2.0)],[NSLayoutConstraint constraintWithItem:self.smsInfoSettingsScreenV attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64-49)]]];
     
     // NSLog(@"the font seting frame is %@",NSStringFromCGRect(self.smsFontSizeChangeV.frame));
     self.smsInfoSettingsScreenV.transform = CGAffineTransformMakeScale(0.5, 0.5);
@@ -161,6 +163,18 @@
         [self.fontSizeChangeVw updateConstraints];
     }
 
+}
+
+#pragma mark - new user signed up delegates
+
+- (void)newUserSignedUp
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)newUserSignUpCancelled
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

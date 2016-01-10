@@ -1,73 +1,143 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2Q5-Ya-JCo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="cqw-mG-J7F">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Main Screen-->
-        <scene sceneID="ufC-wZ-h7g">
+        <!--Sms Base Home Controller-->
+        <scene sceneID="GEj-8y-54V">
             <objects>
-                <viewController title="Main Screen" id="vXZ-lx-hvc" customClass="smsMainScreenController" sceneMemberID="viewController">
+                <tabBarController id="cqw-mG-J7F" customClass="smsBaseHomeController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="k7g-6J-Gyk"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="cDC-bl-I1O">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="7sW-9u-sJz" kind="relationship" relationship="viewControllers" id="KzH-T3-aMn"/>
+                        <segue destination="Duw-hz-cE7" kind="relationship" relationship="viewControllers" id="T4c-Ku-g6l"/>
+                        <segue destination="E8d-FG-TaB" kind="relationship" relationship="viewControllers" id="cfm-Sc-dPd"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bhy-Yq-Hwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1378" y="500"/>
+        </scene>
+        <!--Text Categories-->
+        <scene sceneID="yvt-LX-Btk">
+            <objects>
+                <tableViewController id="9Rq-aQ-LbC" customClass="smsTextCategoriesCtrlr" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kGi-Ty-VXa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categorycell" id="aGa-mb-3fR">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGa-mb-3fR" id="FhC-bK-AYZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Rq-aQ-LbC" id="2eE-g2-g11"/>
+                            <outlet property="delegate" destination="9Rq-aQ-LbC" id="ZRb-XS-Xz0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Text Categories" id="chT-71-xcg"/>
+                    <connections>
+                        <segue destination="Jmg-xX-D5t" kind="custom" identifier="showtextmessagesforcategory" customClass="smsBaseNavigationSegue" id="Bvu-2j-7Bx"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zrl-ur-qEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-502" y="1498"/>
+        </scene>
+        <!--Text Messages-->
+        <scene sceneID="0RQ-bz-YKE">
+            <objects>
+                <viewController id="Jmg-xX-D5t" customClass="smsTxtMsgsController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
-                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                        <viewControllerLayoutGuide type="top" id="fXc-Gc-cpB"/>
+                        <viewControllerLayoutGuide type="bottom" id="ION-Y8-nAs"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="scaleToFill" id="IE2-Pm-QHV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Text Messages" id="7sb-CP-ky6"/>
+                    <connections>
+                        <segue destination="i3z-kW-6kQ" kind="custom" identifier="showIndividualTextMessage" customClass="smsBaseNavigationSegue" id="mCN-lf-q5a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ibh-9f-2o9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-49" y="1493"/>
+        </scene>
+        <!--Show Ind Txt Msg Ctrlr-->
+        <scene sceneID="XMZ-tW-eua">
+            <objects>
+                <viewController id="i3z-kW-6kQ" customClass="showIndTxtMsgCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="toV-5b-dwR"/>
+                        <viewControllerLayoutGuide type="bottom" id="amz-GH-MQH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sLC-k9-bIO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hDS-T0-NVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="1487"/>
+        </scene>
+        <!--Account Base Navigator-->
+        <scene sceneID="qqt-ck-HP6">
+            <objects>
+                <navigationController title="Account Base Navigator" id="E8d-FG-TaB" customClass="smsBaseNavController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Account" id="Q5G-1b-hIK"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="if7-6A-eBA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="m1e-sS-NpP" kind="relationship" relationship="rootViewController" id="enh-Go-vEf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Her-OP-w4t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-754" y="819"/>
+        </scene>
+        <!--Sign Up Login Delegate-->
+        <scene sceneID="ZtH-5j-tbJ">
+            <objects>
+                <viewController title="Account Main" id="m1e-sS-NpP" customClass="smsAccountMainCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rAT-dG-PY4"/>
+                        <viewControllerLayoutGuide type="bottom" id="ld8-eS-vSY"/>
+                    </layoutGuides>
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" id="zqd-mg-3Yo" customClass="smsAccountSignupLogin">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="kqc-BV-O77"/>
+                        <connections>
+                            <outlet property="signUpLoginDelegate" destination="m1e-sS-NpP" id="v3A-li-dax"/>
+                        </connections>
+                    </scrollView>
+                    <navigationItem key="navigationItem" title="Account" id="64o-mB-n0r"/>
                     <connections>
-                        <segue destination="Q27-Ib-ZkG" kind="custom" identifier="showtextmessagesforcategory" customClass="smsBaseNavigationSegue" id="5MH-bK-Ojc"/>
-                        <segue destination="7nu-j0-y54" kind="custom" identifier="showSubCategoryList" customClass="smsBaseNavigationSegue" id="yEk-PG-6hY"/>
-                        <segue destination="mS8-AS-t1D" kind="custom" identifier="showimagemessagesforcategory" customClass="smsBaseNavigationSegue" id="9Au-gV-0sN"/>
-                        <segue destination="ptu-KX-x3V" kind="custom" identifier="showdropdownoptionscreen" customClass="smsBaseNavigationSegue" id="aE4-7z-XPQ"/>
+                        <outlet property="view" destination="zqd-mg-3Yo" id="X7W-yp-wbA"/>
+                        <segue destination="ptu-KX-x3V" kind="custom" identifier="showregisternewuser" customClass="smsBaseNavigationSegue" id="1ME-mT-WsC"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ttv-Dm-9dZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="528" y="135"/>
-        </scene>
-        <!--Text Messages for Category-->
-        <scene sceneID="2mQ-ah-r4T">
-            <objects>
-                <viewController title="Text Messages for Category" id="Q27-Ib-ZkG" customClass="smsTxtMsgsController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="lvU-DF-4iG"/>
-                        <viewControllerLayoutGuide type="bottom" id="iIb-ga-fi2"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wWb-eB-yAn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="f2B-7Z-XAE" kind="custom" identifier="showIndividualMessage" customClass="smsBaseNavigationSegue" id="w2Y-hA-GXX"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Rs-6u-7JN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1054" y="135"/>
-        </scene>
-        <!--Sms Individual Message Controller-->
-        <scene sceneID="ZId-Ro-xjj">
-            <objects>
-                <viewController id="f2B-7Z-XAE" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TTU-EH-LeT"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZT0-dO-K9w"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="9P2-oB-bY0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dhv-7E-OyS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1520" y="133"/>
+            <point key="canvasLocation" x="-152" y="825"/>
         </scene>
         <!--Drop down Options-->
         <scene sceneID="gv0-BC-seW">
@@ -85,90 +155,114 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MKc-uW-dXr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="843"/>
+            <point key="canvasLocation" x="359" y="825"/>
         </scene>
-        <!--subCategories-->
-        <scene sceneID="jz3-5r-FJQ">
+        <!--Image Categories-->
+        <scene sceneID="aa5-TY-vLr">
             <objects>
-                <viewController title="subCategories" id="7nu-j0-y54" customClass="smsSubCategoryController" sceneMemberID="viewController">
+                <tableViewController title="Image Categories" id="Jj0-4J-PNn" customClass="smsImageCategoriesCtrlr" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fFr-fD-MN9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Je5-md-wf7">
+                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Je5-md-wf7" id="5i5-Ta-Dui">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Jj0-4J-PNn" id="iew-4w-CWw"/>
+                            <outlet property="delegate" destination="Jj0-4J-PNn" id="Kjn-Sz-PU9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="2mZ-07-qDQ"/>
+                    <connections>
+                        <segue destination="EyV-oO-xja" kind="custom" identifier="showimagemessagesforcategory" customClass="smsBaseNavigationSegue" id="H7y-Ck-NR8"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MEQ-cs-BQF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-502" y="154"/>
+        </scene>
+        <!--Sms Img Msgs Controller-->
+        <scene sceneID="dp3-SI-GMN">
+            <objects>
+                <viewController id="EyV-oO-xja" customClass="smsImgMsgsController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="j3L-KG-99F"/>
-                        <viewControllerLayoutGuide type="bottom" id="EWb-xV-0cw"/>
+                        <viewControllerLayoutGuide type="top" id="mpP-Mi-Q7y"/>
+                        <viewControllerLayoutGuide type="bottom" id="EfH-eH-hXp"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kRB-CC-fp4">
+                    <view key="view" contentMode="scaleToFill" id="Mgb-5a-KvD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="Q27-Ib-ZkG" kind="custom" identifier="showtextmsgsforsubcategory" customClass="smsBaseNavigationSegue" id="qe1-Fj-KXz"/>
-                        <segue destination="mS8-AS-t1D" kind="custom" identifier="showimgmsgsforsubcategory" customClass="smsBaseNavigationSegue" id="jp5-qy-Mfr"/>
+                        <segue destination="1QC-Ll-xQd" kind="custom" identifier="ShowIndividualImagemessage" customClass="smsBaseNavigationSegue" id="RFo-A4-Lfe"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="myP-Co-T23" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fUh-EV-mEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="538" y="843"/>
+            <point key="canvasLocation" x="-49" y="154"/>
         </scene>
-        <!--Image Messages-->
-        <scene sceneID="XJb-90-Ha1">
+        <!--Sms Individual Message Controller-->
+        <scene sceneID="cyh-aa-IZU">
             <objects>
-                <viewController title="Image Messages" id="mS8-AS-t1D" customClass="smsImgMsgsController" sceneMemberID="viewController">
+                <viewController id="1QC-Ll-xQd" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gxc-rz-F6f"/>
-                        <viewControllerLayoutGuide type="bottom" id="vht-Is-aer"/>
+                        <viewControllerLayoutGuide type="top" id="tSa-Fh-YKY"/>
+                        <viewControllerLayoutGuide type="bottom" id="HSk-tM-pGj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ac2-aS-WPx">
+                    <view key="view" contentMode="scaleToFill" id="46A-b0-wF7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="85v-rI-nub" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="428" y="154"/>
+        </scene>
+        <!--Image categories Base Nav-->
+        <scene sceneID="LLc-k0-j2M">
+            <objects>
+                <navigationController title="Image categories Base Nav" id="Duw-hz-cE7" customClass="smsBaseNavController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Image" id="WS7-Om-0cg"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SKl-Zc-a1M">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
                     <connections>
-                        <segue destination="hFP-XT-2JG" kind="custom" identifier="ShowIndividualImagemessage" customClass="smsBaseNavigationSegue" id="Cl6-ZT-AOk"/>
+                        <segue destination="Jj0-4J-PNn" kind="relationship" relationship="rootViewController" id="faN-Qa-4Ov"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dlZ-ZT-UVf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yiy-mj-h4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1064" y="843"/>
+            <point key="canvasLocation" x="-935" y="154"/>
         </scene>
-        <!--Sms Individual Image Message Controler-->
-        <scene sceneID="YHN-tF-E1T">
+        <!--Text Categories Base-->
+        <scene sceneID="YWh-8c-f7X">
             <objects>
-                <viewController id="hFP-XT-2JG" customClass="smsIndividualImageMessageControler" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0Tk-2F-PAf"/>
-                        <viewControllerLayoutGuide type="bottom" id="sMG-qs-8uA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="e35-xz-dJP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jRp-bm-BD2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1550" y="843"/>
-        </scene>
-        <!--Main Navigation Controller-->
-        <scene sceneID="DsN-vp-TSo">
-            <objects>
-                <navigationController title="Main Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="2Q5-Ya-JCo" customClass="smsBaseNavController" sceneMemberID="viewController">
+                <navigationController title="Text Categories Base" automaticallyAdjustsScrollViewInsets="NO" id="7sW-9u-sJz" customClass="smsBaseNavController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Text" id="U0X-P1-ZyD"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AjP-cm-d9o">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="m6R-tm-Cia">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="wOQ-y6-U9o"/>
+                        <segue destination="9Rq-aQ-LbC" kind="relationship" relationship="rootViewController" id="I2H-gt-1iz"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="evv-BO-eXH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1m-9Q-e7E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="108" y="135"/>
+            <point key="canvasLocation" x="-1002" y="1509"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="5MH-bK-Ojc"/>
-        <segue reference="9Au-gV-0sN"/>
-    </inferredMetricsTieBreakers>
 </document>

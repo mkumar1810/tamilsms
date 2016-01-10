@@ -42,30 +42,30 @@
 
 - (void) setupNavigationBarItems
 {
-    self.navBar = [UINavigationBar new];
-    self.navBar.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.navBar];
-    
-    self.navBar.translucent = YES;
-    [self.navBar setShadowImage:[[UIImage alloc] init]];
+//    self.navBar = [UINavigationBar new];
+//    self.navBar.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.view addSubview:self.navBar];
+//    
+//    self.navBar.translucent = YES;
+//    [self.navBar setShadowImage:[[UIImage alloc] init]];
     //[self.navBar setBarTintColor:[UIColor colorWithWhite:0.84 alpha:0.90]];
     //[self.navBar setBarTintColor:[UIColor colorWithRed:0.42 green:0.56 blue:0.78 alpha:0.90]];
-    [self.navBar setTintColor:[UIColor whiteColor]];
-    [self.navBar setBarTintColor:[UIColor blackColor]];
-    [self.navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navBar.layer.masksToBounds = NO;
-    self.navBar.layer.shadowOffset = CGSizeMake(0, -5);
-    self.navBar.layer.shadowRadius = 6;
-    self.navBar.layer.shadowOpacity = 0.4;
-    
-    self.navItem = [UINavigationItem new];
-    self.navBar.items = @[self.navItem];
-    
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
-    [self.navBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[navbar(44)]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navbar]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[navbar]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
-    [self.navBar setHidden:YES];
+//    [self.navBar setTintColor:[UIColor whiteColor]];
+//    [self.navBar setBarTintColor:[UIColor blackColor]];
+//    [self.navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    self.navBar.layer.masksToBounds = NO;
+//    self.navBar.layer.shadowOffset = CGSizeMake(0, -5);
+//    self.navBar.layer.shadowRadius = 6;
+//    self.navBar.layer.shadowOpacity = 0.4;
+//    
+//    self.navItem = [UINavigationItem new];
+//    self.navBar.items = @[self.navItem];
+//    
+//    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.navBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0]];
+//    [self.navBar addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[navbar(44)]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navbar]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
+//    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-20-[navbar]" options:0 metrics:nil views:@{@"navbar":self.navBar}]];
+//    [self.navBar setHidden:YES];
     
     UIButton * l_backbtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30.0, 20.0)];
     [l_backbtn setImage:[UIImage imageNamed:@"bckbtn-1"] forState:UIControlStateNormal];

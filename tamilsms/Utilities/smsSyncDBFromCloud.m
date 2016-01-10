@@ -48,13 +48,18 @@
     }];
 }
 
-- (void) handleReturnedData:(id) p_returnData
+- (void) handleReturnedData:(id) p_receivedData
 {
     static NSInteger l_recdrecs = 0;
     NSError * l_parseerror = nil;
     NSArray * l_recdRawData;
-    NSInteger l_returnError = [[p_returnData valueForKey:@"error"] integerValue];
-    if (l_returnError!=0)
+    id l_returndict = [NSJSONSerialization
+                       JSONObjectWithData:p_receivedData
+                       options:NSJSONReadingMutableLeaves
+                       error:&l_parseerror];
+    
+    NSInteger l_returnError = [[l_returndict valueForKey:@"error"] integerValue];
+    if ((l_parseerror!=nil) | (l_returnError!=0))
     {
         _syncError++;
         l_recdrecs = 0;
@@ -66,7 +71,7 @@
         //return;
     }
     @try {
-        l_recdRawData = (NSArray*) [p_returnData valueForKey:@"Quotes"];
+        l_recdRawData = (NSArray*) [l_returndict valueForKey:@"Quotes"];
         _totalRecs = [l_recdRawData count];
         if (l_parseerror)
         {

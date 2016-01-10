@@ -58,6 +58,7 @@
     //NSURLConnection *l_theConnection;
     NSString * l_requesttype;
     l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",MAIN_IMAGES_URL,_fileName]];
+    NSLog(@"the url string is %@", [l_url absoluteString]);
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
     l_requesttype = @"GET";
     [l_theRequest addValue: @"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
@@ -101,7 +102,16 @@
                 NSDictionary * l_webdata = (NSDictionary*) [NSJSONSerialization JSONObjectWithData:p_respData options:NSJSONReadingMutableLeaves error:&l_error];
                 if (!l_webdata)
                 {
-                    [p_respData writeToFile:_localfilename options:NSDataWritingAtomic error:&l_error];
+                    NSLog(@"the receied is %@",[[NSString alloc] initWithData:p_respData encoding:NSUTF8StringEncoding]);
+                    if (![l_fileManager fileExistsAtPath:_localfilename])
+                    {
+                        [l_fileManager createFileAtPath:_localfilename contents:nil attributes:nil];
+                        NSFileHandle * l_fwhandle = [NSFileHandle fileHandleForWritingAtPath:_localfilename];
+                        [l_fwhandle seekToFileOffset:0];
+                        [l_fwhandle writeData:p_respData];
+                        [l_fwhandle closeFile];
+                    }
+//                    [p_respData writeToFile:_localfilename options:NSDataWritingAtomic error:&l_error];
                     if (_proxyReturnMethod!=NULL)
                     {
                         _proxyReturnMethod(@{@"error":@"0", @"filename":_localfilename,@"linkname":_fileName});

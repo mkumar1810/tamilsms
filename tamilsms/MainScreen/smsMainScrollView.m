@@ -40,14 +40,14 @@
 {
     [super drawRect:rect];
     
-    self.txtCategoriesListVw = [[smsCategoryListTv alloc] initWithMessageType:@"txt"];
+//    self.txtCategoriesListVw = [[smsCategoryListTv alloc] initWithMessageType:@"txt"];
      self.txtCategoriesListVw.translatesAutoresizingMaskIntoConstraints = NO;
     self.txtCategoriesListVw.dataDelegate = self.txtMsgCategoriesDelegate;
      [self addSubview:self.txtCategoriesListVw];
      //[self.categoriesListVw setHidden:YES];
      [self addConstraints:@[[NSLayoutConstraint constraintWithItem:self.txtCategoriesListVw attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.txtCategoriesListVw attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.txtCategoriesListVw attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.txtCategoriesListVw attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0]]];
 
-    self.imgCategoriesListVw = [[smsCategoryListTv alloc] initWithMessageType:@"img"];
+//    self.imgCategoriesListVw = [[smsCategoryListTv alloc] initWithMessageType:@"img"];
     self.imgCategoriesListVw.translatesAutoresizingMaskIntoConstraints = NO;
     self.imgCategoriesListVw.dataDelegate = self.txtMsgCategoriesDelegate;
     [self addSubview:self.imgCategoriesListVw];
