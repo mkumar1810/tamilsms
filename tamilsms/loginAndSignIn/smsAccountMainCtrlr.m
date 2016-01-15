@@ -47,17 +47,28 @@
 {
     self.navigateParams = @{@"opselected":@"signup"};
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSegueWithIdentifier:@"showregisternewuser" sender:self];
+        [self performSegueWithIdentifier:@"showgenericscreen" sender:self];
     });
 }
 
 - (void) postNewTextSMSMessage
 {
     
+    self.navigateParams = @{@"opselected":@"posttxtmsg"};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showgenericscreen" sender:self];
+    });
+    NSLog(@"text message sms pressed");
 }
 
 - (void) postNewImageSMSMessage
 {
+    self.navigateParams = @{@"opselected":@"postimgtmsg"};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showgenericscreen" sender:self];
+    });
+    
+    NSLog(@"image message sms presesd");
     
 }
 

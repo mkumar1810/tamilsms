@@ -1,9 +1,9 @@
 //
-//  smsImagePosting.h
+//  smsImageMsgPosting.h
 //  tamilsms
 //
-//  Created by arun benjamin on 26/11/15.
-//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
+//  Created by Mohan Kumar on 10/01/16.
+//  Copyright © 2016 Kuttyveni Computing Center. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,19 +11,19 @@
 
 @protocol imagePostingAlbumDelegate <NSObject>
 
+-(void) imagePostingCompleted;
 -(void)delgateForImagefetchingFromAlbum;
 
 @end
 
-@interface smsImagePosting : UIScrollView<UIImagePickerControllerDelegate,UINavigationControllerDelegate,categoryNameDelegate,UITextFieldDelegate>
+@interface smsImageMsgPosting : UIScrollView<UIImagePickerControllerDelegate,UINavigationControllerDelegate,categoryNameDelegate,UITextFieldDelegate>
 {
     UILabel *lbl_uplodImg,*lbl_warText;
     UIImageView * img_appImg;
-    UIButton * but_catBut,*but_select;
+    UIButton * but_catBut,*but_select, * but_submit;
     UITextField * txt_ImgCatgry;
-
 }
--(void)selectImage;
+- (void)selectImage;
 - (void) setCapturedImage:(UIImage*) p_image;
 @property (nonatomic,strong) categoryNameForMsgPosting * catNamePostVw;
 @property(nonatomic,retain)id<imagePostingAlbumDelegate>imageAlbumDelegate;

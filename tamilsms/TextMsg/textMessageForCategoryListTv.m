@@ -224,10 +224,12 @@
         [self displayValues];
     }
 }
+
 - (void) displayValues
 {
     l_username.text = [[NSString alloc]initWithFormat:@"%@",[_categorydata valueForKey:@"author"]];
     l_msgtxtvw.text =[[NSString alloc]initWithFormat:@"%@",[_categorydata valueForKey:@"quotes"]];
     
 }
+
 @end

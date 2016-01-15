@@ -55,7 +55,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrl-ur-qEv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-502" y="1498"/>
+            <point key="canvasLocation" x="-482" y="1728"/>
         </scene>
         <!--Text Messages-->
         <scene sceneID="0RQ-bz-YKE">
@@ -77,7 +77,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ibh-9f-2o9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-49" y="1493"/>
+            <point key="canvasLocation" x="-33" y="1728"/>
         </scene>
         <!--Show Ind Txt Msg Ctrlr-->
         <scene sceneID="XMZ-tW-eua">
@@ -95,7 +95,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hDS-T0-NVj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="398" y="1487"/>
+            <point key="canvasLocation" x="428" y="1728"/>
         </scene>
         <!--Account Base Navigator-->
         <scene sceneID="qqt-ck-HP6">
@@ -132,7 +132,7 @@
                     <navigationItem key="navigationItem" title="Account" id="64o-mB-n0r"/>
                     <connections>
                         <outlet property="view" destination="zqd-mg-3Yo" id="X7W-yp-wbA"/>
-                        <segue destination="ptu-KX-x3V" kind="custom" identifier="showregisternewuser" customClass="smsBaseNavigationSegue" id="1ME-mT-WsC"/>
+                        <segue destination="ptu-KX-x3V" kind="custom" identifier="showgenericscreen" customClass="smsBaseNavigationSegue" id="1ME-mT-WsC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ttv-Dm-9dZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MKc-uW-dXr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="359" y="825"/>
+            <point key="canvasLocation" x="428" y="825"/>
         </scene>
         <!--Image Categories-->
         <scene sceneID="aa5-TY-vLr">
@@ -166,7 +166,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Je5-md-wf7">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Je5-md-wf7">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Je5-md-wf7" id="5i5-Ta-Dui">

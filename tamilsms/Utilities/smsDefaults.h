@@ -15,6 +15,8 @@
 #define DATA_SYNC_URL @"ios-sms-apis"
 #define DATA_CHECK_URL @"ios-api"
 #define APP_TITLE @"Tamil SMS"
+#define POST_TXT_MSG @"add-news-ios"
+#define POST_IMAGE_MSG @"add-image-ios"
 
 typedef enum {
     noanimation,

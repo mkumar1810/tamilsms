@@ -51,8 +51,12 @@ static NSURLSessionConfiguration * _defSessConfig;
 {
     NSURL *l_url;
     NSMutableURLRequest *l_theRequest;
-    NSString * l_requesttype;
+    NSString * l_messagebody,* l_requesttype, * l_msglength;
+    NSError * l_error;
+    NSString * l_contentType;
+    NSData * l_imagepassdata;
     l_requesttype = @"GET";
+    l_contentType = @"text/plain; charset=utf-8";
     if ([_responseType isEqualToString:@"DATASYNC"]==YES)
     {
         NSString * l_urlquery = [NSString
@@ -80,9 +84,45 @@ static NSURLSessionConfiguration * _defSessConfig;
     else if ([_responseType isEqualToString:@"LOGINUSER"]==YES)
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=getid&username=%@&password=%@",MAIN_URL,SIGNUP_USER,[_inputParms valueForKey:@"username"],[_inputParms valueForKey:@"password"]]];
+    } //
+    else if ([_responseType isEqualToString:@"POSTTXTMSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=add&user_id=%ld&cat_id=%ld",MAIN_URL,POST_TXT_MSG,[[_inputParms valueForKey:@"user_id"] longValue],[[_inputParms valueForKey:@"cat_id"] longValue]]];
+        l_requesttype = @"POST";
+        l_messagebody = [NSString stringWithFormat:@"news_heading=%@",[_inputParms valueForKey:@"news_heading"]];
+        l_contentType = @"application/x-www-form-urlencoded";
     }
+    else if ([_responseType isEqualToString:@"POSTIMAGEMSG"]==YES)
+    {
+        NSString * l_newstorageid = [[NSUUID UUID] UUIDString];
+        l_newstorageid = [l_newstorageid substringFromIndex:([l_newstorageid length]-12)];
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?add&user_id=%ld&cat_id=%ld",MAIN_URL,POST_IMAGE_MSG,[[_inputParms valueForKey:@"user_id"] longValue],[[_inputParms valueForKey:@"cat_id"] longValue]]];
+        l_requesttype = @"POST";
+        NSString *boundary = @"---------------------------14737809831466499882746641449";
+        l_contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+        
+        NSMutableData *body = [NSMutableData data];
+         [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+         [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"news_image\"; filename=\"%@.jpg\"\r\n", l_newstorageid] dataUsingEncoding:NSUTF8StringEncoding]];
+         [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+         [body appendData:[_inputParms valueForKey:@"image_data"]];
+         [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        l_imagepassdata = [NSData dataWithData:body];
+    }
+    
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
-    [l_theRequest addValue: @"text/plain; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [l_theRequest addValue:l_contentType  forHTTPHeaderField:@"Content-Type"];
+    if ([_responseType isEqualToString:@"POSTIMAGEMSG"]==YES)
+    {
+        [l_theRequest setHTTPBody:l_imagepassdata];
+    }
+    else if ([l_requesttype isEqualToString:@"POST"] | [l_requesttype isEqualToString:@"PUT"])
+    {
+        l_msglength = [NSString stringWithFormat:@"%ld", (unsigned long)[[l_messagebody dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES] length]];
+        [l_theRequest setValue:l_msglength forHTTPHeaderField:@"Content-Length"];
+        [l_theRequest setHTTPBody:[l_messagebody dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
+    }
+    
     [l_theRequest setHTTPMethod:l_requesttype];
     NSURLSessionDataTask * l_dataTask = [_theSession dataTaskWithRequest:l_theRequest completionHandler:^(NSData * p_respData, NSURLResponse * p_response, NSError * p_error){
         [self urlSessionCompletedWith:p_respData andResponse:p_response andError:p_error];
@@ -120,11 +160,6 @@ static NSURLSessionConfiguration * _defSessConfig;
 {
     dispatch_async(dispatch_get_main_queue(), ^(){
         NSError * l_restError = nil;
-        /*NSLog(@"the received is %@",[[NSString alloc] initWithData:p_respData encoding:NSUTF8StringEncoding]);
-        id l_returndict = [NSJSONSerialization
-                           JSONObjectWithData:p_respData
-                           options:NSJSONReadingMutableLeaves
-                           error:&l_restError];*/
         [_theSession invalidateAndCancel];
         if (l_restError!=nil)
         {

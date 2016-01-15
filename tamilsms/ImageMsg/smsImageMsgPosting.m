@@ -1,15 +1,22 @@
 //
-//  smsImagePosting.m
+//  smsImageMsgPosting.m
 //  tamilsms
 //
-//  Created by arun benjamin on 26/11/15.
-//  Copyright © 2015 Kuttyveni Computing Center. All rights reserved.
+//  Created by Mohan Kumar on 10/01/16.
+//  Copyright © 2016 Kuttyveni Computing Center. All rights reserved.
 //
 
-#import "smsImagePosting.h"
+#import "smsImageMsgPosting.h"
 #import "categoryNameForMsgPosting.h"
+#import "smsRESTProxy.h"
 
-@implementation smsImagePosting
+@interface smsImageMsgPosting()
+
+@property (nonatomic) NSInteger msgCategoryId;
+
+@end
+
+@implementation smsImageMsgPosting
 @synthesize imageAlbumDelegate;
 
 -(void)drawRect:(CGRect)rect
@@ -20,7 +27,7 @@
     [lbl_uplodImg setTextAlignment:NSTextAlignmentLeft];
     //[lbl_uplodImg setBackgroundColor:[UIColor blueColor]];
     [self addSubview:lbl_uplodImg];
-
+    
     lbl_warText = [[UILabel alloc]initWithFrame:CGRectMake(10, 25, 7*rect.size.width/8.0, 20)];
     [lbl_warText setText:@"Upload Images with Tamil Text only"];
     [lbl_warText setFont:[UIFont systemFontOfSize:16]];
@@ -33,12 +40,6 @@
     img_appImg.image = [UIImage imageNamed:@"app_icon.png"];
     [self addSubview:img_appImg];
     
-   /* but_catBut = [[UIButton alloc]initWithFrame:CGRectMake(rect.size.width/4.0, 180, rect.size.width/2.0, 30)];
-    but_catBut.titleLabel.font = [UIFont systemFontOfSize:15];
-    [but_catBut setBackgroundColor:[UIColor lightGrayColor]];
-    [but_catBut addTarget:self action:@selector(InstanceForMsgPosting) forControlEvents:UIControlEventTouchUpInside];
-    [but_catBut setTitle:@"Select Category" forState:UIControlStateNormal];
-    [self addSubview:but_catBut];*/
     
     txt_ImgCatgry = [[UITextField alloc]initWithFrame:CGRectMake(rect.size.width/4.0, 180, rect.size.width/2.0, 30)];
     [txt_ImgCatgry setBackgroundColor:[UIColor lightGrayColor]];
@@ -57,6 +58,15 @@
     [but_select addTarget:self action:@selector(selectImage) forControlEvents:UIControlEventTouchUpInside];
     [but_select setTitle:@"Select Image" forState:UIControlStateNormal];
     
+    but_submit = [[UIButton alloc]initWithFrame:CGRectMake(rect.size.width/4.0+20,280, rect.size.width/2.0-40, 30)];
+    [but_submit setBackgroundColor:[UIColor orangeColor]];
+    [but_submit addTarget:self action:@selector(submitTheMessage) forControlEvents:UIControlEventTouchDown];
+    but_submit.layer.cornerRadius = 8;
+    but_submit.layer.borderWidth = 1;
+    but_submit.layer.borderColor = [UIColor purpleColor].CGColor;
+    [but_submit setTitle:@"Submit" forState:UIControlStateNormal];
+    [self addSubview:but_submit];
+
     [self addSubview:but_select];
 }
 
@@ -64,7 +74,7 @@
 {
     
     [self.imageAlbumDelegate delgateForImagefetchingFromAlbum];
-
+    
 }
 
 -(void)InstanceForMsgPosting
@@ -116,8 +126,25 @@
 - (void) setCapturedImage:(UIImage*) p_image
 {
     img_appImg.image = p_image;
-    
 }
+
+- (void) submitTheMessage
+{
+    NSInteger l_userid = [[[NSUserDefaults standardUserDefaults] valueForKey:@"userid"] integerValue];
+    NSData * l_imagedata = UIImageJPEGRepresentation(img_appImg.image, 0.7);
+    
+    NSDictionary * l_inputParams = @{@"image_data":l_imagedata,
+                                     @"cat_id":@(self.msgCategoryId),
+                                     @"user_id":@(l_userid)};
+    [[smsRESTProxy alloc]
+     initDatawithAPIType:@"POSTIMAGEMSG"
+     andInputParams:l_inputParams
+     andReturnMethod:^(NSData * p_returnData){
+         NSLog(@"the received is %@", [[NSString alloc] initWithData:p_returnData encoding:NSUTF8StringEncoding]);
+         [self.imageAlbumDelegate imagePostingCompleted];
+     }];
+}
+
 #pragma mark
 #pragma text field delegates
 
@@ -127,11 +154,11 @@
     return NO;
 }
 
--(void)categoryNameClickedForTheCell:(NSArray *)p_array
+-(void)categoryNameClickedForTheCell:(NSDictionary*)p_catInfo
 {
-    txt_ImgCatgry.text = [p_array valueForKey:@"category_name"];
+    txt_ImgCatgry.text = [p_catInfo valueForKey:@"category_name"];
+    self.msgCategoryId = [[p_catInfo valueForKey:@"cid"] integerValue];
     [self.catNamePostVw removeFromSuperview];
-    NSLog(@"the log value is %@",p_array);
 }
 
 @end

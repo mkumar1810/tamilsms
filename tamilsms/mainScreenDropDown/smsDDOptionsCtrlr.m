@@ -11,8 +11,10 @@
 #import "smsFeedbackScreen.h"
 #import "smsInfoSettingsScreen.h"
 #import "registrationNewUser.h"
+#import "smsImageMsgPosting.h"
+#import "smsTextMsgPosting.h"
 
-@interface smsDDOptionsCtrlr ()<registerNewUserDelegates>
+@interface smsDDOptionsCtrlr ()<registerNewUserDelegates, UIImagePickerControllerDelegate, UINavigationControllerDelegate, imagePostingAlbumDelegate, smsTextMsgPostDelegate>
 {
     NSString * _opselected;
 }
@@ -21,6 +23,8 @@
 @property (nonatomic,strong) smsFeedbackScreen * smsFeedbackScreenV;
 @property (nonatomic,strong) smsInfoSettingsScreen * smsInfoSettingsScreenV;
 @property (nonatomic,strong) registrationNewUser * registrationNewUserV;
+@property (nonatomic,strong) smsTextMsgPosting * smsTextMsgPostingSV;
+@property (nonatomic,strong) smsImageMsgPosting * smsImageMsgPostingSV;
 
 @end
 
@@ -68,7 +72,115 @@
         [self.navigationItem setTitle:@"Sign Up"];
         [self showSignUpScreen];
     }
+    if ([_opselected isEqualToString:@"posttxtmsg"])
+    {
+        //
+        [self showtxtmessagepostscreen];
+        self.smsTextMsgPostingSV.txtMsgDelegate = self;
+        [self.navigationItem setTitle:@"Text SMS"];
+    }
+    
+    if ([_opselected isEqualToString:@"postimgtmsg"])
+    {
+        //
+        [self showimgmessagepostscreen];
+        [self.navigationItem setTitle:@"Image SMS"];
+    }
 
+}
+
+-(void)showtxtmessagepostscreen
+{
+    
+    self.smsTextMsgPostingSV = [smsTextMsgPosting new];
+    //self.dropDwnOptions.optionsDelegate = self;
+    [self.view addSubview:self.smsTextMsgPostingSV];
+    [self.smsTextMsgPostingSV setBackgroundColor:[UIColor whiteColor]];
+    self.smsTextMsgPostingSV.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view bringSubviewToFront:self.smsTextMsgPostingSV];
+    
+    // Width constraint,
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsTextMsgPostingSV
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:1.0 constant:0]];
+    
+    
+    // Height constraint,
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsTextMsgPostingSV
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeHeight
+                                                         multiplier:1.0
+                                                           constant:(-64-49)]];
+    
+    // Center horizontally
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsTextMsgPostingSV
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    // Center vertically
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsTextMsgPostingSV
+                                                          attribute:NSLayoutAttributeCenterY
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterY
+                                                         multiplier:1.0
+                                                           constant:(32-49.0/2.0)]];
+}
+
+-(void)showimgmessagepostscreen
+{
+    self.smsImageMsgPostingSV = [smsImageMsgPosting new];
+    //self.dropDwnOptions.optionsDelegate = self;
+    self.smsImageMsgPostingSV.imageAlbumDelegate = self;
+    
+    [self.view addSubview:self.smsImageMsgPostingSV];
+    [self.smsImageMsgPostingSV setBackgroundColor:[UIColor whiteColor]];
+    self.smsImageMsgPostingSV.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view bringSubviewToFront:self.smsImageMsgPostingSV];
+    
+    // Width constraint,
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsImageMsgPostingSV
+                                                          attribute:NSLayoutAttributeWidth
+                                                          relatedBy:NSLayoutRelationEqual toItem:self.view
+                                                          attribute:NSLayoutAttributeWidth
+                                                         multiplier:1.0 constant:0]];
+    
+    
+    // Height constraint,
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsImageMsgPostingSV
+                                                          attribute:NSLayoutAttributeHeight
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeHeight
+                                                         multiplier:1.0
+                                                           constant:-150]];
+    
+    // Center horizontally
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsImageMsgPostingSV
+                                                          attribute:NSLayoutAttributeCenterX
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterX
+                                                         multiplier:1.0
+                                                           constant:0.0]];
+    
+    // Center vertically
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.smsImageMsgPostingSV
+                                                          attribute:NSLayoutAttributeCenterY
+                                                          relatedBy:NSLayoutRelationEqual
+                                                             toItem:self.view
+                                                          attribute:NSLayoutAttributeCenterY
+                                                         multiplier:1.0
+                                                           constant:0]];
+    
 }
 
 /*
@@ -104,6 +216,7 @@
     
     [self.view addConstraints:@[[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:(32-49.0/2.0)],[NSLayoutConstraint constraintWithItem:self.fontSizeChangeVw attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-64-49)]]];
     [self.view layoutIfNeeded];
+    [self.navigationItem setTitle:@"Settings"];
     
 }
 
@@ -127,6 +240,7 @@
                          self.smsFeedbackScreenV.alpha = 1;
                          self.smsFeedbackScreenV.transform = CGAffineTransformIdentity;
                      }];
+    [self.navigationItem setTitle:@"Feedback"];
     
     
 }
@@ -151,7 +265,7 @@
                          self.smsInfoSettingsScreenV.alpha = 1;
                          self.smsInfoSettingsScreenV.transform = CGAffineTransformIdentity;
                      }];
-    
+    [self.navigationItem setTitle:@"Info"];
     
 }
 
@@ -173,6 +287,52 @@
 }
 
 - (void)newUserSignUpCancelled
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - image posting delegates
+
+-(void)delgateForImagefetchingFromAlbum
+{
+    NSLog(@"button is clicked");
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePickerController.delegate = self;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+    
+}
+
+-(void) imagePostingCompleted
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark - image picker delegates
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //You can retrieve the actual UIImage
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    //Or you can get the image url from AssetsLibrary
+    //    NSURL *path = [info valueForKey:UIImagePickerControllerReferenceURL];
+    
+    [picker dismissViewControllerAnimated:YES
+                               completion:^{
+                                   [self.smsImageMsgPostingSV setCapturedImage:image];
+                               }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    
+    [picker dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - text message posting related delegates
+
+- (void) textMsgPostedSuccessfully
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

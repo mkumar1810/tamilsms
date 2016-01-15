@@ -103,6 +103,8 @@
     txt_username.delegate = self;
     [txt_username setBackgroundColor:[UIColor whiteColor]];
     txt_username.translatesAutoresizingMaskIntoConstraints = NO;
+    [txt_username setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [txt_username setAutocorrectionType:UITextAutocorrectionTypeNo];
     [self addSubview:txt_username];
     
     [txt_username addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[TU(30)]" options:0 metrics:nil views:@{@"TU":txt_username}]];
@@ -133,6 +135,7 @@
     txt_pasword = [UITextField new];
     [txt_pasword setTextColor:[UIColor blackColor]];
     txt_pasword.delegate = self;
+    [txt_pasword setSecureTextEntry:YES];
     [txt_pasword setBackgroundColor:[UIColor whiteColor]];
     txt_pasword.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:txt_pasword];
@@ -373,7 +376,7 @@
              [myParser parse];
              if (_userId==0)
              {
-                 [self showAlertMessage:@"User not available!!!"];
+                 [self showAlertMessage:@"Login failed available!!!"];
              }
              else
              {
