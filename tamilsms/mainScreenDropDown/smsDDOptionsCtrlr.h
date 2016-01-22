@@ -9,5 +9,9 @@
 #import "smsBaseController.h"
 
 @interface smsDDOptionsCtrlr : smsBaseController
+{
+    
+}
+
 
 @end

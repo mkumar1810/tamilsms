@@ -140,6 +140,7 @@
     self.actView.transform = CGAffineTransformMakeScale(3.0, 3.0);
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.actView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.actView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+    
 }
 
 - (void)didReceiveMemoryWarning {

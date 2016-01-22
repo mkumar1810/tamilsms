@@ -39,6 +39,7 @@
     [super viewDidLoad];
 //    [self.navBar setHidden:NO];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:self.bar_back_btn, self.bar_logo_btn, nil];
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     //self.navItem.rightBarButtonItems = [NSArray arrayWithObjects:self.bar_list_btn,nil];
     // Do any additional setup after loading the view.
 }

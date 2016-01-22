@@ -52,7 +52,7 @@ static NSURLSessionConfiguration * _defSessConfig;
     NSURL *l_url;
     NSMutableURLRequest *l_theRequest;
     NSString * l_messagebody,* l_requesttype, * l_msglength;
-    NSError * l_error;
+//    NSError * l_error;
     NSString * l_contentType;
     NSData * l_imagepassdata;
     l_requesttype = @"GET";
