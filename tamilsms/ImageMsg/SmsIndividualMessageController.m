@@ -11,8 +11,6 @@
 @interface SmsIndividualMessageController ()<indTxtMsgDelegate>
 {
     UIBarButtonItem * _baradd_btn, *_barMinus_btn, *_barflex;
-    smsIndTxtMessages * _individualmessage;
-    //NSDictionary * _popupdict;
     NSArray * _allitems;
     NSInteger _startPosn;
     bottomViewForNextMessage * _bottomViewForNextMessage;
@@ -23,7 +21,7 @@
 -(void)positiveZooming;
 
 
-//@property(nonatomic,retain) individualMesssage * individualMesssageTV;
+@property(nonatomic,strong) smsIndividualMessageCol * individualImgMsgCV;
 
 @end
 
@@ -49,17 +47,12 @@
 } 
 
 - (void)initializeDataWithParams:(NSDictionary *)p_initParams
-
 {
     //_popupdict = p_initParams;
     _allitems = [p_initParams valueForKey:@"allmessages"];
     _startPosn = [[p_initParams valueForKey:@"initialposn"] integerValue];
-    if (_individualmessage) {
-        [_individualmessage reloadData];
-        [_individualmessage scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_startPosn inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    }
-    //NSLog(@"the received message is %@", _allitems);
 }
+
 
 -(void)createPlusMinusButtonsForNavigatoncontroler
 {
@@ -90,25 +83,20 @@
 -(void)setUpReferenceForTable
 {
     
-    _individualmessage = [[smsIndTxtMessages alloc] initWithStartPosn:_startPosn];
-    _individualmessage.translatesAutoresizingMaskIntoConstraints = NO;
+    self.individualImgMsgCV = [[smsIndividualMessageCol alloc] initWithStartPosn:_startPosn];
+    self.individualImgMsgCV.translatesAutoresizingMaskIntoConstraints = NO;
      
-   // _individualmessage = [[individualMesssage alloc]initWithStartPosn:_startPosn];
-    //WithFrame:CGRectMake(0, 60, self.view.bounds.size.width, self.view.bounds.size.height-100)];
-    //[_individualmessage setFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height-100)];
-    _individualmessage.popUpMessageDelegate=self;
-    //[_screentable setBackgroundColor:[UIColor blueColor]];
-    [self.view addSubview:_individualmessage];
-    //[_screentable setHidden:YES];
+    self.individualImgMsgCV.popUpMessageDelegate=self;
+    [self.view addSubview:self.individualImgMsgCV];
     
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualmessage
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.individualImgMsgCV
                                                     attribute:NSLayoutAttributeWidth
                                                     relatedBy:NSLayoutRelationEqual toItem:self.view
                                                     attribute:NSLayoutAttributeWidth
                                                    multiplier:1.0 constant:0]];
     
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualmessage
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.individualImgMsgCV
                                                      attribute:NSLayoutAttributeCenterX
                                                      relatedBy:NSLayoutRelationEqual
                                                         toItem:self.view
@@ -117,22 +105,16 @@
 
     
     
-    //[_individualmessage addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[iM(200)]" options:0 metrics:nil views:@{@"iM":_individualmessage}]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_individualmessage
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.individualImgMsgCV
                                                           attribute:NSLayoutAttributeHeight
                                                           relatedBy:NSLayoutRelationEqual
                                                              toItem:self.view
                                                           attribute:NSLayoutAttributeHeight
                                                          multiplier:1.0 constant:(-64-100)]];
-
     
-    
-    
-    //_bottomViewForNextMessage = [[bottomViewForNextMessage alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-100, self.view.bounds.size.width, 100)];
-    
-    _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:YES];
+    _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:NO];
     [_bottomViewForNextMessage setBackgroundColor:[UIColor colorWithRed:0.09 green:0.21 blue:0.40 alpha:1.0]];
-    _bottomViewForNextMessage.bottomViewDelegate = _individualmessage;
+    _bottomViewForNextMessage.bottomViewDelegate = self.individualImgMsgCV;
     _bottomViewForNextMessage.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:_bottomViewForNextMessage];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_bottomViewForNextMessage
@@ -149,22 +131,32 @@
                                                          multiplier:1.0 constant:0.0]];
     [_bottomViewForNextMessage addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bm(100)]" options:0 metrics:nil views:@{@"bm":_bottomViewForNextMessage}]];
     
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[iM][bm]|" options:0 metrics:nil views:@{@"iM":_individualmessage,@"bm":_bottomViewForNextMessage}]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-64-[iM][bm]|" options:0 metrics:nil views:@{@"iM":self.individualImgMsgCV,@"bm":_bottomViewForNextMessage}]];
     [self.view layoutIfNeeded];
+    if (_allitems)
+    {
+        [self.individualImgMsgCV scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_startPosn inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
 }
 
 -(NSDictionary*) getIndividualMessageOfDict:(NSInteger) p_posnNo
 {
-    //NSDictionary * popUpMsg = _allitems;
-    //NSLog(@"all items in dic is %@",_allitems);
-    //[_individualmessage ]
-    //return _popupdict;
-    return [_allitems objectAtIndex:p_posnNo];
+    NSDictionary * l_dispdict = [_allitems objectAtIndex:p_posnNo];
+    [_bottomViewForNextMessage setFavouriteStatusOnMsgId:[l_dispdict valueForKey:@"id"]];
+    return l_dispdict;
+
+//    return [_allitems objectAtIndex:p_posnNo];
 }
 
 - (NSInteger) getNumberOfMessages
 {
     return [_allitems count];
+}
+
+
+- (UINavigationController *)getParentNavController
+{
+    return self.navigationController;
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "smsBaseController.h"
-#import "smsIndTxtMessages.h"
+#import "smsIndividualMessageCol.h"
 
 @interface SmsIndividualMessageController : smsBaseController
 

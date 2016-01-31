@@ -8,18 +8,20 @@
 
 #import "smsIndividualMessageCol.h"
 #import "smsAsyncImageFetch.h"
+#import "smsCommonUtilities.h"
 
 @interface smsIndividualMessageCol()
 {
     NSInteger _startPosn;
     NSInteger _currentPosn;
+    NSInteger _noOfRecs;
 }
 
 @end
 
 @implementation smsIndividualMessageCol
 
--(instancetype)init
+- (id) initWithStartPosn:(NSInteger) p_startPosn
 {
     UICollectionViewFlowLayout *  l_reqdLayout = [[UICollectionViewFlowLayout alloc] init];
     self = [super initWithFrame:CGRectZero collectionViewLayout:l_reqdLayout];
@@ -31,11 +33,12 @@
     
     //self = [super init];
     if (self) {
+        _startPosn = p_startPosn;
         self.dataSource = self;
         self.delegate = self;
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
-
+        [self registerClass:[individualImageMsgCell class] forCellWithReuseIdentifier:@"img_msg_cell"];
     }
     return self;
 }
@@ -48,23 +51,14 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize l_reqdsize = CGSizeZero;
-    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-    {
-        l_reqdsize = CGSizeMake(self.bounds.size.width/2.0, self.bounds.size.width/2.0);
-    }
-    else
-    {
-        l_reqdsize = CGSizeMake(self.bounds.size.width/3.0, self.bounds.size.width/3.0);
-    }
-    //NSLog(@"the size returned %@", NSStringFromCGSize(l_reqdsize));
-    return l_reqdsize;
+    return  CGSizeMake(self.bounds.size.width, self.bounds.size.height);
 }
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 1;
+    _noOfRecs = [self.popUpMessageDelegate getNumberOfMessages];
+    return _noOfRecs;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -76,17 +70,82 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * l_detailcellid = @"img_msg_cell";
-    //NSDictionary * l_imgmsgdict = [_categoryMessageDelegate getMessageFromArray:indexPath.row];
+    NSDictionary * l_imgmsgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:indexPath.row];
     individualImageMsgCell * l_detailcell = [collectionView dequeueReusableCellWithReuseIdentifier:l_detailcellid forIndexPath:indexPath];
-    //[l_detailcell setDisplayData:l_imgmsgdict];
+    [l_detailcell setDisplayValues:l_imgmsgdict atPosn:indexPath.row];
+    _currentPosn = indexPath.row;
     return l_detailcell;
 }
+
+#pragma bottom view delegates implementation
+
+- (void) moveToNextMessage
+{
+    if (_currentPosn==(_noOfRecs-1))
+    {
+        return;
+    }
+    _currentPosn++;
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentPosn inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+}
+
+- (void) moveToPreviousMessage
+{
+    if (_currentPosn==0)
+    {
+        return;
+    }
+    _currentPosn--;
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentPosn inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+}
+
+- (void)addCurrentToFavourite
+{
+    NSDictionary * l_imgmsgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+//    NSLog(@"the image dict is %@", l_imgmsgdict);
+    [smsCommonUtilities addSMSItemToFavourite:[l_imgmsgdict valueForKey:@"id"]];
+}
+
+- (void)removeCurrentFromFavourite
+{
+    NSDictionary * l_imgmsgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+    //    NSLog(@"the image dict is %@", l_imgmsgdict);
+    [smsCommonUtilities removeSMSItemToFavourite:[l_imgmsgdict valueForKey:@"id"]];
+}
+
+- (void)shareTheCurrentDisplayingItem
+{
+    
+    NSDictionary * l_imgmsgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+    NSString * l_currlink = [l_imgmsgdict valueForKey:@"msg_image"];
+    [[smsAsyncImageFetch alloc]
+     initDatawithFileName:l_currlink
+     andReturnMethod:^(NSDictionary * p_returnInfo)
+     {
+         if ([p_returnInfo valueForKey:@"filename"])
+         {
+             NSURL * myimageurl = [NSURL fileURLWithPath:[p_returnInfo valueForKey:@"filename"]];
+             
+             NSArray *objectsToShare = @[myimageurl];
+             
+             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+             
+             NSArray *excludeActivities = @[];
+             
+             activityVC.excludedActivityTypes = excludeActivities;
+             
+             [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:nil];
+         }
+     }];
+}
+
 @end
 
 @interface individualImageMsgCell()
 {
     UILabel * lb_userdetails, *lb_popUpUsrName;
     UIImageView * l_popupUserlogo, *img_popuimgage;
+    NSDictionary * _msgDict;
 }
 
 @end
@@ -95,6 +154,11 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    if (lb_userdetails)
+    {
+        [self displayValues];
+        return;
+    }
     lb_userdetails = [UILabel new];
     //lb_userdetails = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, 30)];
     [lb_userdetails setBackgroundColor:[UIColor colorWithRed:0.09 green:0.21 blue:0.40 alpha:1.0]];
@@ -138,11 +202,43 @@
     [lb_popUpUsrName setFont:[UIFont systemFontOfSize:15]];
     [self addSubview:lb_popUpUsrName];
     
-    
-    img_popuimgage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 30, rect.size.width, rect.size.height-30)];
-    
+    img_popuimgage = [UIImageView new];
+    img_popuimgage.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:img_popuimgage];
+    [self addConstraints:@[[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-30.0)],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:15.0f]]];
+    [self layoutIfNeeded];
+    [self displayValues];
     
+}
+
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo
+{
+    _msgDict = p_messageDict;
+    //NSLog(@"the value obtained in table is %@",_categorydata);
+    if (img_popuimgage) {
+        [self displayValues];
+    }
+}
+
+- (void) displayValues
+{
+    lb_userdetails.text = [[NSString alloc]initWithFormat:@"%@",[_msgDict valueForKey:@"author"]];
+    NSString * l_currlink = [_msgDict valueForKey:@"msg_image"];
+    img_popuimgage.image = nil;
+    [[smsAsyncImageFetch alloc]
+     initDatawithFileName:l_currlink
+     andReturnMethod:^(NSDictionary * p_returnInfo)
+     {
+         if ([[p_returnInfo valueForKey:@"linkname"]
+              isEqualToString:l_currlink])
+         {
+             if ([p_returnInfo valueForKey:@"filename"])
+             {
+                 img_popuimgage.image = [UIImage
+                                   imageWithContentsOfFile:[p_returnInfo valueForKey:@"filename"]];
+             }
+         }
+     }];
 }
 
 @end

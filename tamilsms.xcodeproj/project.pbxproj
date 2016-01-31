@@ -17,6 +17,7 @@
 		016F5A991C36BFA60038348E /* smsImgMsgsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F5A971C36BFA60038348E /* smsImgMsgsController.m */; };
 		019D264E1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 019D264D1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m */; };
 		019D26511C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 019D26501C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m */; };
+		01B527871C5E30CE00DF6E7D /* smsCommonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B527861C5E30CE00DF6E7D /* smsCommonUtilities.m */; };
 		01B5B93D1C2AF1A7009B1B7F /* smsBaseHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5B93C1C2AF1A7009B1B7F /* smsBaseHomeController.m */; };
 		01B5B9431C2AF783009B1B7F /* smsTextCategoriesCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B5B9421C2AF783009B1B7F /* smsTextCategoriesCtrlr.m */; };
 		01CD810E1BDD25A8005FF701 /* smsAPIXMLDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD810D1BDD25A8005FF701 /* smsAPIXMLDataParser.m */; };
@@ -182,6 +183,8 @@
 		019D264D1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsBaseCategoriesCtrlr.m; sourceTree = "<group>"; };
 		019D264F1C3028FA0018F7A9 /* smsImageCategoriesCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImageCategoriesCtrlr.h; sourceTree = "<group>"; };
 		019D26501C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImageCategoriesCtrlr.m; sourceTree = "<group>"; };
+		01B527851C5E30CE00DF6E7D /* smsCommonUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsCommonUtilities.h; sourceTree = "<group>"; };
+		01B527861C5E30CE00DF6E7D /* smsCommonUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsCommonUtilities.m; sourceTree = "<group>"; };
 		01B5B93B1C2AF1A7009B1B7F /* smsBaseHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsBaseHomeController.h; sourceTree = "<group>"; };
 		01B5B93C1C2AF1A7009B1B7F /* smsBaseHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsBaseHomeController.m; sourceTree = "<group>"; };
 		01B5B9411C2AF783009B1B7F /* smsTextCategoriesCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTextCategoriesCtrlr.h; sourceTree = "<group>"; };
@@ -511,6 +514,8 @@
 				01B5B93C1C2AF1A7009B1B7F /* smsBaseHomeController.m */,
 				019D264C1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.h */,
 				019D264D1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m */,
+				01B527851C5E30CE00DF6E7D /* smsCommonUtilities.h */,
+				01B527861C5E30CE00DF6E7D /* smsCommonUtilities.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -906,6 +911,7 @@
 				C07596781BC535BA007AEB7B /* smsDDOptionsCtrlr.m in Sources */,
 				014692DA1C32E97500AC6E05 /* smsTxtMsgsController.m in Sources */,
 				0125358B1C42AB0E00420009 /* categoryNameForMsgPosting.m in Sources */,
+				01B527871C5E30CE00DF6E7D /* smsCommonUtilities.m in Sources */,
 				C06BA4E81BA1B2A200D66720 /* smsDefaults.m in Sources */,
 				016C72BD1C52794A00F3EE12 /* smsMoreOptionsCtrlr.m in Sources */,
 				01F026DF1C3D6C0A0051E08F /* loginWelcomeScreeen.m in Sources */,

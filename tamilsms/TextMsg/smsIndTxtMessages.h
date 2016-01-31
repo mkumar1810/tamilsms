@@ -13,7 +13,7 @@
 
 -(NSInteger) getNumberOfMessages;
 -(NSDictionary*) getIndividualMessageOfDict:(NSInteger) p_posnNo;
-
+- (UINavigationController*) getParentNavController;
 
 @end
 
@@ -21,6 +21,9 @@
 
 - (void) moveToNextMessage;
 - (void) moveToPreviousMessage;
+- (void) addCurrentToFavourite;
+- (void) removeCurrentFromFavourite;
+- (void) shareTheCurrentDisplayingItem;
 
 @end
 
@@ -35,6 +38,7 @@
 @property(nonatomic,weak)id<bottomNavigationViewDelegate> bottomViewDelegate;
 //created to disappear the copy button in smsindividualmessage
 - (id) initWithCopyButton:(BOOL)  p_copyBtnNeeded;
+- (void) setFavouriteStatusOnMsgId:(NSNumber*) p_MsgId;
 
 @end
 

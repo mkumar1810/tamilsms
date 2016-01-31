@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
+#import "smsIndTxtMessages.h"
 
 @interface individualImageMsgCell : UICollectionViewCell
-{
 
-}
+@property (nonatomic) NSInteger cellPosnNo;
+//-(void)showData;
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo;
 
 @end
 
+@interface smsIndividualMessageCol : UICollectionView <UICollectionViewDataSource,UICollectionViewDelegate, bottomNavigationViewDelegate>
 
-
-@interface smsIndividualMessageCol : UICollectionView <UICollectionViewDataSource,UICollectionViewDelegate>
-
+@property(nonatomic,weak)id<indTxtMsgDelegate>popUpMessageDelegate;
+- (id) initWithStartPosn:(NSInteger) p_startPosn;
 
 @end

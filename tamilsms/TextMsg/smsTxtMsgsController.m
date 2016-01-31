@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn,nil];
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     [self setupMainCategoriesListTV];
     [self createButtonsForNavigatoncontroler];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
@@ -123,13 +124,11 @@
 
 -(void)messageClickedForTheCell:(NSInteger)p_positno
 {
-    //self.navigateParams = [_categorymessages objectAtIndex:p_positno];
     self.navigateParams = @{@"initialposn":@(p_positno),
                             @"allmessages":_categorymessages};
     dispatch_async(dispatch_get_main_queue(), ^{
         [self performSegueWithIdentifier:@"showIndividualTextMessage" sender:self];
     });
-
 }
 
 @end

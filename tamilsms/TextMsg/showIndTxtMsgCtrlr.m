@@ -130,7 +130,7 @@
     
     //_bottomViewForNextMessage = [[bottomViewForNextMessage alloc]initWithFrame:CGRectMake(0, self.view.bounds.size.height-100, self.view.bounds.size.width, 100)];
     
-    _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:YES];
+    _bottomViewForNextMessage = [[bottomViewForNextMessage alloc] initWithCopyButton:NO];
     [_bottomViewForNextMessage setBackgroundColor:[UIColor colorWithRed:0.09 green:0.21 blue:0.40 alpha:1.0]];
     _bottomViewForNextMessage.bottomViewDelegate = _individualmessage;
     _bottomViewForNextMessage.translatesAutoresizingMaskIntoConstraints = NO;
@@ -159,12 +159,19 @@
     //NSLog(@"all items in dic is %@",_allitems);
     //[_individualmessage ]
     //return _popupdict;
-    return [_allitems objectAtIndex:p_posnNo];
+    NSDictionary * l_dispdict = [_allitems objectAtIndex:p_posnNo];
+    [_bottomViewForNextMessage setFavouriteStatusOnMsgId:[l_dispdict valueForKey:@"id"]];
+    return l_dispdict;
 }
 
 - (NSInteger) getNumberOfMessages
 {
     return [_allitems count];
+}
+
+- (UINavigationController *)getParentNavController
+{
+    return self.navigationController;
 }
 
 @end

@@ -109,6 +109,9 @@
                                                          noOfPushes:_pushCount
                                                        withPullPerc:l_currperc];
         }
+#ifdef DEBUG
+        NSLog(@"the sync time noof recs : %ld ",(long)_totalRecs);
+#endif
     }
     else
     {

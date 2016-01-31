@@ -7,11 +7,13 @@
 //
 
 #import "smsIndTxtMessages.h"
+#import "smsCommonUtilities.h"
 
 @interface smsIndTxtMessages()
 {
     NSInteger _startPosn;
     NSInteger _currentPosn;
+    NSInteger _noOfRecords;
 }
 
 @end
@@ -47,7 +49,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.popUpMessageDelegate getNumberOfMessages];
+    _noOfRecords = [self.popUpMessageDelegate getNumberOfMessages];
+    return _noOfRecords;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,14 +91,49 @@
 
 - (void) moveToNextMessage
 {
+    if (_currentPosn==(_noOfRecords-1))
+    {
+        return;
+    }
     _currentPosn++;
     [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_currentPosn inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (void) moveToPreviousMessage
 {
+    if (_currentPosn==0)
+    {
+        return;
+    }
     _currentPosn--;
     [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_currentPosn inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (void)addCurrentToFavourite
+{
+    NSDictionary * l_msgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+//    NSLog(@"the text msg dict is %@", l_msgdict);
+    [smsCommonUtilities addSMSItemToFavourite:[l_msgdict valueForKey:@"id"]];
+}
+
+- (void)removeCurrentFromFavourite
+{
+    NSDictionary * l_msgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+    //    NSLog(@"the text msg dict is %@", l_msgdict);
+    [smsCommonUtilities removeSMSItemToFavourite:[l_msgdict valueForKey:@"id"]];
+}
+
+- (void)shareTheCurrentDisplayingItem
+{
+    NSDictionary * l_msgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:_currentPosn];
+    NSArray *objectsToShare = @[[l_msgdict valueForKey:@"quotes"]];
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+
+    NSArray *excludeActivities = @[];
+
+    activityVC.excludedActivityTypes = excludeActivities;
+
+    [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:nil];
 }
 
 @end
@@ -247,6 +285,7 @@
     
     but_favbutton = [UIButton new];
     [but_favbutton setImage:[UIImage imageNamed:@"favourite"] forState:UIControlStateNormal];
+    [but_favbutton setImage:[UIImage imageNamed:@"favselected"] forState:UIControlStateSelected];
     [but_favbutton setBackgroundColor:[UIColor clearColor]];
     but_favbutton.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:but_favbutton];
@@ -254,7 +293,7 @@
     [but_favbutton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[fv(30)]" options:0 metrics:nil views:@{@"fv":but_favbutton}]];
     [but_favbutton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[fv(30)]" options:0 metrics:nil views:@{@"fv":but_favbutton}]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[fv]" options:0 metrics:nil views:@{@"fv":but_favbutton}]];
-    
+    [but_favbutton addTarget:self action:@selector(favouriteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bb]-20-[fv]" options:0 metrics:nil views:@{@"bb":but_backbutn,@"fv":but_favbutton}]];
     
     but_forwbutton = [UIButton new];
@@ -277,6 +316,7 @@
     [but_sharebutton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[sb(30)]" options:0 metrics:nil views:@{@"sb":but_sharebutton}]];
     [but_sharebutton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[sb(30)]" options:0 metrics:nil views:@{@"sb":but_sharebutton}]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[sb]" options:0 metrics:nil views:@{@"sb":but_sharebutton}]];
+    [but_sharebutton addTarget:self.bottomViewDelegate action:@selector(shareTheCurrentDisplayingItem) forControlEvents:UIControlEventTouchUpInside];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:but_sharebutton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:but_forwbutton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:(-20)]];
     
     //but_favbutton = [[UIButton alloc]initWithFrame:CGRectMake(rect.size.width/4.0, 7, rect.size.width/16.0+2, 25)];
@@ -290,7 +330,6 @@
     [but_cpybutton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[cp(30)]" options:0 metrics:nil views:@{@"cp":but_cpybutton}]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[cp]" options:0 metrics:nil views:@{@"cp":but_cpybutton}]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:but_cpybutton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:but_sharebutton attribute:NSLayoutAttributeLeft multiplier:1.0 constant:(-20)]];
-    
     
     
     //[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[iM]-20-[bm]-50-[fb]|" options:0 metrics:nil views:@{@"iM":but_backbutn,@"bm":but_favbutton,@"fb":but_cpybutton}]];
@@ -352,6 +391,14 @@
     [self layoutIfNeeded];
 }
 
+- (void) setFavouriteStatusOnMsgId:(NSNumber*) p_MsgId
+{
+    if ([smsCommonUtilities isTheSMSIsInFavourite:p_MsgId])
+        [but_favbutton setSelected:YES];
+    else
+        [but_favbutton setSelected:NO];
+}
+
 - (void) backButtonPressed
 {
     [self.bottomViewDelegate moveToPreviousMessage];
@@ -360,6 +407,21 @@
 - (void) nextButtonPressed
 {
     [self.bottomViewDelegate moveToNextMessage];
+}
+
+- (void) favouriteButtonClicked
+{
+    if (!but_favbutton.selected)
+    {
+        [self.bottomViewDelegate addCurrentToFavourite];
+    }
+    else
+    {
+        [self.bottomViewDelegate removeCurrentFromFavourite];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        but_favbutton.selected = !but_favbutton.selected;
+    });
 }
 
 @end

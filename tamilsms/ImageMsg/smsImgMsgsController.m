@@ -34,6 +34,7 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: self.bar_back_btn, self.bar_logo_btn, self.bar_prev_title_btn,nil];
     [self setUpMainNavigationSegmentCtrl];
     [self createButtonsForNavigatoncontroler];
+    [self setAutomaticallyAdjustsScrollViewInsets:NO];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_baradd_btn,nil];
     //database connection
     // Do any additional setup after loading the view.

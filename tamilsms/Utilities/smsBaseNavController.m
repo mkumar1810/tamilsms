@@ -104,19 +104,36 @@
     else
         l_currTransitionType = l_fromViewController.transitionType;
     NOPARAMCALLBACK l_pushCB = ^(){
-        [l_fromViewController pushAnimation:l_currTransitionType];
+        if ([l_fromViewController respondsToSelector:@selector(pushAnimation:)])
+        {
+            [l_fromViewController pushAnimation:l_currTransitionType];
+        }
     };
     
     NOPARAMCALLBACK l_popCB = ^(){
-        [l_toViewController popAnimation:l_currTransitionType];
+        if ([l_toViewController respondsToSelector:@selector(popAnimation:)])
+        {
+            [l_toViewController popAnimation:l_currTransitionType];
+        }
     };
     
     NOPARAMCALLBACK l_completionCB = ^(){
         if (_navOperation==UINavigationControllerOperationPop)
-            [l_toViewController popAnimationCompleted];
+        {
+            if ([l_toViewController respondsToSelector:@selector(popAnimationCompleted)])
+            {
+                [l_toViewController popAnimationCompleted];
+            }
+//            [l_toViewController popAnimationCompleted];
+        }
         
         if (_navOperation==UINavigationControllerOperationPush)
-            [l_fromViewController pushanimationCompleted];
+        {
+            if ([l_fromViewController respondsToSelector:@selector(pushanimationCompleted)])
+            {
+                [l_fromViewController pushanimationCompleted];
+            }
+        }
         
         [transitionContext completeTransition:YES];
         

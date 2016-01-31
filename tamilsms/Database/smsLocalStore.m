@@ -201,7 +201,6 @@ static NSString * s_dbFileName;
         sqlite3_finalize(l_tamilimgsmt);
     }
     return l_imgmessageList;
-
 }
 
 -(NSArray*)getTextSubCategoryForMainCaregory:(NSInteger) p_maincategoryId
