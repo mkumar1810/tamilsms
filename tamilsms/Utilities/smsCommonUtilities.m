@@ -7,6 +7,7 @@
 //
 
 #import "smsCommonUtilities.h"
+#import "smsRESTProxy.h"
 
 @implementation smsCommonUtilities
 
@@ -22,6 +23,7 @@
         [l_favItems addObject:p_MsgId];
         [[NSUserDefaults standardUserDefaults] setValue:l_favItems forKey:@"favourites"];
     }
+    [[smsRESTProxy alloc] initDatawithAPIType:@"LIKE_POST" andInputParams:@{@"item_id":p_MsgId} andReturnMethod:NULL];
 }
 
 + (void) removeSMSItemToFavourite:(NSNumber *) p_MsgId

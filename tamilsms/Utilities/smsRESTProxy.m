@@ -84,7 +84,7 @@ static NSURLSessionConfiguration * _defSessConfig;
     else if ([_responseType isEqualToString:@"LOGINUSER"]==YES)
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=getid&username=%@&password=%@",MAIN_URL,SIGNUP_USER,[_inputParms valueForKey:@"username"],[_inputParms valueForKey:@"password"]]];
-    } //
+    }
     else if ([_responseType isEqualToString:@"POSTTXTMSG"]==YES)
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=add&user_id=%ld&cat_id=%ld",MAIN_URL,POST_TXT_MSG,[[_inputParms valueForKey:@"user_id"] longValue],[[_inputParms valueForKey:@"cat_id"] longValue]]];
@@ -109,7 +109,14 @@ static NSURLSessionConfiguration * _defSessConfig;
          [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         l_imagepassdata = [NSData dataWithData:body];
     }
-    
+    else if ([_responseType isEqualToString:@"LIKE_POST"])
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?item_id=%@",MAIN_URL,LIKE_ITEM_LOG,[[_inputParms valueForKey:@"item_id"] stringValue]]];
+    }
+    else if ([_responseType isEqualToString:@"SHARE_POST"])
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?item_id=%@",MAIN_URL,SHARE_ITEM_LOG,[[_inputParms valueForKey:@"item_id"] stringValue]]];
+    }
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
     [l_theRequest addValue:l_contentType  forHTTPHeaderField:@"Content-Type"];
     if ([_responseType isEqualToString:@"POSTIMAGEMSG"]==YES)
@@ -149,8 +156,10 @@ static NSURLSessionConfiguration * _defSessConfig;
             /*_proxyReturnMethod([NSJSONSerialization dataWithJSONObject:@{@"error":@"-1", @"errmsg":p_errMsg}
                                                                options:kNilOptions error:nil]);*/
             
-            _proxyReturnMethod(@{@"error":@"-1", @"errmsg":p_errMsg});
-
+            if (_proxyReturnMethod!=NULL)
+            {
+                _proxyReturnMethod(@{@"error":@"-1", @"errmsg":p_errMsg});
+            }
         });
 }
 

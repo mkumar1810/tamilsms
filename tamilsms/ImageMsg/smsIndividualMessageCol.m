@@ -9,6 +9,7 @@
 #import "smsIndividualMessageCol.h"
 #import "smsAsyncImageFetch.h"
 #import "smsCommonUtilities.h"
+#import "smsRESTProxy.h"
 
 @interface smsIndividualMessageCol()
 {
@@ -134,7 +135,9 @@
              
              activityVC.excludedActivityTypes = excludeActivities;
              
-             [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:nil];
+             [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:^(){
+                 [[smsRESTProxy alloc] initDatawithAPIType:@"SHARE_POST" andInputParams:@{@"item_id":[l_imgmsgdict valueForKey:@"id"]} andReturnMethod:NULL];
+             }];
          }
      }];
 }

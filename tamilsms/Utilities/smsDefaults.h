@@ -17,6 +17,8 @@
 #define APP_TITLE @"Tamil SMS"
 #define POST_TXT_MSG @"add-news-ios"
 #define POST_IMAGE_MSG @"add-image-ios"
+#define SHARE_ITEM_LOG @"ios-share"
+#define LIKE_ITEM_LOG @"ios-like"
 
 typedef enum {
     noanimation,

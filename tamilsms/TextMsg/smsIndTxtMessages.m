@@ -8,6 +8,7 @@
 
 #import "smsIndTxtMessages.h"
 #import "smsCommonUtilities.h"
+#import "smsRESTProxy.h"
 
 @interface smsIndTxtMessages()
 {
@@ -133,7 +134,9 @@
 
     activityVC.excludedActivityTypes = excludeActivities;
 
-    [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:nil];
+    [[self.popUpMessageDelegate getParentNavController] presentViewController:activityVC animated:YES completion:^(){
+        [[smsRESTProxy alloc] initDatawithAPIType:@"SHARE_POST" andInputParams:@{@"item_id":[l_msgdict valueForKey:@"id"]} andReturnMethod:NULL];
+    }];
 }
 
 @end
