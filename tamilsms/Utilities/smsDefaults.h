@@ -19,6 +19,15 @@
 #define POST_IMAGE_MSG @"add-image-ios"
 #define SHARE_ITEM_LOG @"ios-share"
 #define LIKE_ITEM_LOG @"ios-like"
+#define TOP25_AUTHORS @"ios-apis.php"
+#define TOP25_AUTHOR_RELATED_MSGS @"ios-apis"
+#define LATEST_TEXT_MSGS @"ios-apis.php"
+#define TOP_SHARED_TEXT_MSG @"ios-apis.php"
+#define TOP_FAV_TEXT_MSG @"ios-apis.php"
+#define LATEST_IMG_MSG @"ios-apis.php"
+#define TOP_SHARED_IMAG_MSG @"ios-apis.php"
+#define TOP_FAV_IMG_MSG @"ios-apis.php"
+
 
 typedef enum {
     noanimation,

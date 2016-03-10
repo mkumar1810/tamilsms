@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "smsDefaults.h"
 
-@interface smsMoreOptionsCtrlr : UICollectionViewController
+@interface smsMoreOptionsCtrlr : UICollectionViewController<smsCustNaviDelegates>
 
 @end
 

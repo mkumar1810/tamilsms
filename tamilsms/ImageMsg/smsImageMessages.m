@@ -17,6 +17,23 @@
 @end
 @implementation smsImageMessages
 
+- (void)awakeFromNib
+{
+    UICollectionViewFlowLayout *  l_reqdLayout = [[UICollectionViewFlowLayout alloc] init];
+    [self setCollectionViewLayout:l_reqdLayout];
+    l_reqdLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    l_reqdLayout.footerReferenceSize = CGSizeZero;
+    l_reqdLayout.minimumInteritemSpacing = 0;
+    l_reqdLayout.minimumLineSpacing = 0;
+    l_reqdLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    self.dataSource = self;
+    self.delegate = self;
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
+    [self registerClass:[imageMessageForCell class] forCellWithReuseIdentifier:@"img_msg_cell"];
+}
+
 - (instancetype)init
 {
     UICollectionViewFlowLayout *  l_reqdLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -43,11 +60,11 @@
 }
 
 /*
-- (void)updateConstraints
-{
-    [self reloadData];
-    //[super updateConstraints];
-}
+ - (void)updateConstraints
+ {
+ [self reloadData];
+ //[super updateConstraints];
+ }
  */
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -73,19 +90,19 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [_categoryMessageDelegate getMessageCount];
+    return [_categoryMessageDelegate getImageMessageCount];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.categoryMessageDelegate messageClickedForTheCell:indexPath.row];
-
+    [self.categoryMessageDelegate imgMsgClickedForTheCell:indexPath.row];
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * l_detailcellid = @"img_msg_cell";
-    NSDictionary * l_imgmsgdict = [_categoryMessageDelegate getMessageFromArray:indexPath.row];
+    NSDictionary * l_imgmsgdict = [_categoryMessageDelegate getImageMsgDictAtPosn:indexPath.row];
     imageMessageForCell * l_detailcell = [collectionView dequeueReusableCellWithReuseIdentifier:l_detailcellid forIndexPath:indexPath];
     [l_detailcell setDisplayData:l_imgmsgdict];
     return l_detailcell;
@@ -98,12 +115,13 @@
     UIImageView * l_images ;
     NSArray * _array;
     NSDictionary * _categorydata;
-    
 }
 
 @end
 
 @implementation imageMessageForCell
+
+@synthesize authorname = l_username, dispimage = l_images, categorydict = _categorydata;
 
 -(void)drawRect:(CGRect)rect
 {
@@ -111,15 +129,15 @@
     if (l_images)
     {
         //[l_images setFrame:CGRectMake(5, 5, rect.size.width-10, rect.size.height-10)];
-       // [l_username setFrame:CGRectMake(5, rect.size.height-35, rect.size.width-10, 30)];
+        // [l_username setFrame:CGRectMake(5, rect.size.height-35, rect.size.width-10, 30)];
         [self displayValues];
         return;
     }
     
-   /* UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [indicator startAnimating];
-    [indicator setCenter:self.center];
-    [self.contentView addSubview:indicator];*/
+    /* UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+     [indicator startAnimating];
+     [indicator setCenter:self.center];
+     [self.contentView addSubview:indicator];*/
     
     //l_images = [[UIImageView alloc]initWithFrame:CGRectMake(5, 5, rect.size.width-10, rect.size.height-10)];
     l_images = [UIImageView new];
@@ -142,7 +160,7 @@
     [self addSubview:l_username];
     [self displayValues];
     
-     [self addConstraints:@[[NSLayoutConstraint constraintWithItem:l_username attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-10],[NSLayoutConstraint constraintWithItem:l_username attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:(-5)]]];
+    [self addConstraints:@[[NSLayoutConstraint constraintWithItem:l_username attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:-10],[NSLayoutConstraint constraintWithItem:l_username attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:(-5)]]];
     
     [l_username addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[UN(30)]" options:0 metrics:nil views:@{@"UN":l_username}]];
     
@@ -176,9 +194,10 @@
              if ([p_returnInfo valueForKey:@"filename"])
              {
                  l_images.image = [UIImage
-                                      imageWithContentsOfFile:[p_returnInfo valueForKey:@"filename"]];
+                                   imageWithContentsOfFile:[p_returnInfo valueForKey:@"filename"]];
              }
          }
      }];
 }
+
 @end

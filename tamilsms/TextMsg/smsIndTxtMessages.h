@@ -48,7 +48,8 @@
 <UITableViewDataSource,UITableViewDelegate, bottomNavigationViewDelegate>
 
 @property(nonatomic,weak)id<indTxtMsgDelegate>popUpMessageDelegate;
-- (id) initWithStartPosn:(NSInteger) p_startPosn;
+
+- (id) initWithStartPosn:(NSInteger) p_startPosn authorKey:(NSString*) p_authorKey quoteKey:(NSString*) p_quoteKey;
 
 @end
 
@@ -56,7 +57,7 @@
 
 @property (nonatomic) NSInteger cellPosnNo;
 //-(void)showData;
--(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo;
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo authorNameKey:(NSString*) p_authorNameKey andQuoteKey:(NSString*) p_quoteNameKey;
 
 
 @end

@@ -372,5 +372,73 @@ static NSString * s_dbFileName;
 
 
 
+- (NSArray*) getFavouriteTextMessages
+{
+    //NSLog(@"the category is passed in the database is %ld",(long)p_categoryId);
+    NSMutableArray * l_messageList = [[NSMutableArray alloc] init];
+    NSString * l_txtmsg = @"select id,qid,quotes,author,userid from tamilsms where is_image = 0 and id>5500 and id<5700 ";
+    
+    sqlite3_stmt * l_tamilmesgsmt;
+    if (sqlite3_prepare_v2(s_tamilsms_db, [l_txtmsg UTF8String], -1, &l_tamilmesgsmt, NULL)==SQLITE_OK)
+    {
+        //sqlite3_bind_int(l_tamilmesgsmt, 1, (int) p_categoryId);
+        while (sqlite3_step(l_tamilmesgsmt)==SQLITE_ROW)
+        {
+            
+            int l_id = sqlite3_column_int(l_tamilmesgsmt, 0);
+            int l_qid = sqlite3_column_int(l_tamilmesgsmt, 1);
+            const char * l_quotes = (char*) sqlite3_column_text(l_tamilmesgsmt, 2);
+            const char * l_author = (char*) sqlite3_column_text(l_tamilmesgsmt, 3);
+            int l_userid = sqlite3_column_int(l_tamilmesgsmt, 4);
+            
+            
+            [l_messageList addObject:[NSDictionary
+                                      dictionaryWithObjectsAndKeys:
+                                      [NSNumber numberWithInt:l_id],@"id",
+                                      [NSNumber numberWithInt:l_qid],@"l_qid",
+                                      [NSString stringWithUTF8String:l_quotes],@"quotes",
+                                      [NSString stringWithUTF8String:l_author],@"author",
+                                      [NSNumber numberWithInt:l_userid], @"userid", nil]];
+            //NSLog(@"the messaages in database are :%@",l_messageList);
+        }
+        sqlite3_finalize(l_tamilmesgsmt);
+    }
+    else
+        NSLog(@"%@", [NSString stringWithUTF8String:sqlite3_errmsg(s_tamilsms_db)]);
+    return l_messageList;
+}
+
+-(NSArray*)getFavouriteImageMessages
+{
+    NSMutableArray * l_imgmessageList = [[NSMutableArray alloc] init];
+    NSString * l_imgmsg = @"select id,qid,msg_image,author,userid from tamilsms where is_image = 1 and catid=1";
+    sqlite3_stmt * l_tamilimgsmt;
+    if (sqlite3_prepare_v2(s_tamilsms_db, [l_imgmsg UTF8String], -1, &l_tamilimgsmt, NULL)==SQLITE_OK)
+    {
+        //sqlite3_bind_int(l_tamilimgsmt, 1, (int) p_categoryId);
+        while (sqlite3_step(l_tamilimgsmt)==SQLITE_ROW)
+        {
+            
+            int l_id = sqlite3_column_int(l_tamilimgsmt, 0);
+            int l_qid = sqlite3_column_int(l_tamilimgsmt, 1);
+            const char * l_msg_image = (char*) sqlite3_column_text(l_tamilimgsmt, 2);
+            const char * l_author = (char*) sqlite3_column_text(l_tamilimgsmt, 3);
+            int l_userid = sqlite3_column_int(l_tamilimgsmt, 4);
+            
+            
+            [l_imgmessageList addObject:[NSDictionary
+                                         dictionaryWithObjectsAndKeys:
+                                         [NSNumber numberWithInt:l_id],@"id",
+                                         [NSNumber numberWithInt:l_qid],@"l_qid",
+                                         [NSString stringWithUTF8String:l_msg_image],@"msg_image",
+                                         [NSString stringWithUTF8String:l_author],@"author",
+                                         [NSNumber numberWithInt:l_userid], @"userid", nil]];
+            //NSLog(@"the messaages in database are :%@",l_imgmessageList);
+        }
+        sqlite3_finalize(l_tamilimgsmt);
+    }
+    return l_imgmessageList;
+    
+}
 
 @end

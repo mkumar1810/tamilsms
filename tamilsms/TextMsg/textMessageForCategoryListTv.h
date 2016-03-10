@@ -23,6 +23,11 @@
     
 }
 
+@property (nonatomic,strong) UILabel * username;
+@property (nonatomic,strong) UITextView * txtmessagevw;
+@property (nonatomic,retain) NSDictionary * datamsgdict;
+
+
 - (void) setDisplayData:(NSDictionary*) p_displayDict;
 - (void) displayValues;
 
@@ -33,7 +38,7 @@
 {
     //UITableView * textmsgtable;
 }
-@property(nonatomic,retain)id<textMessageForCategoryDelegate>categoryMessageDelegate;
+@property(nonatomic,retain) IBOutlet id<textMessageForCategoryDelegate>categoryMessageDelegate;
 
 - (void) reloadCategoriesListMessages;
 

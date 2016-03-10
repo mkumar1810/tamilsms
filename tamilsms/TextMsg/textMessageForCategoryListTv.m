@@ -33,14 +33,15 @@
 -(void)drawRect:(CGRect)rect
 {
     /*textmsgtable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, rect.size.width, rect.size.height-30) style:UITableViewStylePlain];
-    self.delegate=self;
-    self.dataSource=self;
-    [self setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    //[mytable setHidden:YES];
-    [self addSubview:textmsgtable];
-    [textmsgtable layoutIfNeeded];*/
+     self.delegate=self;
+     self.dataSource=self;
+     [self setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+     //[mytable setHidden:YES];
+     [self addSubview:textmsgtable];
+     [textmsgtable layoutIfNeeded];*/
     
-    
+    self.dataSource = self;
+    self.delegate = self;
     _txtmsgstyle =[[NSMutableParagraphStyle alloc] init];
     _txtmsgstyle.lineBreakMode = NSLineBreakByWordWrapping;
     _txtmsgstyle.alignment = NSTextAlignmentLeft;
@@ -62,20 +63,20 @@
     NSDictionary * mess = [self.categoryMessageDelegate getMessageFromArray:indexPath.row];
     //UILabel* messtext;
     /*
-    NSLog(@"the text values in qoutes is %@",text);
-    CGSize textSize = [text sizeWithAttributes:@{ NSFontAttributeName : [UIFont fontWithName:@"systemFontOfSize" size:15.0] }];
-    NSLog(@"width = %f, height = %f", textSize.width, textSize.height);*/
+     NSLog(@"the text values in qoutes is %@",text);
+     CGSize textSize = [text sizeWithAttributes:@{ NSFontAttributeName : [UIFont fontWithName:@"systemFontOfSize" size:15.0] }];
+     NSLog(@"width = %f, height = %f", textSize.width, textSize.height);*/
     
     NSString * l_msgtext = [mess valueForKey:@"quotes"];
     CGRect l_reqdrect = [l_msgtext boundingRectWithSize:CGSizeMake(self.bounds.size.width-30.0, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin+NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18.0f],NSParagraphStyleAttributeName:_txtmsgstyle} context:nil];
     NSInteger l_reqdheight = l_reqdrect.size.height;
     //(l_reqdrect.size.height/10.0+0.5);
-     //l_reqdheight = l_reqdheight*10;
+    //l_reqdheight = l_reqdheight*10;
     //NSLog(@"the received height %ld for row %ld", (long)l_reqdheight, (long)indexPath.row );
-     if (l_reqdheight<65.0f)
-         return 105.0f;
-     else
-         return l_reqdheight+40.0;
+    if (l_reqdheight<65.0f)
+        return 105.0f;
+    else
+        return l_reqdheight+40.0;
     //return textSize.height;
     //return 150;
 }
@@ -110,17 +111,18 @@
 @end
 @interface messageForCell()
 {
-    UILabel * l_users, * l_username;
     UITextView * l_msgtxtvw;
     UIImageView * l_usernamelogo,*l_msgline ;
     NSArray * _array;
     NSDictionary * _categorydata;
-    
+    UILabel * l_users, * l_username;
 }
 
 @end
 
 @implementation messageForCell
+
+@synthesize username = l_username, txtmessagevw = l_msgtxtvw, datamsgdict = _categorydata;
 
 -(void)drawRect:(CGRect)rect
 {
@@ -145,10 +147,10 @@
     [self addSubview:l_usernamelogo];
     
     
-        
+    
     /*l_msgline = [[UIImageView alloc]initWithFrame:CGRectMake(rect.size.width/2.0, 1, rect.size.width/2.0, 7)];
-    [l_msgline setImage:[UIImage imageNamed:@"bottom_shadow.png"]];
-    [self addSubview:l_msgline];*/
+     [l_msgline setImage:[UIImage imageNamed:@"bottom_shadow.png"]];
+     [self addSubview:l_msgline];*/
     
     
     l_username = [[UILabel alloc]initWithFrame:CGRectMake(rect.size.width/10.0, 0, rect.size.width, 30)];
@@ -180,12 +182,12 @@
     
     // Height constraint, half of parent view height
     /*[self addConstraint:[NSLayoutConstraint constraintWithItem:l_users
-                                                     attribute:NSLayoutAttributeHeight
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeHeight
-                                                    multiplier:1.0
-                                                      constant:0]];*/
+     attribute:NSLayoutAttributeHeight
+     relatedBy:NSLayoutRelationEqual
+     toItem:self
+     attribute:NSLayoutAttributeHeight
+     multiplier:1.0
+     constant:0]];*/
     
     [l_users addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[name(30)]" options:0 metrics:nil views:@{@"name":l_users}]];
     
@@ -203,15 +205,15 @@
     
     // Center vertically
     /*[self addConstraint:[NSLayoutConstraint constraintWithItem:l_users
-                                                     attribute:NSLayoutAttributeCenterY
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeCenterY
-                                                    multiplier:1.0
-                                                      constant:0.0]];*/
+     attribute:NSLayoutAttributeCenterY
+     relatedBy:NSLayoutRelationEqual
+     toItem:self
+     attribute:NSLayoutAttributeCenterY
+     multiplier:1.0
+     constant:0.0]];*/
     
     [self layoutIfNeeded];
-
+    
     
 }
 

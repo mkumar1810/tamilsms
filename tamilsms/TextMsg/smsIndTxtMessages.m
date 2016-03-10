@@ -15,6 +15,7 @@
     NSInteger _startPosn;
     NSInteger _currentPosn;
     NSInteger _noOfRecords;
+    NSString * _authorkey, * _quotekey;
 }
 
 @end
@@ -22,12 +23,14 @@
 
 @implementation smsIndTxtMessages
 
-- (id) initWithStartPosn:(NSInteger) p_startPosn
+- (id) initWithStartPosn:(NSInteger) p_startPosn authorKey:(NSString *)p_authorKey quoteKey:(NSString *)p_quoteKey
 {
     self = [super initWithFrame:CGRectZero style:UITableViewStylePlain];
     if (self) {
         //
         _startPosn = p_startPosn;
+        _authorkey = p_authorKey;
+        _quotekey = p_quoteKey;
         self.dataSource = self;
         self.delegate = self;
         [self setScrollEnabled:NO];
@@ -84,7 +87,7 @@
         l_cell = [[individualMesssageForCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:l_msgIdentifier];
     }
     [l_cell setBackgroundColor:[UIColor colorWithRed:0.97 green:0.97 blue:0.87 alpha:1.0]];
-    [l_cell setDisplayValues:[self.popUpMessageDelegate getIndividualMessageOfDict:indexPath.row] atPosn:indexPath.row];
+    [l_cell setDisplayValues:[self.popUpMessageDelegate getIndividualMessageOfDict:indexPath.row] atPosn:indexPath.row authorNameKey:_authorkey andQuoteKey:_quotekey]; //@"author"   @"quotes"
     return l_cell;
 }
 
@@ -147,6 +150,7 @@
     UITextView * tx_popupmess;
     NSDictionary * _dispDict;
     UIImageView * l_popupUserlogo;
+    NSString * _authorkey, * _quotekey;
 }
 
 @end
@@ -219,10 +223,12 @@
     [self displayValues];
 }
 
--(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo authorNameKey:(NSString*) p_authorNameKey andQuoteKey:(NSString*) p_quoteNameKey
 {
     //NSDictionary * _quotesDict = p_dict;
     _dispDict = p_messageDict;
+    _authorkey = p_authorNameKey;
+    _quotekey = p_quoteNameKey;
     self.cellPosnNo = p_posnNo;
     if (tx_popupmess)
     {
@@ -232,8 +238,10 @@
 
 - (void) displayValues
 {
-    tx_popupmess.text = [_dispDict valueForKey:@"quotes"];
-    lb_popUpUsrName.text = [_dispDict valueForKey:@"author"];
+    tx_popupmess.text = [_dispDict valueForKey:_quotekey];
+                         //valueForKey:@"quotes"];
+    lb_popUpUsrName.text = [_dispDict valueForKey:_authorkey];
+    //[_dispDict valueForKey:@"author"];
     /*CGPoint l_oldcenter = tx_popupmess.center;
      CGPoint l_tocenter = CGPointMake(l_oldcenter.x, self.bounds.size.height/2.0);
      tx_popupmess.transform = CGAffineTransformMakeScale(1, 10);

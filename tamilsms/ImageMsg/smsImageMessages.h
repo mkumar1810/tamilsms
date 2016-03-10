@@ -10,9 +10,9 @@
 
 @protocol imageMessageForCategoryDelegate <NSObject>
 
--(NSDictionary*) getMessageFromArray:(NSInteger) p_posnNo;
--(NSInteger)getMessageCount;
--(void)messageClickedForTheCell:(NSInteger)p_positno;
+-(NSDictionary*) getImageMsgDictAtPosn:(NSInteger) p_posnNo;
+-(NSInteger)getImageMessageCount;
+-(void)imgMsgClickedForTheCell:(NSInteger)p_positno;
 
 @end
 
@@ -20,6 +20,10 @@
 {
     
 }
+
+@property (nonatomic,strong) UILabel * authorname;
+@property (nonatomic,strong) UIImageView * dispimage ;
+@property (nonatomic,strong) NSDictionary * categorydict;
 
 - (void) setDisplayData:(NSDictionary*) p_displayDict;
 - (void) displayValues;
@@ -31,7 +35,7 @@
 {
     
 }
-@property(nonatomic,retain)id<imageMessageForCategoryDelegate>categoryMessageDelegate;
+@property(nonatomic,retain) IBOutlet id<imageMessageForCategoryDelegate>categoryMessageDelegate;
 
 - (void) reloadCategoriesListMessages;
 

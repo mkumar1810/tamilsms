@@ -135,6 +135,33 @@ static smsLocalStore * s_storeDBOps;
     [self addToQueueBlock:l_exeBlock];
 }
 
++ (void) getFavouriteTextMessagesWithReturnCB:(ARRAYCALLBACK) p_returnCB
+{
+    NOPARAMCALLBACK l_exeBlock = ^()
+    {
+        NSArray * l_favtxtmsgslist = [[self getLocalStoreInstance] getFavouriteTextMessages];
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           p_returnCB(l_favtxtmsgslist);
+                       });
+    };
+    [self addToQueueBlock:l_exeBlock];
+}
+
++ (void)getFavouriteImageMessagesWithReturnCB:(ARRAYCALLBACK)p_returnCB
+{
+    NOPARAMCALLBACK l_exeBlock = ^()
+    {
+        NSArray * l_favImgmsgslist = [[self getLocalStoreInstance] getFavouriteImageMessages];
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           p_returnCB(l_favImgmsgslist);
+                       });
+    };
+    [self addToQueueBlock:l_exeBlock];
+    
+}
+
 + (void) addToQueueBlock:(NOPARAMCALLBACK) p_block
 {
     if (!s_ops_queue)

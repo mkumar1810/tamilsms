@@ -18,11 +18,13 @@
 @end
 
 @implementation smsMoreOptionsCtrlr
+@synthesize hideStatusBar,navigateParams, transitionType;
 
 static NSString * const reuseIdentifier = @"Cell";
 
 - (void)awakeFromNib
 {
+    self.transitionType = noanimation;
     _optionsList = [NSArray arrayWithObjects:@"FAVOURITE",@"TOP 25 AUTHORS",@"LATEST MSG",@"LATEST IMAGE",@"TOP SHARED MSG",@"TOP SHARED IMAGES",@"TOP FAV MSG",@"TOP FAV IMAGES",@"DOWNLOAD TAMIL NEWS",@"INFO", nil];
     
     _optionListImages = [NSArray arrayWithObjects:@"top_shared1",@"top_shared1",@"top_shared1",@"top_shared1",@"top_liked2",@"top_liked2",@"top_liked2",@"top_shared",@"top_shared",@"top_shared", nil];
@@ -90,7 +92,40 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //[self.categoryMessageDelegate messageClickedForTheCell:indexPath.row];
-    
+    if (indexPath.row==0) {
+        NSLog(@"index path o is pressed");
+        [self performSegueWithIdentifier:@"smsFavourite" sender:self];
+    }
+    else if (indexPath.row==1)
+    {
+        [self performSegueWithIdentifier:@"showtop25authors" sender:self];
+    }
+    else if (indexPath.row==2)
+    {
+        [self performSegueWithIdentifier:@"latestMsgSegue" sender:self];
+    }
+    else if (indexPath.row==3)
+    {
+        [self performSegueWithIdentifier:@"smsLatstImgSeg" sender:self];
+    }
+    else if (indexPath.row==4)
+    {
+        [self performSegueWithIdentifier:@"topSharedMsgSeg" sender:self];
+    }
+    else if (indexPath.row==5)
+    {
+        [self performSegueWithIdentifier:@"TopSharImgSeg" sender:self];
+    }
+    else if (indexPath.row==6)
+    {
+        [self performSegueWithIdentifier:@"topFavSeg" sender:self];
+    }
+    else if (indexPath.row==7)
+    {
+        [self performSegueWithIdentifier:@"topFavImgSeg" sender:self];
+    }
+
+
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -157,8 +192,8 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     l_catName.text = [[NSString alloc]initWithFormat:@"%@",_arayOptionList];
     NSString * l_filename = [[NSBundle mainBundle] pathForResource:_arayOptionimg ofType:@"png"];
-    NSLog(@"the recived file naame is %@",l_filename);
+//    NSLog(@"the recived file naame is %@",l_filename);
     l_images.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:l_filename]];
-    NSLog(@"the recived text value is %@",l_images.image);
+//    NSLog(@"the recived text value is %@",l_images.image);
 }
 @end

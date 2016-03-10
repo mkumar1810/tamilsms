@@ -85,6 +85,47 @@ static NSURLSessionConfiguration * _defSessConfig;
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=getid&username=%@&password=%@",MAIN_URL,SIGNUP_USER,[_inputParms valueForKey:@"username"],[_inputParms valueForKey:@"password"]]];
     }
+    else if ([_responseType isEqualToString:@"TOP25_AUTHORS"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id=4",MAIN_URL,TOP25_AUTHORS]];
+    } //
+    else if ([_responseType isEqualToString:@"TOP25_AUTHORS"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id=4",MAIN_URL,TOP25_AUTHORS]];
+    } //
+    else if ([_responseType isEqualToString:@"TOP25_TXT_MSGS"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?user_id=%d&page=%d&own=0",MAIN_URL,TOP25_AUTHOR_RELATED_MSGS,[[_inputParms valueForKey:@"user_id"] intValue],[[_inputParms valueForKey:@"page"] intValue]]];
+    }//TOP25_IMAGE_MSGS
+    else if ([_responseType isEqualToString:@"LATEST_TXT_MSGS"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id=1&page=%d",MAIN_URL,LATEST_TEXT_MSGS,[[_inputParms valueForKey:@"page"]intValue]]];
+    }
+    else if ([_responseType isEqualToString:@"TOP_SHARED_TEXT_MSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id=3&page=%d",MAIN_URL,TOP_SHARED_TEXT_MSG,[[_inputParms valueForKey:@"page"]intValue]]];
+    }
+    else if ([_responseType isEqualToString:@"TOP_FAV_TEXT_MSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id=2&page=%d",MAIN_URL,TOP_SHARED_TEXT_MSG,[[_inputParms valueForKey:@"page"]intValue]]];
+    }
+    
+    else if ([_responseType isEqualToString:@"TOP25_IMAGE_MSGS"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?user_id=%d&page=%d&own=4",MAIN_URL,TOP25_AUTHOR_RELATED_MSGS,[[_inputParms valueForKey:@"user_id"] intValue],[[_inputParms valueForKey:@"page"] intValue]]];
+    }
+    else if ([_responseType isEqualToString:@"LATEST_IMG_MSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id_img=1&page=%d",MAIN_URL,LATEST_IMG_MSG,[[_inputParms valueForKey:@"page"] intValue]]];
+    }
+    else if ([_responseType isEqualToString:@"TOP_SHARED_IMAG_MSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id_img=3&page=%d",MAIN_URL,LATEST_IMG_MSG,[[_inputParms valueForKey:@"page"] intValue]]];
+    }
+    else if ([_responseType isEqualToString:@"TOP_FAV_IMG_MSG"]==YES)
+    {
+        l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?page_id_img=2&page=%d",MAIN_URL,LATEST_IMG_MSG,[[_inputParms valueForKey:@"page"] intValue]]];
+    }
     else if ([_responseType isEqualToString:@"POSTTXTMSG"]==YES)
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?job=add&user_id=%ld&cat_id=%ld",MAIN_URL,POST_TXT_MSG,[[_inputParms valueForKey:@"user_id"] longValue],[[_inputParms valueForKey:@"cat_id"] longValue]]];
@@ -117,6 +158,7 @@ static NSURLSessionConfiguration * _defSessConfig;
     {
         l_url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@?item_id=%@",MAIN_URL,SHARE_ITEM_LOG,[[_inputParms valueForKey:@"item_id"] stringValue]]];
     }
+    
     l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
     [l_theRequest addValue:l_contentType  forHTTPHeaderField:@"Content-Type"];
     if ([_responseType isEqualToString:@"POSTIMAGEMSG"]==YES)
@@ -130,6 +172,8 @@ static NSURLSessionConfiguration * _defSessConfig;
         [l_theRequest setHTTPBody:[l_messagebody dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES]];
     }
     
+    l_theRequest = [NSMutableURLRequest requestWithURL:l_url];
+    [l_theRequest addValue:l_contentType  forHTTPHeaderField:@"Content-Type"];
     [l_theRequest setHTTPMethod:l_requesttype];
     NSURLSessionDataTask * l_dataTask = [_theSession dataTaskWithRequest:l_theRequest completionHandler:^(NSData * p_respData, NSURLResponse * p_response, NSError * p_error){
         [self urlSessionCompletedWith:p_respData andResponse:p_response andError:p_error];

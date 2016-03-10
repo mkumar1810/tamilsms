@@ -19,6 +19,8 @@
 + (void) getImageSubCategoryTitles:(NSInteger) p_catgId andrReturnCb:(ARRAYCALLBACK) p_returnCB;
 + (void) getSyncRelatedParamsWithReturnCB:(DICTIONARYCALLBACK) p_returnCB;
 + (void) updateNewRecordIntoDB:(NSDictionary*) p_updateInfo withReturnCB:(NOPARAMCALLBACK) p_returnCB;
++ (void) getFavouriteTextMessagesWithReturnCB:(ARRAYCALLBACK) p_returnCB;
++ (void) getFavouriteImageMessagesWithReturnCB:(ARRAYCALLBACK) p_returnCB;
 
 @end
 

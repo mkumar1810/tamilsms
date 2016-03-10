@@ -105,19 +105,19 @@
 #pragma mark - sms categoreis list delegates handler
 
 
--(NSInteger)getMessageCount
+-(NSInteger) getImageMessageCount
 {
     //NSInteger nocount = [_categorymessages count];
     //NSLog(@"the category msg count is %ld",(long)nocount);
     return [_categoryimgmessages count];
 }
 
--(NSDictionary*) getMessageFromArray:(NSInteger) p_posnNo
+-(NSDictionary*) getImageMsgDictAtPosn:(NSInteger)p_posnNo
 {
     return [_categoryimgmessages objectAtIndex:p_posnNo];
 }
 
--(void)messageClickedForTheCell:(NSInteger)p_positno
+-(void)imgMsgClickedForTheCell:(NSInteger)p_positno
 {
     //self.navigateParams = [_categorymessages objectAtIndex:p_positno];
     self.navigateParams = @{@"initialposn":@(p_positno),
@@ -126,7 +126,6 @@
         [self performSegueWithIdentifier:@"ShowIndividualImagemessage" sender:self];
     });
 }
-
 
 - (void)updateViewConstraints
 {

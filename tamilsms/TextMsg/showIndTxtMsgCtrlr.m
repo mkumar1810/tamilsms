@@ -16,6 +16,8 @@
     NSArray * _allitems;
     NSInteger _startPosn;
     bottomViewForNextMessage * _bottomViewForNextMessage;
+    BOOL _isOnline;
+    NSString * _authorKey, * _quoteKey;
 }
 
 -(void)setUpReferenceForTable;
@@ -54,6 +56,18 @@
     //_popupdict = p_initParams;
     _allitems = [p_initParams valueForKey:@"allmessages"];
     _startPosn = [[p_initParams valueForKey:@"initialposn"] integerValue];
+    _isOnline = [[p_initParams valueForKey:@"isonline"] boolValue];
+    if (_isOnline)
+    {
+        _authorKey = @"username";
+        _quoteKey = @"news_heading";
+    }
+    else
+    {
+        _authorKey = @"author";
+        _quoteKey = @"quotes";
+    }
+
     if (_individualmessage) {
         [_individualmessage reloadData];
         [_individualmessage scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_startPosn inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -90,7 +104,7 @@
 -(void)setUpReferenceForTable
 {
     
-    _individualmessage = [[smsIndTxtMessages alloc] initWithStartPosn:_startPosn];
+    _individualmessage = [[smsIndTxtMessages alloc] initWithStartPosn:_startPosn authorKey:_authorKey quoteKey:_quoteKey];
     _individualmessage.translatesAutoresizingMaskIntoConstraints = NO;
     
     // _individualmessage = [[individualMesssage alloc]initWithStartPosn:_startPosn];

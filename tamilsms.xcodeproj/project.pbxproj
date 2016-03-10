@@ -15,6 +15,16 @@
 		016C72BD1C52794A00F3EE12 /* smsMoreOptionsCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 016C72BC1C52794A00F3EE12 /* smsMoreOptionsCtrlr.m */; };
 		016F5A981C36BFA60038348E /* smsImageMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F5A951C36BFA60038348E /* smsImageMessages.m */; };
 		016F5A991C36BFA60038348E /* smsImgMsgsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F5A971C36BFA60038348E /* smsImgMsgsController.m */; };
+		018813291C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0188131C1C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.m */; };
+		0188132A1C8B01FA00276B1A /* smsLatestMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0188131E1C8B01FA00276B1A /* smsLatestMessage.m */; };
+		0188132B1C8B01FA00276B1A /* smsLatstImgMessag.m in Sources */ = {isa = PBXBuildFile; fileRef = 018813201C8B01FA00276B1A /* smsLatstImgMessag.m */; };
+		0188132C1C8B01FA00276B1A /* smsTopFavImgMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 018813221C8B01FA00276B1A /* smsTopFavImgMsg.m */; };
+		0188132D1C8B01FA00276B1A /* smsTopFavouMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 018813241C8B01FA00276B1A /* smsTopFavouMsg.m */; };
+		0188132E1C8B01FA00276B1A /* smsTopSharedMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 018813261C8B01FA00276B1A /* smsTopSharedMsg.m */; };
+		0188132F1C8B01FA00276B1A /* smsTopSharImgMes.m in Sources */ = {isa = PBXBuildFile; fileRef = 018813281C8B01FA00276B1A /* smsTopSharImgMes.m */; };
+		0190A4C41C67299400384870 /* smsTop25AuthorsCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0190A4BF1C67299400384870 /* smsTop25AuthorsCtrlr.m */; };
+		0190A4C51C67299400384870 /* smsTop25AuthorsText.m in Sources */ = {isa = PBXBuildFile; fileRef = 0190A4C11C67299400384870 /* smsTop25AuthorsText.m */; };
+		0190A4C61C67299400384870 /* smsTop25AuthoursImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0190A4C31C67299400384870 /* smsTop25AuthoursImage.m */; };
 		019D264E1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 019D264D1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m */; };
 		019D26511C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 019D26501C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m */; };
 		01B527871C5E30CE00DF6E7D /* smsCommonUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B527861C5E30CE00DF6E7D /* smsCommonUtilities.m */; };
@@ -179,6 +189,26 @@
 		016F5A951C36BFA60038348E /* smsImageMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImageMessages.m; sourceTree = "<group>"; };
 		016F5A961C36BFA60038348E /* smsImgMsgsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImgMsgsController.h; sourceTree = "<group>"; };
 		016F5A971C36BFA60038348E /* smsImgMsgsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsImgMsgsController.m; sourceTree = "<group>"; };
+		0188131B1C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsFavoriteMsgTxtCtrlr.h; sourceTree = "<group>"; };
+		0188131C1C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsFavoriteMsgTxtCtrlr.m; sourceTree = "<group>"; };
+		0188131D1C8B01FA00276B1A /* smsLatestMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsLatestMessage.h; sourceTree = "<group>"; };
+		0188131E1C8B01FA00276B1A /* smsLatestMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsLatestMessage.m; sourceTree = "<group>"; };
+		0188131F1C8B01FA00276B1A /* smsLatstImgMessag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsLatstImgMessag.h; sourceTree = "<group>"; };
+		018813201C8B01FA00276B1A /* smsLatstImgMessag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsLatstImgMessag.m; sourceTree = "<group>"; };
+		018813211C8B01FA00276B1A /* smsTopFavImgMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTopFavImgMsg.h; sourceTree = "<group>"; };
+		018813221C8B01FA00276B1A /* smsTopFavImgMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTopFavImgMsg.m; sourceTree = "<group>"; };
+		018813231C8B01FA00276B1A /* smsTopFavouMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTopFavouMsg.h; sourceTree = "<group>"; };
+		018813241C8B01FA00276B1A /* smsTopFavouMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTopFavouMsg.m; sourceTree = "<group>"; };
+		018813251C8B01FA00276B1A /* smsTopSharedMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTopSharedMsg.h; sourceTree = "<group>"; };
+		018813261C8B01FA00276B1A /* smsTopSharedMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTopSharedMsg.m; sourceTree = "<group>"; };
+		018813271C8B01FA00276B1A /* smsTopSharImgMes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTopSharImgMes.h; sourceTree = "<group>"; };
+		018813281C8B01FA00276B1A /* smsTopSharImgMes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTopSharImgMes.m; sourceTree = "<group>"; };
+		0190A4BE1C67299400384870 /* smsTop25AuthorsCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTop25AuthorsCtrlr.h; sourceTree = "<group>"; };
+		0190A4BF1C67299400384870 /* smsTop25AuthorsCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTop25AuthorsCtrlr.m; sourceTree = "<group>"; };
+		0190A4C01C67299400384870 /* smsTop25AuthorsText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTop25AuthorsText.h; sourceTree = "<group>"; };
+		0190A4C11C67299400384870 /* smsTop25AuthorsText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTop25AuthorsText.m; sourceTree = "<group>"; };
+		0190A4C21C67299400384870 /* smsTop25AuthoursImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsTop25AuthoursImage.h; sourceTree = "<group>"; };
+		0190A4C31C67299400384870 /* smsTop25AuthoursImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsTop25AuthoursImage.m; sourceTree = "<group>"; };
 		019D264C1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsBaseCategoriesCtrlr.h; sourceTree = "<group>"; };
 		019D264D1C3024FF0018F7A9 /* smsBaseCategoriesCtrlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = smsBaseCategoriesCtrlr.m; sourceTree = "<group>"; };
 		019D264F1C3028FA0018F7A9 /* smsImageCategoriesCtrlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smsImageCategoriesCtrlr.h; sourceTree = "<group>"; };
@@ -395,6 +425,26 @@
 		01B5B93F1C2AF304009B1B7F /* MoreOptions */ = {
 			isa = PBXGroup;
 			children = (
+				0188131B1C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.h */,
+				0188131C1C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.m */,
+				0188131D1C8B01FA00276B1A /* smsLatestMessage.h */,
+				0188131E1C8B01FA00276B1A /* smsLatestMessage.m */,
+				0188131F1C8B01FA00276B1A /* smsLatstImgMessag.h */,
+				018813201C8B01FA00276B1A /* smsLatstImgMessag.m */,
+				018813211C8B01FA00276B1A /* smsTopFavImgMsg.h */,
+				018813221C8B01FA00276B1A /* smsTopFavImgMsg.m */,
+				018813231C8B01FA00276B1A /* smsTopFavouMsg.h */,
+				018813241C8B01FA00276B1A /* smsTopFavouMsg.m */,
+				018813251C8B01FA00276B1A /* smsTopSharedMsg.h */,
+				018813261C8B01FA00276B1A /* smsTopSharedMsg.m */,
+				018813271C8B01FA00276B1A /* smsTopSharImgMes.h */,
+				018813281C8B01FA00276B1A /* smsTopSharImgMes.m */,
+				0190A4BE1C67299400384870 /* smsTop25AuthorsCtrlr.h */,
+				0190A4BF1C67299400384870 /* smsTop25AuthorsCtrlr.m */,
+				0190A4C01C67299400384870 /* smsTop25AuthorsText.h */,
+				0190A4C11C67299400384870 /* smsTop25AuthorsText.m */,
+				0190A4C21C67299400384870 /* smsTop25AuthoursImage.h */,
+				0190A4C31C67299400384870 /* smsTop25AuthoursImage.m */,
 				016C72BB1C52794A00F3EE12 /* smsMoreOptionsCtrlr.h */,
 				016C72BC1C52794A00F3EE12 /* smsMoreOptionsCtrlr.m */,
 			);
@@ -731,7 +781,7 @@
 				TargetAttributes = {
 					C06BA4B81BA1B0F000D66720 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = XRFSBJJGBT;
+						DevelopmentTeam = 67UF74SL8M;
 					};
 				};
 			};
@@ -883,7 +933,9 @@
 				016F5A981C36BFA60038348E /* smsImageMessages.m in Sources */,
 				01E791251C3C20AC00D7D55E /* smsIndTxtMessages.m in Sources */,
 				01E791221C3C207100D7D55E /* showIndTxtMsgCtrlr.m in Sources */,
+				0188132E1C8B01FA00276B1A /* smsTopSharedMsg.m in Sources */,
 				C09BA22F1BC2453F00C2C386 /* registrationNewUser.m in Sources */,
+				0188132B1C8B01FA00276B1A /* smsLatstImgMessag.m in Sources */,
 				01B5B93D1C2AF1A7009B1B7F /* smsBaseHomeController.m in Sources */,
 				01CD810E1BDD25A8005FF701 /* smsAPIXMLDataParser.m in Sources */,
 				014692DD1C32ED2A00AC6E05 /* textMessageForCategoryListTv.m in Sources */,
@@ -896,24 +948,32 @@
 				016F5A991C36BFA60038348E /* smsImgMsgsController.m in Sources */,
 				C09BA22C1BC242BB00C2C386 /* smsSettingsScreen.m in Sources */,
 				C09BA2291BC242BB00C2C386 /* smsFeedbackScreen.m in Sources */,
+				0190A4C51C67299400384870 /* smsTop25AuthorsText.m in Sources */,
 				C06BA4C21BA1B0F000D66720 /* AppDelegate.m in Sources */,
 				C0657BD01BC0019C00757CB7 /* smsSyncDBFromCloud.m in Sources */,
 				C06BA4EB1BA1B3C600D66720 /* smsBaseNavController.m in Sources */,
 				01E7912A1C3C234900D7D55E /* smsIndividualMessageCol.m in Sources */,
 				C09BA2201BC2419200C2C386 /* smsAccountSignupLogin.m in Sources */,
 				01F76E821C01F029003487FF /* smsStandardValidations.m in Sources */,
+				0188132A1C8B01FA00276B1A /* smsLatestMessage.m in Sources */,
 				C06BA4F11BA1B50C00D66720 /* smsBaseController.m in Sources */,
 				0125358E1C42AD0700420009 /* smsTextMsgPosting.m in Sources */,
 				C09BA22B1BC242BB00C2C386 /* smsOptionsDropDownTV.m in Sources */,
 				C06BA4F71BA1B73900D66720 /* smsDBAsyncQueueProcess.m in Sources */,
 				C06BA4BF1BA1B0F000D66720 /* main.m in Sources */,
+				018813291C8B01FA00276B1A /* smsFavoriteMsgTxtCtrlr.m in Sources */,
+				0190A4C61C67299400384870 /* smsTop25AuthoursImage.m in Sources */,
 				01E7912B1C3C234900D7D55E /* SmsIndividualMessageController.m in Sources */,
 				C07596781BC535BA007AEB7B /* smsDDOptionsCtrlr.m in Sources */,
 				014692DA1C32E97500AC6E05 /* smsTxtMsgsController.m in Sources */,
+				0188132C1C8B01FA00276B1A /* smsTopFavImgMsg.m in Sources */,
+				0188132F1C8B01FA00276B1A /* smsTopSharImgMes.m in Sources */,
 				0125358B1C42AB0E00420009 /* categoryNameForMsgPosting.m in Sources */,
 				01B527871C5E30CE00DF6E7D /* smsCommonUtilities.m in Sources */,
 				C06BA4E81BA1B2A200D66720 /* smsDefaults.m in Sources */,
 				016C72BD1C52794A00F3EE12 /* smsMoreOptionsCtrlr.m in Sources */,
+				0190A4C41C67299400384870 /* smsTop25AuthorsCtrlr.m in Sources */,
+				0188132D1C8B01FA00276B1A /* smsTopFavouMsg.m in Sources */,
 				01F026DF1C3D6C0A0051E08F /* loginWelcomeScreeen.m in Sources */,
 				C09BA22A1BC242BB00C2C386 /* smsInfoSettingsScreen.m in Sources */,
 				019D26511C3028FA0018F7A9 /* smsImageCategoriesCtrlr.m in Sources */,
@@ -1031,11 +1091,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Binu Johnson (KU4632KEHW)";
 				INFOPLIST_FILE = tamilsms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
+				PRODUCT_BUNDLE_IDENTIFIER = com.binu.tamilsms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1050,7 +1110,7 @@
 				INFOPLIST_FILE = tamilsms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
+				PRODUCT_BUNDLE_IDENTIFIER = com.binu.tamilsms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1098,13 +1158,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Binu Johnson (67UF74SL8M)";
 				INFOPLIST_FILE = tamilsms/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.kvcc.tamilsms;
+				PRODUCT_BUNDLE_IDENTIFIER = com.binu.tamilsms;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2e80ada0-335b-4aaf-b066-a3f780fb426c";
+				PROVISIONING_PROFILE = "9eb89aaa-a0e0-4e44-bdbb-e2d6a4ca219c";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Distribution;

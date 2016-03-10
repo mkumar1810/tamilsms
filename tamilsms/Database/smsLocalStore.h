@@ -20,5 +20,7 @@
 -(NSArray*)getImageSubCategoryForMainCaregory:(NSInteger) p_maincategoryId;
 - (NSDictionary*) getSyncParamsFromDB;
 - (void) updateParsedDatasIntoDatabase:(NSDictionary*) p_payData;
+-(NSArray*) getFavouriteTextMessages;
+-(NSArray*)getFavouriteImageMessages;
 
 @end
