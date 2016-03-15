@@ -183,7 +183,7 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     _arayOptionList = p_cellTitle;
     _arayOptionimg = p_optionImg;
-    NSLog(@"the value obtained in table is %@",_arayOptionList);
+    //NSLog(@"the value obtained in table is %@",_arayOptionList);
     if (l_catName) {
         [self displayValues];
     }

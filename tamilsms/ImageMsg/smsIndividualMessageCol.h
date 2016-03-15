@@ -13,13 +13,13 @@
 
 @property (nonatomic) NSInteger cellPosnNo;
 //-(void)showData;
--(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo;
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo authorKey:(NSString*) p_authorKey imageKey:(NSString*) p_imageKey;
 
 @end
 
 @interface smsIndividualMessageCol : UICollectionView <UICollectionViewDataSource,UICollectionViewDelegate, bottomNavigationViewDelegate>
 
 @property(nonatomic,weak)id<indTxtMsgDelegate>popUpMessageDelegate;
-- (id) initWithStartPosn:(NSInteger) p_startPosn;
+- (id) initWithStartPosn:(NSInteger) p_startPosn authorKey:(NSString *)p_authorKey imageKey:(NSString *)p_imageKey;
 
 @end

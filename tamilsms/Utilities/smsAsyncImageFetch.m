@@ -29,7 +29,10 @@
     /*NSArray * l_filecomponenets = [_fileName componentsSeparatedByString:@"/"];
     _fileNameOnly = [l_filecomponenets objectAtIndex:([l_filecomponenets count]-1)];*/
     dispatch_async(dispatch_get_main_queue(), ^(){
-        [self checkIfExistsOrGenerate];
+        if (_fileName)
+        {
+            [self checkIfExistsOrGenerate];
+        }
     });
 }
 

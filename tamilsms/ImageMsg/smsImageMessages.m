@@ -181,6 +181,10 @@
 }
 - (void) displayValues
 {
+    if (!_categorydata)
+    {
+        return;
+    }
     l_username.text = [[NSString alloc]initWithFormat:@"%@",[_categorydata valueForKey:@"author"]];
     NSString * l_currlink = [_categorydata valueForKey:@"msg_image"];
     l_images.image = nil;

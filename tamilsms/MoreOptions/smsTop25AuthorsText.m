@@ -71,7 +71,7 @@
     [[smsRESTProxy alloc] initDatawithAPIType:@"TOP25_TXT_MSGS" andInputParams:@{@"user_id":@(_authorid),@"page":@(_pageNo)} andReturnMethod:^(NSData * p_txtmsgsData){
         NSDictionary * l_receiveddict = [NSJSONSerialization JSONObjectWithData:p_txtmsgsData options:NSJSONReadingMutableLeaves error:NULL];
         [_txtMessages addObjectsFromArray:[l_receiveddict valueForKey:@"Quotes"]];
-        NSLog(@"authors list data %@", l_receiveddict);
+        //NSLog(@"authors list data %@", l_receiveddict);
         [self.tableView reloadData];
     
     }];
@@ -177,6 +177,15 @@
             [self.tableView reloadData];
             
         }];
+    }
+    else //showtop25indtxtmsg
+    {
+        self.navigateParams = @{@"initialposn":@(indexPath.row),
+                                @"allmessages":_txtMessages,
+                                @"isonline":@(YES)};
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"showtop25indtxtmsg" sender:self];
+        });
     }
 }
 

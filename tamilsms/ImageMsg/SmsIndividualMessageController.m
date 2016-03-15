@@ -14,6 +14,8 @@
     NSArray * _allitems;
     NSInteger _startPosn;
     bottomViewForNextMessage * _bottomViewForNextMessage;
+    BOOL _isOnline;
+    NSString * _authorKey, * _imageKey;
 }
 
 -(void)setUpReferenceForTable;
@@ -51,6 +53,17 @@
     //_popupdict = p_initParams;
     _allitems = [p_initParams valueForKey:@"allmessages"];
     _startPosn = [[p_initParams valueForKey:@"initialposn"] integerValue];
+    _isOnline = [[p_initParams valueForKey:@"isonline"] boolValue];
+    if (_isOnline)
+    {
+        _authorKey = @"username";
+        _imageKey = @"news_image";
+    }
+    else
+    {
+        _authorKey = @"author";
+        _imageKey = @"msg_image";
+    }
 }
 
 
@@ -83,7 +96,8 @@
 -(void)setUpReferenceForTable
 {
     
-    self.individualImgMsgCV = [[smsIndividualMessageCol alloc] initWithStartPosn:_startPosn];
+    self.individualImgMsgCV = [[smsIndividualMessageCol alloc] initWithStartPosn:_startPosn authorKey:_authorKey imageKey:_imageKey];
+                               
     self.individualImgMsgCV.translatesAutoresizingMaskIntoConstraints = NO;
      
     self.individualImgMsgCV.popUpMessageDelegate=self;

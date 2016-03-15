@@ -176,6 +176,16 @@
             
         }];
     }
+    else //showtopsharedindtxtmsg
+    {
+        self.navigateParams = @{@"initialposn":@(indexPath.row),
+                                @"allmessages":_txtMessages,
+                                @"isonline":@(YES)};
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"showtopsharedindtxtmsg" sender:self];
+        });
+        
+    }
 }
 
 

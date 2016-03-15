@@ -520,10 +520,13 @@
                             <outlet property="delegate" destination="LcB-GF-YWg" id="u0C-yo-Bxj"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="osM-Ky-Qh1" kind="custom" identifier="showtop25indtxtmsg" customClass="smsBaseNavigationSegue" id="AiU-KH-L8e"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="re2-Yv-t8J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-448" y="2374"/>
+            <point key="canvasLocation" x="-541" y="2422"/>
         </scene>
         <!--Sms Top25 Authours Image-->
         <scene sceneID="L80-un-pYM">
@@ -587,10 +590,13 @@
                             <outlet property="delegate" destination="Wpa-Eq-rHo" id="MVW-Ti-1DM"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="QZd-HP-t7Y" kind="custom" identifier="showtop25indimgmsg" customClass="smsBaseNavigationSegue" id="fpZ-1r-6ac"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WN1-js-AUD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-44" y="2380"/>
+            <point key="canvasLocation" x="-140" y="2353"/>
         </scene>
         <!--Sms Latest Message-->
         <scene sceneID="KQF-p6-FdS">
@@ -685,6 +691,9 @@
                             <outlet property="delegate" destination="Myz-3f-tCT" id="KP4-TW-zDc"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="ANV-Jc-bf6" kind="custom" identifier="showlatestindimgmsg" customClass="smsBaseNavigationSegue" id="lEd-TT-ex3"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0bp-GL-OPd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -713,6 +722,9 @@
                             <outlet property="delegate" destination="Nf9-HU-75A" id="vuH-AR-cBn"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="4Yc-yV-ePJ" kind="custom" identifier="showtopsharedindtxtmsg" customClass="smsBaseNavigationSegue" id="mc0-Wj-gvf"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlJ-y2-kXE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -780,6 +792,9 @@
                             <outlet property="delegate" destination="Ji3-6n-WLv" id="9eM-vA-6os"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="r4I-Py-D22" kind="custom" identifier="smstopsharedindimgmsg" customClass="smsBaseNavigationSegue" id="sEf-6E-8Ui"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n71-hO-o0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -808,6 +823,9 @@
                             <outlet property="delegate" destination="0VB-Wh-EDj" id="m4u-Ve-gr7"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="vtZ-IK-9FH" kind="custom" identifier="smstopfavindtxtmsg" customClass="smsBaseNavigationSegue" id="b5h-VV-58y"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHc-Tz-fTN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -875,6 +893,9 @@
                             <outlet property="delegate" destination="qaU-e4-BDu" id="jXP-mW-0xe"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="czn-Gs-jtT" kind="custom" identifier="smstopfavindimgmsg" customClass="smsBaseNavigationSegue" id="gQV-99-GRu"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n4T-YQ-mFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -897,6 +918,132 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8rE-Il-U5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1430" y="3949"/>
+        </scene>
+        <!--Sms Individual Message Controller-->
+        <scene sceneID="Eme-Bw-1Ta">
+            <objects>
+                <viewController id="ANV-Jc-bf6" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i4d-0I-N2l"/>
+                        <viewControllerLayoutGuide type="bottom" id="VRX-Am-98A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CHg-3K-h9w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3cR-XX-ez7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1016" y="3930"/>
+        </scene>
+        <!--Show Ind Txt Msg Ctrlr-->
+        <scene sceneID="eeW-M4-bIa">
+            <objects>
+                <viewController id="4Yc-yV-ePJ" customClass="showIndTxtMsgCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a4f-t0-9E3"/>
+                        <viewControllerLayoutGuide type="bottom" id="zlN-ZL-jCb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uqy-oM-wh6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kPf-X5-Mjm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-591" y="3911"/>
+        </scene>
+        <!--Show Ind Txt Msg Ctrlr-->
+        <scene sceneID="d7h-yb-t1O">
+            <objects>
+                <viewController id="osM-Ky-Qh1" customClass="showIndTxtMsgCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Raf-kN-alD"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Oe-qc-nWb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oPf-Qq-Okl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Rl-nM-LYq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="277" y="2414"/>
+        </scene>
+        <!--Sms Individual Message Controller-->
+        <scene sceneID="I0b-xy-a7o">
+            <objects>
+                <viewController id="QZd-HP-t7Y" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zb8-At-HfX"/>
+                        <viewControllerLayoutGuide type="bottom" id="5IV-LA-TSo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xmA-8K-XDn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Edv-yY-q2D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="646" y="2414"/>
+        </scene>
+        <!--Show Ind Txt Msg Ctrlr-->
+        <scene sceneID="0UF-pD-zUM">
+            <objects>
+                <viewController id="vtZ-IK-9FH" customClass="showIndTxtMsgCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qeB-bo-OmC"/>
+                        <viewControllerLayoutGuide type="bottom" id="AgL-mJ-rRg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qbh-8G-w9k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B7H-ob-IVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="157" y="3877"/>
+        </scene>
+        <!--Sms Individual Message Controller-->
+        <scene sceneID="zZa-kM-bGc">
+            <objects>
+                <viewController id="r4I-Py-D22" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dru-RP-jLv"/>
+                        <viewControllerLayoutGuide type="bottom" id="ldc-SM-VQH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KRT-Xd-Trx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7OR-xu-ezo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-216" y="3859"/>
+        </scene>
+        <!--Sms Individual Message Controller-->
+        <scene sceneID="ON2-d0-OB6">
+            <objects>
+                <viewController id="czn-Gs-jtT" customClass="SmsIndividualMessageController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WIM-Ak-k1z"/>
+                        <viewControllerLayoutGuide type="bottom" id="7NB-Yv-bNH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bEQ-Kg-ATh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UYg-1Z-g0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="530" y="3859"/>
         </scene>
     </scenes>
     <resources>

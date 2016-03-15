@@ -12,7 +12,7 @@
 
 @interface smsTop25AuthoursImage ()
 {
-    NSArray * _imgMessages;
+    NSMutableArray * _imgMessages;
     NSInteger _authorid, _auth_noofmsgs;
     NSString * _author_name;
     NSInteger _pageNo;
@@ -31,7 +31,8 @@ static NSString * const reuseIdentifier = @"Cell";
 {
     self.transitionType = vertical;
 //    [self.collectionView registerClass:[TopAuthourImageCell class] forCellWithReuseIdentifier:@"Topimg_msg_cell"];
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"loadmore_msg_cell"];
+    [self.collectionView registerClass:[TopAuthourImageCell class] forCellWithReuseIdentifier:@"loadmore_msg_cell"];
+    _imgMessages = [NSMutableArray new];
     
 }
 
@@ -68,8 +69,8 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.navigationItem setTitle:[NSString stringWithFormat:@"%@(%d)",_author_name, (int) _auth_noofmsgs]];
     [[smsRESTProxy alloc] initDatawithAPIType:@"TOP25_IMAGE_MSGS" andInputParams:@{@"user_id":@(_authorid),@"page":@(_pageNo)} andReturnMethod:^(NSData * p_txtmsgsData){
         NSDictionary * l_receiveddict = [NSJSONSerialization JSONObjectWithData:p_txtmsgsData options:NSJSONReadingMutableLeaves error:NULL];
-        _imgMessages = (NSArray*) [l_receiveddict valueForKey:@"Quotes"];
-                NSLog(@"authors list data %@", _imgMessages);
+        [_imgMessages addObjectsFromArray:[l_receiveddict valueForKey:@"Quotes"]];
+        //NSLog(@"authors list data %@", _imgMessages);
         [self.collectionView reloadData];
     }];
 }
@@ -141,12 +142,10 @@ static NSString * const reuseIdentifier = @"Cell";
     {
         if (indexPath.row==[_imgMessages count])
         {
-            UICollectionViewCell * l_loadmorecell = [collectionView dequeueReusableCellWithReuseIdentifier:l_loadmorecellid forIndexPath:indexPath];
+            TopAuthourImageCell * l_loadmorecell = [collectionView dequeueReusableCellWithReuseIdentifier:l_loadmorecellid forIndexPath:indexPath];
             [l_loadmorecell setBackgroundColor:[UIColor colorWithRed:0.33 green:0.53 blue:0.25 alpha:1.0]];
-            
             return l_loadmorecell;
         }
-        
     }
     NSDictionary * l_imgmsgdict = [_imgMessages objectAtIndex:indexPath.row];
     //[_categoryMessageDelegate getMessageFromArray:indexPath.row];
@@ -158,34 +157,33 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark <UICollectionViewDelegate>
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==[_imgMessages count])
+    {
+        _pageNo++;
+        [[smsRESTProxy alloc] initDatawithAPIType:@"TOP25_IMAGE_MSGS" andInputParams:@{@"user_id":@(_authorid),@"page":@(_pageNo)} andReturnMethod:^(NSData * p_txtmsgsData){
+            NSDictionary * l_receiveddict = [NSJSONSerialization JSONObjectWithData:p_txtmsgsData options:NSJSONReadingMutableLeaves error:NULL];
+            if ([[l_receiveddict valueForKey:@"Quotes"] count]==0)
+            {
+                _allmsgsarereceived = YES;
+            }
+            [_imgMessages addObjectsFromArray:[l_receiveddict valueForKey:@"Quotes"]];
+            [self.collectionView reloadData];
+        }];
+    }
+    else
+    {
+        //showlatestindimgmsg
+        self.navigateParams = @{@"initialposn":@(indexPath.row),
+                                @"allmessages":_imgMessages,
+                                @"isonline":@(YES)};
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"showtop25indimgmsg" sender:self];
+        });
+    }
 }
-*/
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end
 
@@ -201,6 +199,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)drawRect:(CGRect)rect
 {
+    [super drawRect:rect];
     if ([self.reuseIdentifier isEqualToString:@"loadmore_msg_cell"])
     {
         [self drawRectLoadMore:rect];
@@ -216,17 +215,23 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)drawRectLoadMore:(CGRect)rect
 {
+    if (loadMore)
+    {
+        [loadMore setFrame:CGRectMake(5, rect.size.height/2.0-10, rect.size.width-10, 30)];
+        return;
+    }
     loadMore = [[UILabel alloc]initWithFrame:CGRectMake(5, rect.size.height/2.0-10, rect.size.width-10, 30)];
     loadMore.layer.cornerRadius = 15;
     loadMore.clipsToBounds = YES;
     loadMore.backgroundColor = [UIColor whiteColor];
     loadMore.textAlignment = NSTextAlignmentCenter;
-    loadMore.text = @"Load More";
+    loadMore.text = @"Load\nMore";
     [self addSubview:loadMore];
 }
+
 -(void)drawRectForFirstCell:(CGRect)rect
 {
-    [super drawRect:rect];
+    //[super drawRect:rect];
     //[self.dispimage setHidden:YES];
     [self.authorname setHidden:YES];
     NSLog(@"the draw rect size is %@", NSStringFromCGRect(rect));
@@ -234,7 +239,12 @@ static NSString * const reuseIdentifier = @"Cell";
     [img_Share setFrame:CGRectMake(35,7.5, 20, 20)];
     [lbl_share setFrame:CGRectMake(10,7.5, 50, 20)];
     [lbl_favLbl setFrame:CGRectMake(115,7.5, 30, 20)];
-    
+    if (l_authorname)
+    {
+        [l_authorname setFrame:CGRectMake(5, 0, rect.size.width-10, 30)];
+        [self displayValues];
+        return;
+    }
     
     l_authorname = [[UILabel alloc]initWithFrame:CGRectMake(5, 0, rect.size.width-10, 30)];
     [l_authorname setTextAlignment:NSTextAlignmentCenter];
@@ -265,35 +275,6 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-/*- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGSize l_reqdsize = CGSizeZero;
-    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-    {
-        l_reqdsize = CGSizeMake(self.bounds.size.width/2.0, self.bounds.size.width/2.0);
-    }
-    else
-    {
-        l_reqdsize = CGSizeMake(self.bounds.size.width/3.0, self.bounds.size.width/3.0);
-    }
-    //NSLog(@"the size returned %@", NSStringFromCGSize(l_reqdsize));
-    return l_reqdsize;
-}*/
-
-
-/*- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [self.categorydict count]+1;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    TopAuthourImageCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
-    
-    cell.backgroundColor=[UIColor greenColor];
-    return cell;
-}*/
-
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -307,7 +288,6 @@ static NSString * const reuseIdentifier = @"Cell";
     l_authorname.text = [[NSString alloc]initWithFormat:@"%@",[self.categorydict valueForKey:@"username"]];
     lbl_share.text = [[NSString alloc]initWithFormat:@"%@",[self.categorydict valueForKey:@"sms_shares"]];
     lbl_favLbl.text = [[NSString alloc]initWithFormat:@"%@",[self.categorydict valueForKey:@"sms_likes"]];
-    //NSLog(@"%@",self.categorydict);
     
     NSString * l_currlink = [self.categorydict valueForKey:@"news_image"];
     self.dispimage.image = nil;

@@ -28,7 +28,7 @@
     [[smsRESTProxy alloc] initDatawithAPIType:@"TOP25_AUTHORS" andInputParams:nil andReturnMethod:^(NSData * p_receivedListData){
         NSDictionary * l_receiveddict = [NSJSONSerialization JSONObjectWithData:p_receivedListData options:NSJSONReadingMutableLeaves error:NULL];
         _authorsListData = (NSArray*) [l_receiveddict valueForKey:@"Quotes"];
-        NSLog(@"authors list data %@", _authorsListData);
+        //NSLog(@"authors list data %@", _authorsListData);
         [self.tableView reloadData];
     }];
 //    _authorsListData = @[@{@"author_name":@"mohan",@"noof_msgs":@(101)},

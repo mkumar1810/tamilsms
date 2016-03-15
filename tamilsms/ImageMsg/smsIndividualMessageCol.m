@@ -16,13 +16,14 @@
     NSInteger _startPosn;
     NSInteger _currentPosn;
     NSInteger _noOfRecs;
+    NSString * _authorKey, * _imageKey;
 }
 
 @end
 
 @implementation smsIndividualMessageCol
 
-- (id) initWithStartPosn:(NSInteger) p_startPosn
+- (id) initWithStartPosn:(NSInteger) p_startPosn authorKey:(NSString *)p_authorKey imageKey:(NSString *)p_imageKey
 {
     UICollectionViewFlowLayout *  l_reqdLayout = [[UICollectionViewFlowLayout alloc] init];
     self = [super initWithFrame:CGRectZero collectionViewLayout:l_reqdLayout];
@@ -35,6 +36,8 @@
     //self = [super init];
     if (self) {
         _startPosn = p_startPosn;
+        _authorKey = p_authorKey;
+        _imageKey = p_imageKey;
         self.dataSource = self;
         self.delegate = self;
         self.showsVerticalScrollIndicator = NO;
@@ -73,7 +76,7 @@
     static NSString * l_detailcellid = @"img_msg_cell";
     NSDictionary * l_imgmsgdict = [self.popUpMessageDelegate getIndividualMessageOfDict:indexPath.row];
     individualImageMsgCell * l_detailcell = [collectionView dequeueReusableCellWithReuseIdentifier:l_detailcellid forIndexPath:indexPath];
-    [l_detailcell setDisplayValues:l_imgmsgdict atPosn:indexPath.row];
+    [l_detailcell setDisplayValues:l_imgmsgdict atPosn:indexPath.row authorKey:_authorKey imageKey:_imageKey];
     _currentPosn = indexPath.row;
     return l_detailcell;
 }
@@ -149,6 +152,7 @@
     UILabel * lb_userdetails, *lb_popUpUsrName;
     UIImageView * l_popupUserlogo, *img_popuimgage;
     NSDictionary * _msgDict;
+    NSString * _authorKey, * _imageKey;
 }
 
 @end
@@ -211,12 +215,13 @@
     [self addConstraints:@[[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1.0 constant:(-30.0)],[NSLayoutConstraint constraintWithItem:img_popuimgage attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:15.0f]]];
     [self layoutIfNeeded];
     [self displayValues];
-    
 }
 
--(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo
+-(void) setDisplayValues:(NSDictionary*)p_messageDict atPosn:(NSInteger) p_posnNo authorKey:(NSString*) p_authorKey imageKey:(NSString*) p_imageKey
 {
     _msgDict = p_messageDict;
+    _authorKey = p_authorKey;
+    _imageKey = p_imageKey;
     //NSLog(@"the value obtained in table is %@",_categorydata);
     if (img_popuimgage) {
         [self displayValues];
@@ -225,8 +230,10 @@
 
 - (void) displayValues
 {
-    lb_userdetails.text = [[NSString alloc]initWithFormat:@"%@",[_msgDict valueForKey:@"author"]];
-    NSString * l_currlink = [_msgDict valueForKey:@"msg_image"];
+    lb_userdetails.text = [[NSString alloc]initWithFormat:@"%@",[_msgDict valueForKey:_authorKey]];
+    //[[NSString alloc]initWithFormat:@"%@",[_msgDict valueForKey:@"author"]];
+    NSString * l_currlink = [_msgDict valueForKey:_imageKey];
+    //[_msgDict valueForKey:@"msg_image"];
     img_popuimgage.image = nil;
     [[smsAsyncImageFetch alloc]
      initDatawithFileName:l_currlink
