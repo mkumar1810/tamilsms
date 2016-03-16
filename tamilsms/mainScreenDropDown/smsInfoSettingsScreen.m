@@ -201,7 +201,7 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0.0]];
-
+    [but_seting addTarget:self.infoSetDelegate action:@selector(showAppSettingsScreen) forControlEvents:UIControlEventTouchUpInside];
     
     //but_fedbk = [[UIButton alloc]initWithFrame:CGRectMake(100, 310, 250, 20)];
     but_fedbk = [UIButton new];
@@ -220,6 +220,7 @@
                                                      attribute:NSLayoutAttributeCenterX
                                                     multiplier:1.0
                                                       constant:0.0]];
+    [but_fedbk addTarget:self.infoSetDelegate action:@selector(showAppFeedBackScreen) forControlEvents:UIControlEventTouchUpInside];
     
      [self setContentSize:CGSizeMake(rect.size.width, 350)];
     

@@ -302,6 +302,7 @@
                         <segue destination="Ji3-6n-WLv" kind="custom" identifier="TopSharImgSeg" customClass="smsBaseNavigationSegue" id="Mcp-nQ-dSi"/>
                         <segue destination="0VB-Wh-EDj" kind="custom" identifier="topFavSeg" customClass="smsBaseNavigationSegue" id="9tI-vC-Doa"/>
                         <segue destination="qaU-e4-BDu" kind="custom" identifier="topFavImgSeg" customClass="smsBaseNavigationSegue" id="fYC-ca-AzO"/>
+                        <segue destination="p2r-Bo-kQx" kind="custom" identifier="showinfoscreen" customClass="smsBaseNavigationSegue" id="rEv-dk-QSk"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Guu-ct-OrN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1044,6 +1045,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UYg-1Z-g0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="530" y="3859"/>
+        </scene>
+        <!--Drop down Options-->
+        <scene sceneID="H3W-eS-iph">
+            <objects>
+                <viewController title="Drop down Options" id="p2r-Bo-kQx" customClass="smsDDOptionsCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ayD-Hd-WV5"/>
+                        <viewControllerLayoutGuide type="bottom" id="0JZ-Az-HbV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yoq-DW-fHZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="6vH-ez-nIR" kind="custom" identifier="showinfofeedbackscreen" customClass="smsBaseNavigationSegue" id="SYI-hS-c5h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V77-qU-sf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2566" y="3141"/>
+        </scene>
+        <!--Drop down Options-->
+        <scene sceneID="l9u-LS-sYW">
+            <objects>
+                <viewController title="Drop down Options" id="6vH-ez-nIR" customClass="smsDDOptionsCtrlr" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NsK-SZ-pcd"/>
+                        <viewControllerLayoutGuide type="bottom" id="24c-YN-GJf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lpn-Ry-rFT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kSd-4z-nCc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2566" y="3895"/>
         </scene>
     </scenes>
     <resources>

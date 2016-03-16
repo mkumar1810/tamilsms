@@ -92,8 +92,8 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //[self.categoryMessageDelegate messageClickedForTheCell:indexPath.row];
-    if (indexPath.row==0) {
-        NSLog(@"index path o is pressed");
+    if (indexPath.row==0)
+    {
         [self performSegueWithIdentifier:@"smsFavourite" sender:self];
     }
     else if (indexPath.row==1)
@@ -124,8 +124,14 @@ static NSString * const reuseIdentifier = @"Cell";
     {
         [self performSegueWithIdentifier:@"topFavImgSeg" sender:self];
     }
-
-
+    else if (indexPath.row==9)
+    {
+        //showinfoscreen
+        self.navigateParams = @{@"opselected":@"Info"};
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSegueWithIdentifier:@"showinfoscreen" sender:self];
+        });
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

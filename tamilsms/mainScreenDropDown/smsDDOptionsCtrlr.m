@@ -14,7 +14,7 @@
 #import "smsImageMsgPosting.h"
 #import "smsTextMsgPosting.h"
 
-@interface smsDDOptionsCtrlr ()<registerNewUserDelegates, UIImagePickerControllerDelegate, UINavigationControllerDelegate, imagePostingAlbumDelegate, smsTextMsgPostDelegate>
+@interface smsDDOptionsCtrlr ()<registerNewUserDelegates, UIImagePickerControllerDelegate, UINavigationControllerDelegate, imagePostingAlbumDelegate, smsTextMsgPostDelegate, smsInfoSettingsDelegate>
 {
     NSString * _opselected;
 }
@@ -249,7 +249,7 @@
 - (void)showInfoScreen
 {
     self.smsInfoSettingsScreenV = [smsInfoSettingsScreen new];
-    
+    self.smsInfoSettingsScreenV.infoSetDelegate = self;
     [self.smsInfoSettingsScreenV setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:self.smsInfoSettingsScreenV];
     self.smsInfoSettingsScreenV.translatesAutoresizingMaskIntoConstraints=NO;
@@ -336,6 +336,24 @@
 - (void) textMsgPostedSuccessfully
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - app settings and feedback screen delegates
+
+- (void)showAppSettingsScreen
+{
+    self.navigateParams = @{@"opselected":@"Settings"};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showinfofeedbackscreen" sender:self];
+    });
+}
+
+- (void)showAppFeedBackScreen
+{
+    self.navigateParams = @{@"opselected":@"Feedback"};
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSegueWithIdentifier:@"showinfofeedbackscreen" sender:self];
+    });
 }
 
 @end

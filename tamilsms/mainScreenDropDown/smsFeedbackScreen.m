@@ -36,20 +36,6 @@
 
 -(void)drawRect:(CGRect)rect
 {
-    /*CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextSetLineWidth(context, 1.0);
-    
-    CGContextMoveToPoint(context, 10, 80);
-    CGContextAddLineToPoint(context, rect.size.width-10, 80);
-    
-    CGContextMoveToPoint(context, 10, 160);
-    CGContextAddLineToPoint(context, rect.size.width-10, 160);
-    
-    CGContextMoveToPoint(context, 10, 320);
-    CGContextAddLineToPoint(context, rect.size.width-10, 320);
-    
-    CGContextStrokePath(context);*/
     
     
     //lbl_name = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, rect.size.width/4.0, 30)];

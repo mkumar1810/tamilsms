@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol smsInfoSettingsDelegate <NSObject>
+
+- (void) showAppFeedBackScreen;
+- (void) showAppSettingsScreen;
+
+@end
+
 @interface smsInfoSettingsScreen : UIScrollView
+
+@property (nonatomic,strong) id<smsInfoSettingsDelegate> infoSetDelegate;
 
 @end
